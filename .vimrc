@@ -1,6 +1,7 @@
 "-----------------------------"
 " VIM PLUG - SETUP              " 
 "-----------------------------" 
+
 call plug#begin('~/.vim/plugged')
 
 Plug 'ekalinin/Dockerfile.vim'
@@ -17,27 +18,27 @@ call plug#end()
 
 filetype plugin indent on
 
-set tabstop=4           " number of tabs
+set tabstop=4			" number of tabs
 set shiftwidth=4        
-set softtabstop=4       " num of spaces a tab counts when editing
-set number              " show line numbers
-set showcmd             " last command entered in vim
-set showmatch           " show matching paranthesis
+set softtabstop=4		" num of spaces a tab counts when editing
+set number				" show line numbers
+set showcmd				" last command entered in vim
+set showmatch			" show matching paranthesis
 set title				" sets the title to the current open file
 set paste				" fixes indentation when pasting from global clipboard
 set ignorecase
 set smartcase
-colorscheme peachpuff
-syntax enable
+colorscheme peachpuff	" best color scheme in the known universe
+syntax enable			" enable vim syntax highlighting
 
-set clipboard=unnamedplus " lets vim use global clipboard
+" lets vim use global clipboard
+set clipboard=unnamedplus
 
 "-----------------------------"
 " VIM - MAPPINGS
 "-----------------------------"
 
 " Add syntax support file types
-"au BufRead,BufNewFile *.stc set filetype=cel
 au BufRead,BufNewFile *.conf set filetype=conf
 au BufRead,BufNewFile *.bb,*bbclass,*.inc set filetype=bitbake
 
