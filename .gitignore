@@ -1,17 +1,18 @@
+# to add a file: git add -f
+
+# ignore everything in the home directory
+# files and folders starting with ! are NOT ignored
 /*
 
 !/.local
 !/.config
-!/.vim
 
 !/.vimrc
 !/.tmux.conf
+!/.bashrc
 
 /.local/share
 
 /.config/*
-!/.config/ranger
+!/.config/ranger/
 
-/.vim/.netrwhist
-/.vim/bundle
-/.vim/plugged
