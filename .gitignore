@@ -1,1 +1,17 @@
 /*
+
+!/.local
+!/.config
+!/.vim
+
+!/.vimrc
+!/.tmux.conf
+
+/.local/share
+
+/.config/*
+!/.config/ranger
+
+/.vim/.netrwhist
+/.vim/bundle
+/.vim/plugged
