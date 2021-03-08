@@ -13,6 +13,3 @@
 
 /.local/share
 
-/.config/*
-!/.config/ranger/
-
