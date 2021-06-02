@@ -49,19 +49,24 @@ fi
 # remove annoying colored border from directories when ls
 LS_COLORS=$LS_COLORS:'ow=1;34:tw=1;34:' ; export LS_COLORS
 
+#-------------------------# 
+# EXPORTS		  # 
+#-------------------------# 
+
 # PS1 configuration
 export PS1="\[\e[32m\]\u\[\e[m\]\[\e[32m\]@\[\e[m\]\[\e[32m\]\h\[\e[m\]:\[\e[33m\]\w\[\e[m\] \[\e[35m\]\[\e[m\]\[\e[31m\]\[\e[m\]\[\e[37m\]\\$\[\e[m\] "
 
-#-------------------------# 
-# ALIASES - SYSTEM        # 
-#-------------------------# 
+export LS_OPTS='--color=auto'
+# ignore folders when searching with fzf
+export FZF_DEFAULT_COMMAND='rg --files --follow --line-number --no-ignore-vcs --no-require-git --hidden -g "!{node_modules,.git,downloads,build,.repo}"'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-alias la='ls -A --color=always'
-alias l='ls -CF --color=always'
-alias ls='command ls --human-readable --group-directories-first --color=always'
-alias ll='command ls -alF --human-readable --group-directories-first --color=always'
+#-------------------------#
+# ALIASES - SYSTEM        #
+#-------------------------#
 
-alias less='less --RAW-CONTROL-CHARS'
+winhome=/mnt/c/Users/radut
+winroot=/mnt/c
 
 alias tm='tmux new-session \; \
 	send-keys 'vim' C-m \; \
@@ -77,12 +82,15 @@ alias tx='tmux new-session \; \
 	new-window \; \
 	select-window -t :0 \;'
 
-#-------------------------# 
-# EXPORTS				  # 
-#-------------------------# 
+alias la='ls -A --color=always'
+alias l='ls -CF --color=always'
+alias ls='command ls --human-readable --group-directories-first --color=always -I NTUSER\* -I ntuser\* -I AppData\*'
+alias ll='command ls -alF --human-readable --group-directories-first --color=always -I NTUSER.DAT\* -I ntuser.dat\* -I AppData\*'
+alias less='less --RAW-CONTROL-CHARS'
 
-export LS_OPTS='--color=auto'
-# ignore folders when searching with fzf
-export FZF_DEFAULT_COMMAND='rg --files --follow --line-number --no-ignore-vcs --no-require-git --hidden -g "!{node_modules,.git,downloads,build,.repo}"'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-
+alias pi='ssh pi@192.168.0.10'
+alias d='cd $winroot/src/device-main'
+alias c='cd $winroot'
+alias src='cd $winroot/src'
+alias w='cd $winhome/Downloads'
+alias box='ssh appbox@debian.addvard.appboxes.co -p10029'
