@@ -4,12 +4,15 @@
 # files and folders starting with ! are NOT ignored
 /*
 
-!/.local
-!/.config
+!.local
+!.config
 
-!/.vimrc
-!/.tmux.conf
-!/.bashrc
+!.ssh
+!.ssh/config
 
-/.local/share
+!.vimrc
+!.tmux.conf
+!.bashrc
+
+.local/share
 
