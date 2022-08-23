@@ -79,7 +79,7 @@ alias tm='tmux new-session \; \
 	select-pane -t 0 \;'
 
 alias tx='tmux new-session \; \
-	new-window \; \
+	split-window -v \; \
 	select-window -t :0 \;'
 
 alias la='ls -A --color=always'
@@ -88,7 +88,8 @@ alias ls='command ls --human-readable --group-directories-first --color=always -
 alias ll='command ls -alF --human-readable --group-directories-first --color=always -I NTUSER.DAT\* -I ntuser.dat\* -I AppData\*'
 alias less='less --RAW-CONTROL-CHARS'
 
-alias pi='ssh pi@192.168.0.10'
+alias pi='ssh pi@192.168.1.141 -p 2630'
+alias ih='ssh root@192.168.1.108 -p 2630'
 alias d='cd $winroot/src/device-main'
 alias c='cd $winroot'
 alias src='cd $winroot/src'
