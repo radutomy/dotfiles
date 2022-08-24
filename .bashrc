@@ -82,16 +82,20 @@ alias tx='tmux new-session \; \
 	split-window -v \; \
 	select-window -t :0 \;'
 
+alias ta='tmux attach -t 0'
+
 alias la='ls -A --color=always'
 alias l='ls -CF --color=always'
 alias ls='command ls --human-readable --group-directories-first --color=always -I NTUSER\* -I ntuser\* -I AppData\*'
 alias ll='command ls -alF --human-readable --group-directories-first --color=always -I NTUSER.DAT\* -I ntuser.dat\* -I AppData\*'
 alias less='less --RAW-CONTROL-CHARS'
+alias x='clear'
 
 alias pi='ssh pi@192.168.1.141 -p 2630'
-alias ih='ssh root@192.168.1.108 -p 2630'
+alias ih='ssh root@192.168.1.160 -p 2633'
 alias d='cd $winroot/src/device-main'
 alias c='cd $winroot'
-alias src='cd $winroot/src'
+alias s='cd $winroot/src'
+alias u='cd $winhome'
 alias w='cd $winhome/Downloads'
 alias box='ssh appbox@debian.addvard.appboxes.co -p10029'
