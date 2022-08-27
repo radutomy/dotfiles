@@ -39,22 +39,20 @@ export LS_OPTS='--color=auto'
 # ALIASES - SYSTEM        #
 #-------------------------#
 
-alias shb='docker run -it -v /dev:/dev --name smarthub --privileged --network host --rm --pull always ticketergroup/smarthub:dev'
-alias dbg='docker run -it -v /dev:/dev --name dotnet --privileged --network host --entrypoint bash mcr.microsoft.com/dotnet/sdk:6.0-jammy'
-
 alias tm='tmux new-session \; \
-	send-keys 'vim' C-m \; \
-	split-window -v -p 20 \; \
+	send-keys 'clear' C-m \; \
+	split-window -v -p 30 \; \
+	send-keys 'clear' C-m \; \
 	select-pane -t 0 \; \
 	split-window -h \; \
-	send-keys 'vim' C-m \; \
+	send-keys 'clear' C-m \; \
 	new-window \; \
+	send-keys 'clear' C-m \; \
 	select-window -t 0 \; \
 	select-pane -t 0 \;'
 
-
 alias tx='tmux new-session \; \
-        split-window -v \; \
+	split-window -v \; \
 	select-window -t :0 \;'
 
 alias ta='tmux attach -t 0'
@@ -66,7 +64,10 @@ alias ll='command ls -alF --group-directories-first --color=always'
 alias less='less --RAW-CONTROL-CHARS'
 alias x='clear'
 
+alias shb='docker run -it -v /dev:/dev --name smarthub --privileged --network host --rm --pull always ticketergroup/smarthub:dev'
+alias dbg='docker run -it -v /dev:/dev --name dotnet --privileged --network host --entrypoint bash mcr.microsoft.com/dotnet/sdk:6.0-jammy'
+
 #-------------------------# 
-# EXPORTS		  # 
+# EXPORTS				  # 
 #-------------------------# 
 
