@@ -69,20 +69,33 @@ winhome=/mnt/c/Users/radut
 winroot=/mnt/c
 
 alias tm='tmux new-session \; \
-	send-keys 'vim' C-m \; \
-	split-window -v -p 20 \; \
+	send-keys 'clear' C-m \; \
+	split-window -v -p 30 \; \
+	send-keys 'clear' C-m \; \
 	select-pane -t 0 \; \
 	split-window -h \; \
-	send-keys 'vim' C-m \; \
+	send-keys 'clear' C-m \; \
 	new-window \; \
+	send-keys 'clear' C-m \; \
 	select-window -t 0 \; \
 	select-pane -t 0 \;'
+
+#alias tm='tmux new-session \; \
+#	send-keys 'vim' C-m \; \
+#	split-window -v -p 20 \; \
+#	select-pane -t 0 \; \
+#	split-window -h \; \
+#	send-keys 'vim' C-m \; \
+#	new-window \; \
+#	select-window -t 0 \; \
+#	select-pane -t 0 \;'
 
 alias tx='tmux new-session \; \
 	split-window -v \; \
 	select-window -t :0 \;'
 
 alias ta='tmux attach -t 0'
+alias tk='tmux kill-server'
 
 alias la='ls -A --color=always'
 alias l='ls -CF --color=always'
@@ -93,9 +106,13 @@ alias x='clear'
 
 alias pi='ssh pi@192.168.1.141 -p 2630'
 alias ih='ssh root@192.168.1.160 -p 2633'
+alias pir='ssh pi@90.251.251.119 -p 2630'
+alias ihr='ssh root@90.251.251.119 -p 2633'
 alias d='cd $winroot/src/device-main'
 alias c='cd $winroot'
 alias s='cd $winroot/src'
 alias u='cd $winhome'
 alias w='cd $winhome/Downloads'
 alias box='ssh appbox@debian.addvard.appboxes.co -p10029'
+
+alias shb='(cd /mnt/c/src/SmartHub && docker buildx build --platform linux/arm/v7 -t ticketergroup/smarthub:dev --push .)'
