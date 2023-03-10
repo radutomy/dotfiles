@@ -1,1 +1,1 @@
-# Repository containing essential Linux config files
+# Repository containing essential Windows config files
