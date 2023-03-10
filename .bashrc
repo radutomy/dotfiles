@@ -105,14 +105,15 @@ alias less='less --RAW-CONTROL-CHARS'
 alias x='clear'
 
 alias pi='ssh pi@192.168.1.141 -p 2630'
-alias ih='ssh root@192.168.1.160 -p 2633'
+alias ih='ssh root@192.168.1.63 -p 22'
 alias pir='ssh pi@90.251.251.119 -p 2630'
-alias ihr='ssh root@90.251.251.119 -p 2633'
+alias ihr='ssh root@90.251.251.119 -p 22'
 alias d='cd $winroot/src/device-main'
 alias c='cd $winroot'
 alias s='cd $winroot/src'
 alias u='cd $winhome'
 alias w='cd $winhome/Downloads'
-alias box='ssh appbox@debian.addvard.appboxes.co -p10029'
+alias v='cd $winroot/src/device-main/VG1'
+alias m="cd '$winroot/Program Files/mosquitto'"
 
 alias shb='(cd /mnt/c/src/SmartHub && docker buildx build --platform linux/arm/v7 -t ticketergroup/smarthub:dev --push .)'
