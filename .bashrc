@@ -104,8 +104,8 @@ alias ll='command ls -alF --human-readable --group-directories-first --color=alw
 alias less='less --RAW-CONTROL-CHARS'
 alias x='clear'
 
-alias pi='ssh pi@192.168.1.141 -p 2630'
-alias ih='ssh root@192.168.1.63 -p 22'
+alias pi='ssh ticketer@192.168.0.13 -i ~/.ssh/id_ticketer'
+alias ih='ssh root@192.168.0.29 -p 22 -i ~/.ssh/id_ticketer'
 alias pir='ssh pi@90.251.251.119 -p 2630'
 alias ihr='ssh root@90.251.251.119 -p 22'
 alias d='cd $winroot/src/device-main'
