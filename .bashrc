@@ -72,10 +72,13 @@ alias tm='tmux new-session \; \
 	send-keys 'clear' C-m \; \
 	split-window -v -p 30 \; \
 	send-keys 'clear' C-m \; \
+	split-window -h \; \
+	send-keys 'clear' C-m \; \
 	select-pane -t 0 \; \
 	split-window -h \; \
 	send-keys 'clear' C-m \; \
 	new-window \; \
+	split-window -h \; \
 	send-keys 'clear' C-m \; \
 	select-window -t 0 \; \
 	select-pane -t 0 \;'
@@ -117,3 +120,5 @@ alias v='cd $winroot/src/device-main/VG1'
 alias m="cd '$winroot/Program Files/mosquitto'"
 
 alias shb='(cd /mnt/c/src/SmartHub && docker buildx build --platform linux/arm/v7 -t ticketergroup/smarthub:dev --push .)'
+alias qq='dotnet publish /mnt/c/src/device-main/VG1.G710/VG1.G710.csproj -c Release -r linux-musl-arm --self-contained false -p:PublishSingleFile=false,DebugType=None,DebugSymbols=false -o /mnt/c/src/vg1-app'
+alias ww='dotnet run --project /mnt/c/src/device-main/Packager/App-net6/MobilePackager.csproj -c Release 1.18.1.4 /mnt/c/src/vg1-app zip Ihvg710'
