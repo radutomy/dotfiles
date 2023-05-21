@@ -2,15 +2,15 @@
 " VIM PLUG - SETUP              " 
 "-----------------------------" 
 
-call plug#begin('~/.vim/plugged')
+"call plug#begin('~/.vim/plugged')
 
-Plug 'ekalinin/Dockerfile.vim'
-Plug 'itchyny/lightline.vim'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'voldikss/vim-floaterm'
+"Plug 'ekalinin/Dockerfile.vim'
+"Plug 'itchyny/lightline.vim'
+"Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+"Plug 'junegunn/fzf.vim'
+"Plug 'voldikss/vim-floaterm'
 
-call plug#end()
+"call plug#end()
 
 "-----------------------------"
 " VIM - CONFIGURATION

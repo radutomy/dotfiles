@@ -56,26 +56,44 @@ export PS1="\[\e[32m\]\u\[\e[m\]\[\e[32m\]@\[\e[m\]\[\e[32m\]\h\[\e[m\]:\[\e[33m
 # ALIASES - SYSTEM        # 
 #-------------------------# 
 
-alias la='ls -A --color=always'
-alias l='ls -CF --color=always'
-alias ls='command ls --human-readable --group-directories-first --color=always'
-alias ll='command ls -alF --human-readable --group-directories-first --color=always'
-
-alias less='less --RAW-CONTROL-CHARS'
-
 alias tm='tmux new-session \; \
-	send-keys 'vim' C-m \; \
-	split-window -v -p 20 \; \
-	select-pane -t 0 \; \
-	split-window -h \; \
-	send-keys 'vim' C-m \; \
-	new-window \; \
-	select-window -t 0 \; \
-	select-pane -t 0 \;'
+    send-keys 'clear' C-m \; \
+    split-window -v -p 30 \; \
+    send-keys 'clear' C-m \; \
+    split-window -h \; \
+    send-keys 'clear' C-m \; \
+    select-pane -t 0 \; \
+    split-window -h \; \
+    send-keys 'clear' C-m \; \
+    new-window \; \
+    split-window -h \; \
+    send-keys 'clear' C-m \; \
+    select-window -t 0 \; \
+    select-pane -t 0 \;'
+
+#alias tm='tmux new-session \; \
+#   send-keys 'vim' C-m \; \
+#   split-window -v -p 20 \; \
+#   select-pane -t 0 \; \
+#   split-window -h \; \
+#   send-keys 'vim' C-m \; \
+#   new-window \; \
+#   select-window -t 0 \; \
+#   select-pane -t 0 \;'
 
 alias tx='tmux new-session \; \
-	new-window \; \
-	select-window -t :0 \;'
+    split-window -v \; \
+    select-window -t :0 \;'
+
+alias ta='tmux attach -t 0'
+alias tk='tmux kill-server'
+
+alias la='ls -A --color=always'
+alias l='ls -CF --color=always'
+alias ls='command ls --human-readable --group-directories-first --color=always -I NTUSER\* -I ntuser\* -I AppData\*'
+alias ll='command ls -alF --human-readable --group-directories-first --color=always -I NTUSER.DAT\* -I ntuser.dat\* -I AppData\*'
+alias less='less --RAW-CONTROL-CHARS'
+alias x='clear'
 
 #-------------------------# 
 # EXPORTS				  # 
