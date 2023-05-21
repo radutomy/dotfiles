@@ -64,3 +64,5 @@ nnoremap <silent> <CR> :noh<CR>						" press ENTER to clear highlighted word sea
 "-----------------------------"
 
 "let lightline = { 'component': { 'filename': '%F', } } " display full file path 
+
+
