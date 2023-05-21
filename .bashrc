@@ -108,17 +108,29 @@ alias less='less --RAW-CONTROL-CHARS'
 alias x='clear'
 
 alias pi='ssh ticketer@192.168.0.13 -i ~/.ssh/id_ticketer'
-alias ih='ssh root@192.168.0.29 -p 22 -i ~/.ssh/id_ticketer'
-alias pir='ssh pi@90.251.251.119 -p 2630'
-alias ihr='ssh root@90.251.251.119 -p 22'
+alias ih='ssh root@192.168.0.34 -p 22 -i ~/.ssh/id_ticketer'
+alias nas='ssh nas@192.168.0.2'
 alias d='cd $winroot/src/device-main'
 alias c='cd $winroot'
 alias s='cd $winroot/src'
 alias u='cd $winhome'
 alias w='cd $winhome/Downloads'
 alias v='cd $winroot/src/device-main/VG1'
-alias m="cd '$winroot/Program Files/mosquitto'"
 
-alias shb='(cd /mnt/c/src/SmartHub && docker buildx build --platform linux/arm/v7 -t ticketergroup/smarthub:dev --push .)'
-alias qq='dotnet publish /mnt/c/src/device-main/VG1.G710/VG1.G710.csproj -c Release -r linux-musl-arm --self-contained false -p:PublishSingleFile=false,DebugType=None,DebugSymbols=false -o /mnt/c/src/vg1-app'
-alias ww='dotnet run --project /mnt/c/src/device-main/Packager/App-net6/MobilePackager.csproj -c Release 1.18.1.4 /mnt/c/src/vg1-app zip Ihvg710'
+alias qq='dotnet publish /mnt/c/src/device-main/VG1.G710/VG1.G710.csproj -c Release -r linux-musl-arm --no-self-contained -p:PublishSingleFile=false,DebugType=None,DebugSymbols=false -o /mnt/c/src/vg1-app'
+function ww() { 
+
+	if [ -z "$1" ]; then
+    echo "Error. Please provide version number"
+    return 1
+  fi  
+
+	local publish='/mnt/c/src/vg1-app' 
+	local vg1='/mnt/c/src/device-main/VG1.G710/VG1.G710.csproj'
+  local packager='/mnt/c/src/device-main/Packager/App-net6/MobilePackager.csproj'
+
+	rm -rf $publish/*;
+	dotnet publish $vg1 -c Release -r linux-musl-arm --no-self-contained -p:PublishSingleFile=false,DebugType=None,DebugSymbols=false -o $publish;
+	dotnet run --project $packager -c Release "$1" $publish zip Ihvg710; 
+}
+
