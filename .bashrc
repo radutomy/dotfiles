@@ -71,15 +71,14 @@ winroot=/mnt/c
 alias tm='tmux new-session \; \
 	send-keys 'clear' C-m \; \
 	split-window -v -p 30 \; \
-	send-keys 'clear' C-m \; \
 	split-window -h \; \
-	send-keys 'clear' C-m \; \
 	select-pane -t 0 \; \
 	split-window -h \; \
-	send-keys 'clear' C-m \; \
 	new-window \; \
+	split-window -v -p 30 \; \
+	select-pane -t 0 \; \
 	split-window -h \; \
-	send-keys 'clear' C-m \; \
+	select-pane -t 0 \; \
 	select-window -t 0 \; \
 	select-pane -t 0 \;'
 
@@ -118,7 +117,7 @@ alias w='cd $winhome/Downloads'
 alias v='cd $winroot/src/device-main/VG1'
 
 alias qq='dotnet publish /mnt/c/src/device-main/VG1.G710/VG1.G710.csproj -c Release -r linux-musl-arm --no-self-contained -p:PublishSingleFile=false,DebugType=None,DebugSymbols=false -o /mnt/c/src/vg1-app'
-function ww() { 
+function vg() { 
 
 	if [ -z "$1" ]; then
     echo "Error. Please provide version number"
@@ -131,6 +130,7 @@ function ww() {
 
 	rm -rf $publish/*;
 	dotnet publish $vg1 -c Release -r linux-musl-arm --no-self-contained -p:PublishSingleFile=false,DebugType=None,DebugSymbols=false -o $publish;
-	dotnet run --project $packager -c Release "$1" $publish zip Ihvg710; 
+	dotnet run --project $packager -c Release "$1" $publish VG1 Ihvg710; 
 }
 
+alias cx='cd /mnt/c/src/device-main/EMV/G2KTestTerminalDllWrapper/NativeCX22'
