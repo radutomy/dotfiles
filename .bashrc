@@ -106,7 +106,7 @@ alias ll='command ls -alF --human-readable --group-directories-first --color=alw
 alias less='less --RAW-CONTROL-CHARS'
 alias x='clear'
 
-alias pi='ssh ticketer@192.168.0.13 -i ~/.ssh/id_ticketer'
+alias pi='ssh ticketer@192.168.0.39 -i ~/.ssh/id_ticketer'
 alias ih='ssh root@192.168.0.34 -p 22 -i ~/.ssh/id_ticketer'
 alias nas='ssh nas@192.168.0.2'
 alias d='cd $winroot/src/device-main'
@@ -126,6 +126,7 @@ function vg() {
 
 	local publish='/mnt/c/src/vg1-app' 
 	local vg1='/mnt/c/src/device-main/VG1.G710/VG1.G710.csproj'
+	local vg2='/mnt/c/src/device-main/VG2.G710/VG1.G710.csproj'
   local packager='/mnt/c/src/device-main/Packager/App-net6/MobilePackager.csproj'
 
 	rm -rf $publish/*;
@@ -134,3 +135,6 @@ function vg() {
 }
 
 alias cx='cd /mnt/c/src/device-main/EMV/G2KTestTerminalDllWrapper/NativeCX22'
+alias mo='/mnt/c/Program\ Files/mosquitto/mosquitto.exe'
+alias mop='/mnt/c/Program\ Files/mosquitto/mosquitto_pub.exe'
+alias mos='/mnt/c/Program\ Files/mosquitto/mosquitto_sub.exe'

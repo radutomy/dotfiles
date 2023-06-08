@@ -8,7 +8,7 @@
 !.config
 
 #!.ssh
-#!.ssh/config
+!.ssh/config
 
 !.vimrc
 !.tmux.conf
