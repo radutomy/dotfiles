@@ -115,6 +115,7 @@ alias s='cd $winroot/src'
 alias u='cd $winhome'
 alias w='cd $winhome/Downloads'
 alias v='cd $winroot/src/device-main/VG1'
+alias o='cd $winroot/OneDrive'
 
 alias qq='dotnet publish /mnt/c/src/device-main/VG1.G710/VG1.G710.csproj -c Release -r linux-musl-arm --no-self-contained -p:PublishSingleFile=false,DebugType=None,DebugSymbols=false -o /mnt/c/src/vg1-app'
 function vg() { 

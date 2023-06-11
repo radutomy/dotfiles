@@ -29,12 +29,11 @@ set title								" sets the title to the current open file
 set paste								" fixes indentation when pasting from global clipboard
 set ignorecase
 set smartcase
-set clipboard=unnamedplus 	" lets vim use global clipboard
-"set mouse=a
+set clipboard=unnamed 	" lets vim use global clipboard
+set ls=0								" remove neovim status bar
 
 syntax enable								" enable vim syntax highlighting
 colorscheme peachpuff				" best color scheme in the known universe
-
 
 "-----------------------------"
 " VIM - AUTOMATION
