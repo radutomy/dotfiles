@@ -30,6 +30,7 @@ set paste								" fixes indentation when pasting from global clipboard
 set ignorecase
 set smartcase
 set clipboard=unnamed 	" lets vim use global clipboard
+set mouse=a
 set ls=0								" remove neovim status bar
 
 syntax enable								" enable vim syntax highlighting
