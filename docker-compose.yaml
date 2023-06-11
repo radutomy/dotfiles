@@ -115,7 +115,7 @@ services:
       - TZ=${TZ}
     volumes:
       - /mnt/config/radarr:/config
-      - /mnt/torrent/movies:/movies
+      - /mnt/storage/movies:/movies
     restart: unless-stopped
   
   sonarr:
@@ -130,8 +130,7 @@ services:
       - TZ=${TZ}
     volumes:
       - /mnt/config/sonarr:/config
-      - /mnt/torrent/series:/tv
-
+      - /mnt/storage/series:/tv
   
   bazarr:
     image: linuxserver/bazarr
@@ -145,8 +144,8 @@ services:
       - TZ=${TZ}
     volumes:
       - /mnt/config/bazarr:/config
-      - /mnt/torrent/movies:/tv
-      - /mnt/torrent/series:/tv
+      - /mnt/storage/movies:/movies
+      - /mnt/storage/series:/tv
 
 #  portainer:
 #    image: portainer/portainer-ce:latest
