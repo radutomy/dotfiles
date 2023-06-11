@@ -56,38 +56,6 @@ export PS1="\[\e[32m\]\u\[\e[m\]\[\e[32m\]@\[\e[m\]\[\e[32m\]\h\[\e[m\]:\[\e[33m
 # ALIASES - SYSTEM        # 
 #-------------------------# 
 
-alias tm='tmux new-session \; \
-    send-keys 'clear' C-m \; \
-    split-window -v -p 30 \; \
-    send-keys 'clear' C-m \; \
-    split-window -h \; \
-    send-keys 'clear' C-m \; \
-    select-pane -t 0 \; \
-    split-window -h \; \
-    send-keys 'clear' C-m \; \
-    new-window \; \
-    split-window -h \; \
-    send-keys 'clear' C-m \; \
-    select-window -t 0 \; \
-    select-pane -t 0 \;'
-
-#alias tm='tmux new-session \; \
-#   send-keys 'vim' C-m \; \
-#   split-window -v -p 20 \; \
-#   select-pane -t 0 \; \
-#   split-window -h \; \
-#   send-keys 'vim' C-m \; \
-#   new-window \; \
-#   select-window -t 0 \; \
-#   select-pane -t 0 \;'
-
-alias tx='tmux new-session \; \
-    split-window -v \; \
-    select-window -t :0 \;'
-
-alias ta='tmux attach -t 0'
-alias tk='tmux kill-server'
-
 alias la='ls -A --color=always'
 alias l='ls -CF --color=always'
 alias ls='command ls --human-readable --group-directories-first --color=always -I NTUSER\* -I ntuser\* -I AppData\*'
@@ -100,7 +68,4 @@ alias x='clear'
 #-------------------------# 
 
 export LS_OPTS='--color=auto'
-# ignore folders when searching with fzf
-export FZF_DEFAULT_COMMAND='rg --files --follow --line-number --no-ignore-vcs --no-require-git --hidden -g "!{node_modules,.git,downloads,build,.repo}"'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
