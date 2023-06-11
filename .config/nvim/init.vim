@@ -54,6 +54,7 @@ colorscheme peachpuff				" best color scheme in the known universe
 
 nnoremap <silent> <CR> :noh<CR>		" press ENTER to clear highlighted word search
 nnoremap <C-l> :set nu! rnu!<CR>	" toggle line numbers on/ff
+nnoremap <silent> <C-s> :if &mouse == "a" \| set mouse= \| else \| set mouse=a \| endif<CR>
 
 " Navigate vim panes Alt+Arrow
 "nnoremap <M-Down> <C-W><C-J>
