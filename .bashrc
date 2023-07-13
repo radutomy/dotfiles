@@ -107,7 +107,7 @@ alias less='less --RAW-CONTROL-CHARS'
 alias x='clear'
 
 alias pi='ssh ticketer@192.168.0.39 -i ~/.ssh/id_ticketer'
-alias ih='ssh root@192.168.0.34 -p 22 -i ~/.ssh/id_ticketer'
+alias ih='ssh developer@192.168.0.34 -p 22 -i ~/.ssh/id_ticketer'
 alias nas='ssh nas@192.168.0.2'
 alias d='cd $winroot/src/device-main'
 alias c='cd $winroot'
