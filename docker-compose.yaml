@@ -52,6 +52,7 @@ services:
       - 26300:8080    # qbitorrent
       - 6881:6881     # qbitorrent
       - 6881:6881/udp # qbitorrent
+      - 8200:8200     # duplicati
     restart: always
     networks:
       web:
@@ -135,6 +136,24 @@ services:
       - /mnt/config/sonarr:/config
       - /mnt/storage:/downloads
       - /mnt/storage/series:/series
+
+  duplicati:
+    image: linuxserver/duplicati
+    container_name: duplicati
+    network_mode: "service:gluetun"  
+    depends_on:
+      - gluetun
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+    volumes:
+      - /mnt/config/duplicati:/config
+      - /mnt/storage/test:/backups
+      - /mnt/cloud/doc:/source
+    ports:
+      - 8200:8200
+    restart: unless-stopped
   
 #  bazarr:
 #    image: linuxserver/bazarr
