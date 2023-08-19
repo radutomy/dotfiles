@@ -71,12 +71,14 @@ services:
     volumes:
       - /mnt/config/qbitorrent:/config
       - /mnt/storage:/downloads
+      - /mnt/storage/series:/series
+      - /mnt/storage/movies:/movies
     restart: always
 
   jellyfin:
     image: linuxserver/jellyfin
     container_name: jellyfin
-    network_mode: "service:gluetun"  
+    network_mode: "service:gluetun" 
     depends_on:
       - gluetun
     environment:
@@ -85,8 +87,8 @@ services:
       - TZ=${TZ}
     volumes:
       - /mnt/config/jellyfin:/config
-      - /mnt/storage/series:/data/tvshows
-      - /mnt/storage/movies:/data/movies
+      - /mnt/storage/series:/series
+      - /mnt/storage/movies:/movies
     restart: unless-stopped
 
   prowlarr:
@@ -115,6 +117,7 @@ services:
       - TZ=${TZ}
     volumes:
       - /mnt/config/radarr:/config
+      - /mnt/storage:/downloads
       - /mnt/storage/movies:/movies
     restart: unless-stopped
   
@@ -130,22 +133,31 @@ services:
       - TZ=${TZ}
     volumes:
       - /mnt/config/sonarr:/config
-      - /mnt/storage/series:/tv
+      - /mnt/storage:/downloads
+      - /mnt/storage/series:/series
   
-  bazarr:
-    image: linuxserver/bazarr
-    container_name: bazarr
-    network_mode: "service:gluetun"  
-    depends_on:
-      - gluetun
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=${TZ}
-    volumes:
-      - /mnt/config/bazarr:/config
-      - /mnt/storage/movies:/movies
-      - /mnt/storage/series:/tv
+#  bazarr:
+#    image: linuxserver/bazarr
+#    container_name: bazarr
+#    network_mode: "service:gluetun"  
+#    depends_on:
+#      - gluetun
+#    environment:
+#      - PUID=1000
+#      - PGID=1000
+#      - TZ=${TZ}
+#    volumes:
+#      - /mnt/config/bazarr:/config
+#      - /mnt/storage/movies:/movies
+#      - /mnt/storage/series:/tv
+
+#  ubuntu:
+#    image: ubuntu
+#    container_name: ubuntu
+#    tty: true
+#    network_mode: "service:gluetun"
+#    depends_on:
+#      - gluetun
 
 #  portainer:
 #    image: portainer/portainer-ce:latest
