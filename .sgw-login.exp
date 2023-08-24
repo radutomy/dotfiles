@@ -1,13 +1,13 @@
 #!/usr/bin/expect -f
 
 # Set variables
-set timeout 20
+set timeout 5
 set hostname "192.168.23.254"
 set username "developer"
-set password [exec sh -c "grep 'SGW_PWD=' .env | cut -d'=' -f2"]
+set password [exec sh -c "grep 'SGW_PWD=' ~/.env | cut -d'=' -f2"]
 
 # Log in via SSH
-spawn ssh -v $username@$hostname
+spawn ssh $username@$hostname
 
 # Wait for the prompt
 expect "developer@192.168.23.254's password: "
