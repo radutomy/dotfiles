@@ -106,8 +106,8 @@ alias ll='command ls -alF --human-readable --group-directories-first --color=alw
 alias less='less --RAW-CONTROL-CHARS'
 alias x='clear'
 
-alias pi='ssh ticketer@192.168.0.39 -i ~/.ssh/id_ticketer'
-alias ih='ssh developer@192.168.0.34 -p 22 -i ~/.ssh/id_ticketer'
+alias pi='ssh ticketer@192.168.0.16 -i ~/.ssh/id_ticketer'
+alias se='~/.sgw-login.exp'
 alias nas='ssh nas@192.168.0.2'
 alias d='cd $winroot/src/device-main'
 alias c='cd $winroot'
@@ -115,9 +115,19 @@ alias s='cd $winroot/src'
 alias u='cd $winhome'
 alias w='cd $winhome/Downloads'
 alias v='cd $winroot/src/device-main/VG1'
-alias o='cd $winroot/OneDrive'
+alias g='cd $winroot/OneDrive'
 
-alias qq='dotnet publish /mnt/c/src/device-main/VG1.G710/VG1.G710.csproj -c Release -r linux-musl-arm --no-self-contained -p:PublishSingleFile=false,DebugType=None,DebugSymbols=false -o /mnt/c/src/vg1-app'
+alias cx='cd /mnt/c/src/device-main/EMV/G2KTestTerminalDllWrapper/NativeCX22'
+alias mo='/mnt/c/Program\ Files/mosquitto/mosquitto.exe'
+alias mop='/mnt/c/Program\ Files/mosquitto/mosquitto_pub.exe'
+alias mos='/mnt/c/Program\ Files/mosquitto/mosquitto_sub.exe'
+
+
+
+#-------------------------#
+# FUNCTIONS				        #
+#-------------------------#
+
 function vg() { 
 
 	if [ -z "$1" ]; then
@@ -135,7 +145,5 @@ function vg() {
 	dotnet run --project $packager -c Release "$1" $publish VG1 Ihvg710; 
 }
 
-alias cx='cd /mnt/c/src/device-main/EMV/G2KTestTerminalDllWrapper/NativeCX22'
-alias mo='/mnt/c/Program\ Files/mosquitto/mosquitto.exe'
-alias mop='/mnt/c/Program\ Files/mosquitto/mosquitto_pub.exe'
-alias mos='/mnt/c/Program\ Files/mosquitto/mosquitto_sub.exe'
+alias qq='dotnet publish /mnt/c/src/device-main/VG1.G710/VG1.G710.csproj -c Release -r linux-musl-arm --no-self-contained -p:PublishSingleFile=false,DebugType=None,DebugSymbols=false -o /mnt/c/src/vg1-app'
+
