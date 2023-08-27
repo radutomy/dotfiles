@@ -1,1 +1,1 @@
-# Repository containing essential Linux config files
+# See branches
