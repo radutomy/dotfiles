@@ -57,28 +57,10 @@ nnoremap <silent> <CR> :noh<CR>		" press ENTER to clear highlighted word search
 nnoremap <silent> <C-l> :set nu! rnu!<CR>	" toggle line numbers on/ff
 nnoremap <silent> <C-s> :if &mouse == "a" \| set mouse= \| else \| set mouse=a \| endif<CR>
 
-" Navigate vim panes Alt+Arrow
-"nnoremap <M-Down> <C-W><C-J>
-"nnoremap <M-Up> <C-W><C-K>
-"nnoremap <M-Right> <C-W><C-L>
-"nnoremap <M-Left> <C-W><C-H>
+map <C-Left> b
+map <C-Right> w
 
-"nnoremap <silent> <C-t> :Files<CR>
-"nnoremap <silent> <C-r> :Ag<CR>
-"nnoremap <silent> <C-f> :BLines<CR>
-"nnoremap <silent> <F1> :FloatermToggle<CR>
-"nnoremap <silent> <Space> :FloatermNew ranger<CR>
-
-" Esc key exits the terminal modal window
-"autocmd FileType floaterm tnoremap <buffer> <Esc> <C-\><C-n>:bd!<CR>
-
-" Add syntax support file types
-"au BufRead,BufNewFile *.conf set filetype=conf
-"au BufRead,BufNewFile *.bb,*bbclass,*.inc set filetype=bitbake
-
-"-----------------------------"
-" LIGHTLINE - CONFIG
-"-----------------------------"
-
-"let lightline = { 'component': { 'filename': '%F', } } " display full file path 
+" Scroll the view up by one line without moving the cursor
+map <C-Up> <C-Y>
+map <C-Down> <C-E>
 

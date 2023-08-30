@@ -128,7 +128,7 @@ function vg1() {
 	local publish='/mnt/c/src/vg1-app' 
 	local vg1='/mnt/c/src/device-main/VG1.G710/VG1.G710.csproj'
 	local vg2='/mnt/c/src/device-main/VG2.G710/VG1.G710.csproj'
-  local packager='/mnt/c/src/device-main/Packager/App-net6/MobilePackager.csproj'
+	local packager='/mnt/c/src/device-main/Packager/App-net6/MobilePackager.csproj'
 
 	rm -rf $publish/*;
 	dotnet publish $vg1 -c Release -r linux-musl-arm --no-self-contained -p:PublishSingleFile=false,DebugType=None,DebugSymbols=false -o $publish;
