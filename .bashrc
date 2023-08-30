@@ -82,19 +82,11 @@ alias tm='tmux new-session \; \
 	select-window -t 0 \; \
 	select-pane -t 0 \;'
 
-#alias tm='tmux new-session \; \
-#	send-keys 'vim' C-m \; \
-#	split-window -v -p 20 \; \
-#	select-pane -t 0 \; \
-#	split-window -h \; \
-#	send-keys 'vim' C-m \; \
-#	new-window \; \
-#	select-window -t 0 \; \
-#	select-pane -t 0 \;'
-
 alias tx='tmux new-session \; \
-	split-window -v \; \
-	select-window -t :0 \;'
+	split-window -v -p 40 \; \
+	new-window \; \
+	split-window -v -p 30 \; \
+	select-pane -t 0\;'
 
 alias ta='tmux attach -t 0'
 alias tk='tmux kill-server'
@@ -122,13 +114,11 @@ alias mo='/mnt/c/Program\ Files/mosquitto/mosquitto.exe'
 alias mop='/mnt/c/Program\ Files/mosquitto/mosquitto_pub.exe'
 alias mos='/mnt/c/Program\ Files/mosquitto/mosquitto_sub.exe'
 
-
-
 #-------------------------#
 # FUNCTIONS				        #
 #-------------------------#
 
-function vg() { 
+function vg1() { 
 
 	if [ -z "$1" ]; then
     echo "Error. Please provide version number"
