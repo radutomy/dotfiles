@@ -4,6 +4,7 @@
 set timeout 5
 set hostname "192.168.23.254"
 set username "developer"
+# create .env file with SGW_PWD=mypassword
 set password [exec sh -c "grep 'SGW_PWD=' ~/.env | cut -d'=' -f2"]
 
 # Log in via SSH
