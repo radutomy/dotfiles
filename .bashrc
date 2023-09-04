@@ -99,7 +99,8 @@ alias less='less --RAW-CONTROL-CHARS'
 alias x='clear'
 
 alias pi='ssh ticketer@192.168.0.16 -i ~/.ssh/id_ticketer'
-alias se='~/.sgw-login.exp'
+alias se='~/.config/work/sgw-login.exp'
+#alias vg='~/.config/work/sgw-transfer.sh'
 alias nas='ssh nas@192.168.0.2'
 alias d='cd $winroot/src/device-main'
 alias c='cd $winroot'
@@ -117,6 +118,11 @@ alias mos='/mnt/c/Program\ Files/mosquitto/mosquitto_sub.exe'
 #-------------------------#
 # FUNCTIONS				        #
 #-------------------------#
+
+
+vg() {
+	~/.config/work/sgw-transfer.sh "$@"
+}
 
 function vg1() { 
 

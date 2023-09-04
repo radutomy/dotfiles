@@ -16,3 +16,4 @@
 
 .local/share
 .config/JetBrains
+.env

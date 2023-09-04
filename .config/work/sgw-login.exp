@@ -4,8 +4,11 @@
 set timeout 5
 set hostname "192.168.23.254"
 set username "developer"
+
+# Get the directory of the currently executing script
+set DIR  [file dirname [info script]]
 # create .env file with SGW_PWD=mypassword
-set password [exec sh -c "grep 'SGW_PWD=' ~/.env | cut -d'=' -f2"]
+set password [exec sh -c "grep 'SGW_PWD=' $DIR/.env | cut -d'=' -f2"]
 
 # Log in via SSH
 spawn ssh $username@$hostname
