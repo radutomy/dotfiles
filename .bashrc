@@ -119,27 +119,7 @@ alias mos='/mnt/c/Program\ Files/mosquitto/mosquitto_sub.exe'
 # FUNCTIONS				        #
 #-------------------------#
 
-
 vg() {
 	~/.config/work/sgw-transfer.sh "$@"
 }
-
-function vg1() { 
-
-	if [ -z "$1" ]; then
-    echo "Error. Please provide version number"
-    return 1
-  fi  
-
-	local publish='/mnt/c/src/vg1-app' 
-	local vg1='/mnt/c/src/device-main/VG1.G710/VG1.G710.csproj'
-	local vg2='/mnt/c/src/device-main/VG2.G710/VG1.G710.csproj'
-	local packager='/mnt/c/src/device-main/Packager/App-net6/MobilePackager.csproj'
-
-	rm -rf $publish/*;
-	dotnet publish $vg1 -c Release -r linux-musl-arm --no-self-contained -p:PublishSingleFile=false,DebugType=None,DebugSymbols=false -o $publish;
-	dotnet run --project $packager -c Release "$1" $publish VG1 Ihvg710; 
-}
-
-alias qq='dotnet publish /mnt/c/src/device-main/VG1.G710/VG1.G710.csproj -c Release -r linux-musl-arm --no-self-contained -p:PublishSingleFile=false,DebugType=None,DebugSymbols=false -o /mnt/c/src/vg1-app'
 
