@@ -73,3 +73,6 @@ ssh_command "rm -rf /overlay/vg1/app/Versions/dev"
 ssh_command "mv $sgwhome/publish /overlay/vg1/app/Versions/dev"
 ssh_command "echo dev > /overlay/vg1/app/Versions/Current.txt"
 ssh_command "/etc/init.d/vg1 start"
+
+# hack; delete after full WSL transition
+dotnet.exe restore C:/src/device-main/SmartHub.sln
