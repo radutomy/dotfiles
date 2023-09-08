@@ -76,3 +76,5 @@ ssh_command "/etc/init.d/vg1 start"
 
 # hack; delete after full WSL transition
 dotnet.exe restore C:/src/device-main/SmartHub.sln
+dotnet.exe restore C:/src/device-main/VG1.Mock/VG1.Mock.csproj
+dotnet.exe restore C:/src/device-main/VG1.G710/VG1.G710.csproj
