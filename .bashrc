@@ -66,7 +66,7 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 #-------------------------#
 
 winhome=/mnt/c/Users/radut
-winroot=/mnt/c
+winroot=/mnt/x
 
 alias tm='tmux new-session \; \
 	send-keys 'clear' C-m \; \
@@ -102,15 +102,14 @@ alias pi='ssh ticketer@192.168.0.16 -i ~/.ssh/id_ticketer'
 alias se='~/.config/work/sgw-login.exp'
 #alias vg='~/.config/work/sgw-transfer.sh'
 alias nas='ssh nas@192.168.0.2'
-alias d='cd $winroot/src/device-main'
+alias d='cd $winroot/device-main'
 alias c='cd $winroot'
 alias s='cd $winroot/src'
 alias u='cd $winhome'
 alias w='cd $winhome/Downloads'
-alias v='cd $winroot/src/device-main/VG1'
-alias g='cd $winroot/OneDrive'
+alias v='cd $winroot/device-main/VG1'
+alias g='cd $winroot/gdrive'
 
-alias cx='cd /mnt/c/src/device-main/EMV/G2KTestTerminalDllWrapper/NativeCX22'
 alias mo='/mnt/c/Program\ Files/mosquitto/mosquitto.exe'
 alias mop='/mnt/c/Program\ Files/mosquitto/mosquitto_pub.exe'
 alias mos='/mnt/c/Program\ Files/mosquitto/mosquitto_sub.exe'

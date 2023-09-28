@@ -14,7 +14,7 @@ host="192.168.23.254"
 #proj="$HOME/src/device-main/VG1.G710/VG1.G710.csproj"
 #core="$HOME/src/device-main/VG1.Core/VG1.Core.csproj"
 #repo="$HOME/src/device-main"
-repo="/mnt/c/src/device-main"
+repo="/mnt/x/device-main"
 proj="$repo/VG1.G710/VG1.G710.csproj"
 core="$repo/VG1.Core/VG1.Core.csproj"
 pubdir="$repo/publish"
@@ -75,6 +75,6 @@ ssh_command "echo dev > /overlay/vg1/app/Versions/Current.txt"
 ssh_command "/etc/init.d/vg1 start"
 
 # hack; delete after full WSL transition
-dotnet.exe restore C:/src/device-main/SmartHub.sln
-dotnet.exe restore C:/src/device-main/VG1.Mock/VG1.Mock.csproj
-dotnet.exe restore C:/src/device-main/VG1.G710/VG1.G710.csproj
+dotnet.exe restore X:/device-main/SmartHub.sln
+dotnet.exe restore X:/device-main/VG1.Mock/VG1.Mock.csproj
+dotnet.exe restore X:/device-main/VG1.G710/VG1.G710.csproj
