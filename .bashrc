@@ -98,8 +98,10 @@ alias ll='command ls -alF --human-readable --group-directories-first --color=alw
 alias less='less --RAW-CONTROL-CHARS'
 alias x='clear'
 
-alias pi='ssh ticketer@192.168.0.16 -i ~/.ssh/id_ticketer'
-alias se='~/.config/work/sgw-login.exp'
+alias p1='ssh pi1'
+alias p2='ssh pi2'
+alias se='~/.config/work/login-sgw.exp sgw1'
+alias sr='~/.config/work/login-sgw.exp sgw2'
 #alias vg='~/.config/work/sgw-transfer.sh'
 alias nas='ssh nas@192.168.0.2'
 alias d='cd $winroot/device-main'
