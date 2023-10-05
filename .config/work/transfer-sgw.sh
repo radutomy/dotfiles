@@ -1,6 +1,8 @@
 #!/bin/bash
 
-ver=$1
+# need to define host first in ~/.ssh/config
+host=$1
+ver=$2
 
 # Get the directory of the currently executing script
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -9,11 +11,6 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source $DIR/.env
 
 # Set variables
-user="developer"
-host="192.168.23.254"
-#proj="$HOME/src/device-main/VG1.G710/VG1.G710.csproj"
-#core="$HOME/src/device-main/VG1.Core/VG1.Core.csproj"
-#repo="$HOME/src/device-main"
 repo="/mnt/x/device-main"
 proj="$repo/VG1.G710/VG1.G710.csproj"
 core="$repo/VG1.Core/VG1.Core.csproj"
@@ -26,7 +23,7 @@ ssh_command() {
 	ssh_options="-o LogLevel=QUIET -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 	remote_cmd="echo $SGW_PWD | sudo -S sh -c '$cmd'"
 
-	if sshpass -p $SGW_PWD ssh $ssh_options $user@$host "$remote_cmd" >/dev/null 2>/dev/null; then
+	if sshpass -p $SGW_PWD ssh $ssh_options $host "$remote_cmd" >/dev/null 2>/dev/null; then
 		echo "SSH Command Successful: $cmd"
 	else
 		echo "SSH Command Failed: $cmd"
@@ -40,7 +37,7 @@ scp_command() {
 	dest="$2"
 	ssh_options="-o LogLevel=QUIET -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 
-	if sshpass -p "$SGW_PWD" scp $ssh_options -r $src $user@$host:$dest 2>/dev/null; then
+	if sshpass -p "$SGW_PWD" scp $ssh_options -r $src $host:$dest 2>/dev/null; then
 		echo "SCP Command Successful"
 	else
 		echo "SCP Command Failed"
@@ -53,7 +50,7 @@ change_ver() {
 }
 
 # Prepare Publish Directory
-prepare_pubdir() {
+build_proj() {
 	rm -rf $pubdir/*
 	dotnet publish $proj -c Release -r linux-musl-arm --no-self-contained -p:PublishSingleFile=false -o $pubdir
 	printf "\nBuild finished sucessfully..\n"
@@ -61,11 +58,11 @@ prepare_pubdir() {
 
 # Main program execution starts here
 
-if [ $# -gt 0 ]; then
-  change_ver
+if [ $# -gt 1 ]; then
+	change_ver
 fi
 
-prepare_pubdir
+build_proj
 printf "Deploying build version to remote:  $ver\n\n"
 scp_command $pubdir $sgwhome
 ssh_command "docker rm -f vg1"
