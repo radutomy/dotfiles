@@ -62,6 +62,11 @@ export LS_OPTS='--color=auto'
 export FZF_DEFAULT_COMMAND='rg --files --follow --line-number --no-ignore-vcs --no-require-git --hidden -g "!{node_modules,.git,downloads,build,.repo}"'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
+# Android SDK
+export ANDROID_HOME=${HOME}/.android-sdk
+export ANDROID_SDK_ROOT=${ANDROID_HOME}
+export PATH=${ANDROID_HOME}/cmdline-tools/latest/bin:${ANDROID_HOME}/platform-tools:${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:${PATH}
+
 #-------------------------#
 # ALIASES - SYSTEM        #
 #-------------------------#
