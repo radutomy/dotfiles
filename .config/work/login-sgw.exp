@@ -33,7 +33,7 @@ send "$password\r"
 # Wait for the new prompt
 expect "# "
 
-send "cd /home/developer\r"
+send "cd\r"
 send "clear\r"
 
 # Interactive mode
