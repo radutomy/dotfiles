@@ -1,183 +1,183 @@
 version: '3.8'
 
 networks:
-  web:
-    name: web
-    ipam:
-      driver: default
-      config:
-        - subnet: 192.168.5.0/24
+	web:
+		name: web
+		ipam:
+			driver: default
+			config:
+				- subnet: 192.168.5.0/24
 
 services:
-  wireguard:
-    image: linuxserver/wireguard
-    container_name: wireguard
-    cap_add:
-      - NET_ADMIN
-    environment:
-      - TZ=${TZ}
-      - SERVERURL=auto #optional
-      - SERVERPORT=51820 #optional
-      - PEERS=2 #optional
-      - PEERDNS=1.1.1.1 #optional
-    volumes:
-      - /mnt/config/wireguard:/config
-    ports:
-      - 51820:51820/udp
-    sysctls:
-      - net.ipv4.conf.all.src_valid_mark=1
-    restart: unless-stopped
-    networks:
-      web:
-        ipv4_address: 192.168.5.5
+#  wireguard:
+# 	 image: linuxserver/wireguard
+# 	 container_name: wireguard
+# 	 cap_add:
+# 		 - NET_ADMIN
+# 	 environment:
+# 		 - TZ=${TZ}
+# 		 - SERVERURL=auto #optional
+# 		 - SERVERPORT=51820 #optional
+# 		 - PEERS=2 #optional
+# 		 - PEERDNS=1.1.1.1 #optional
+# 	 volumes:
+# 		 - /mnt/config/wireguard:/config
+# 	 ports:
+# 		 - 51820:51820/udp
+# 	 sysctls:
+# 		 - net.ipv4.conf.all.src_valid_mark=1
+# 	 restart: unless-stopped
+# 	 networks:
+# 		 web:
+# 			 ipv4_address: 192.168.5.5
 
-  gluetun:
-    image: qmcgaw/gluetun
-    container_name: gluetun
-    cap_add:
-      - NET_ADMIN
-    environment:
-      - VPNSP=nordvpn
-      - TZ=${TZ}
-      - OPENVPN_USER=${OPENVPN_USER}
-      - OPENVPN_PASSWORD=${OPENVPN_PASSWORD}
-      - OPENVPN_PROTOCOL=udp
-      - SERVER_REGIONS=${OPENVPN_REGION}
-    ports:
-      - 7000:8096     # jellyfin
-      - 9696:9696     # prowlarr
-      - 8989:8989     # sonarr
-      - 7878:7878     # radarr
-      - 6767:6767     # bazarr
-      - 26300:8080    # qbitorrent
-      - 6881:6881     # qbitorrent
-      - 6881:6881/udp # qbitorrent
-    restart: always
-    networks:
-      web:
-        ipv4_address: 192.168.5.10
+	gluetun:
+		image: qmcgaw/gluetun
+		container_name: gluetun
+		cap_add:
+			- NET_ADMIN
+		environment:
+			- VPNSP=nordvpn
+			- TZ=${TZ}
+			- OPENVPN_USER=${OPENVPN_USER}
+			- OPENVPN_PASSWORD=${OPENVPN_PASSWORD}
+			- OPENVPN_PROTOCOL=udp
+			- SERVER_REGIONS=${OPENVPN_REGION}
+		ports:
+			- 7000:8096     # jellyfin
+			- 9696:9696     # prowlarr
+			- 8989:8989     # sonarr
+			- 7878:7878     # radarr
+			- 6767:6767     # bazarr
+			- 26300:8080    # qbitorrent
+			- 6881:6881     # qbitorrent
+			- 6881:6881/udp # qbitorrent
+		restart: always
+		networks:
+			web:
+				ipv4_address: 192.168.5.10
 
-  qbittorrent:
-    image: linuxserver/qbittorrent
-    container_name: qbittorrent
-    network_mode: "service:gluetun"
-    depends_on:
-      - gluetun
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=${TZ}
-      - WEBUI_PORT=8080
-    volumes:
-      - /mnt/config/qbitorrent:/config
-      - /mnt/storage:/downloads
-      - /mnt/storage/series:/series
-      - /mnt/storage/movies:/movies
-    restart: always
+	qbittorrent:
+		image: linuxserver/qbittorrent
+		container_name: qbittorrent
+		network_mode: "service:gluetun"
+		depends_on:
+			- gluetun
+		environment:
+			- PUID=1000
+			- PGID=1000
+			- TZ=${TZ}
+			- WEBUI_PORT=8080
+		volumes:
+			- /mnt/config/qbitorrent:/config
+			- /mnt/storage:/downloads
+			- /mnt/storage/series:/series
+			- /mnt/storage/movies:/movies
+		restart: always
 
-  jellyfin:
-    image: linuxserver/jellyfin
-    container_name: jellyfin
-    network_mode: "service:gluetun"
-    depends_on:
-      - gluetun
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=${TZ}
-    volumes:
-      - /mnt/config/jellyfin:/config
-      - /mnt/storage/series:/series
-      - /mnt/storage/movies:/movies
-    restart: unless-stopped
+	jellyfin:
+		image: linuxserver/jellyfin
+		container_name: jellyfin
+		network_mode: "service:gluetun"
+		depends_on:
+			- gluetun
+		environment:
+			- PUID=1000
+			- PGID=1000
+			- TZ=${TZ}
+		volumes:
+			- /mnt/config/jellyfin:/config
+			- /mnt/storage/series:/series
+			- /mnt/storage/movies:/movies
+		restart: unless-stopped
 
-  prowlarr:
-    image: linuxserver/prowlarr
-    container_name: prowlarr
-    network_mode: "service:gluetun"
-    depends_on:
-      - gluetun
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=${TZ}
-    volumes:
-      - /mnt/config/prowlarr:/config
-    restart: unless-stopped
+	prowlarr:
+		image: linuxserver/prowlarr
+		container_name: prowlarr
+		network_mode: "service:gluetun"
+		depends_on:
+			- gluetun
+		environment:
+			- PUID=1000
+			- PGID=1000
+			- TZ=${TZ}
+		volumes:
+			- /mnt/config/prowlarr:/config
+		restart: unless-stopped
 
-  radarr:
-    image: linuxserver/radarr
-    container_name: radarr
-    network_mode: "service:gluetun"
-    depends_on:
-      - gluetun
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=${TZ}
-    volumes:
-      - /mnt/config/radarr:/config
-      - /mnt/storage:/downloads
-      - /mnt/storage/movies:/movies
-    restart: unless-stopped
+	radarr:
+		image: linuxserver/radarr
+		container_name: radarr
+		network_mode: "service:gluetun"
+		depends_on:
+			- gluetun
+		environment:
+			- PUID=1000
+			- PGID=1000
+			- TZ=${TZ}
+		volumes:
+			- /mnt/config/radarr:/config
+			- /mnt/storage:/downloads
+			- /mnt/storage/movies:/movies
+		restart: unless-stopped
 
-  sonarr:
-    image: linuxserver/sonarr
-    container_name: sonarr
-    network_mode: "service:gluetun"
-    depends_on:
-      - gluetun
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=${TZ}
-    volumes:
-      - /mnt/config/sonarr:/config
-      - /mnt/storage:/downloads
-      - /mnt/storage/series:/series
+	sonarr:
+		image: linuxserver/sonarr
+		container_name: sonarr
+		network_mode: "service:gluetun"
+		depends_on:
+			- gluetun
+		environment:
+			- PUID=1000
+			- PGID=1000
+			- TZ=${TZ}
+		volumes:
+			- /mnt/config/sonarr:/config
+			- /mnt/storage:/downloads
+			- /mnt/storage/series:/series
 
-tubesync:
-  image: ghcr.io/meeb/tubesync:latest
-        container_name: tubesync
-  restart: unless-stopped
-  volumes:
-    - /mnt/config/tubesync:/config
-    - /mnt/storage/tubesync:/downloads
-  environment:
-    - TZ=Europe/London
-    - PUID=1000
-    - PGID=1000
+	tubesync:
+		image: ghcr.io/meeb/tubesync:latest
+					container_name: tubesync
+		restart: unless-stopped
+		volumes:
+			- /mnt/config/tubesync:/config
+			- /mnt/storage/tubesync:/downloads
+		environment:
+			- TZ=Europe/London
+			- PUID=1000
+			- PGID=1000
 
-#  bazarr:
-#    image: linuxserver/bazarr
-#    container_name: bazarr
-#    network_mode: "service:gluetun"
-#    depends_on:
-#      - gluetun
-#    environment:
-#      - PUID=1000
-#      - PGID=1000
-#      - TZ=${TZ}
-#    volumes:
-#      - /mnt/config/bazarr:/config
-#      - /mnt/storage/movies:/movies
-#      - /mnt/storage/series:/tv
+ bazarr:
+	 image: linuxserver/bazarr
+	 container_name: bazarr
+	 network_mode: "service:gluetun"
+	 depends_on:
+		 - gluetun
+	 environment:
+		 - PUID=1000
+		 - PGID=1000
+		 - TZ=${TZ}
+	 volumes:
+		 - /mnt/config/bazarr:/config
+		 - /mnt/storage/movies:/movies
+		 - /mnt/storage/series:/tv
 
 #  ubuntu:
-#    image: ubuntu
-#    container_name: ubuntu
-#    tty: true
-#    network_mode: "service:gluetun"
-#    depends_on:
-#      - gluetun
+# 	 image: ubuntu
+# 	 container_name: ubuntu
+# 	 tty: true
+# 	 network_mode: "service:gluetun"
+# 	 depends_on:
+# 		 - gluetun
 
-#  portainer:
-#    image: portainer/portainer-ce:latest
-#    container_name: portainers
-#    ports:
-#      - 9443:9443
-#      - 8000:8000
-#    volumes:
-#       - /mnt/config/portainer:/data
-#       - /var/run/docker.sock:/var/run/docker.sock
-#    restart: unless-stopped
+ portainer:
+	 image: portainer/portainer-ce:latest
+	 container_name: portainers
+	 ports:
+		 - 9443:9443
+		 - 8000:8000
+	 volumes:
+			- /mnt/config/portainer:/data
+			- /var/run/docker.sock:/var/run/docker.sock
+	 restart: unless-stopped
