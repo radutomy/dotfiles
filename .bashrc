@@ -86,7 +86,7 @@ alias tm='tmux new-session \; \
 alias tx='tmux new-session \; \
 	split-window -v -p 40 \; \
 	new-window \; \
-	split-window -v -p 30 \; \
+	split-window -v -p 40 \; \
 	select-pane -t 0\;'
 
 alias ta='tmux attach -t 0'
