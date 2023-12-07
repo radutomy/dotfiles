@@ -10,7 +10,7 @@ set scrolloff=10 " Keep at least 10 lines above/below the cursor
 set incsearch " Incremental search
 set hlsearch " Highlight search results
 set title " Set window title to file name
-set cursorline " Highlight the current line
+"set cursorline " Highlight the current line
 
 " Tab and Indentation Setting
 set tabstop=2 " Number of spaces that a tab character represents

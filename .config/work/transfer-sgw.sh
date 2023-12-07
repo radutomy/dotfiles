@@ -52,7 +52,8 @@ change_ver() {
 # Prepare Publish Directory
 build_proj() {
 	rm -rf $pubdir/*
-	dotnet publish $proj -c Release -r linux-musl-arm --no-self-contained -p:PublishSingleFile=false -o $pubdir
+	#dotnet.exe publish $proj -c Release -r linux-musl-arm --no-self-contained -p:PublishSingleFile=false -o $pubdir
+	dotnet.exe publish X:/device-main/VG1.G710/VG1.G710.csproj -c Release -r linux-musl-arm --no-self-contained -p:PublishSingleFile=false -o X:/device-main/publish
 	printf "\nBuild finished sucessfully..\n"
 }
 
@@ -72,6 +73,6 @@ ssh_command "echo dev > /overlay/vg1/app/Versions/Current.txt"
 ssh_command "/etc/init.d/vg1 start"
 
 # hack; delete after full WSL transition
-dotnet.exe restore X:/device-main/SmartHub.sln
-dotnet.exe restore X:/device-main/VG1.Mock/VG1.Mock.csproj
-dotnet.exe restore X:/device-main/VG1.G710/VG1.G710.csproj
+#dotnet.exe restore X:/device-main/SmartHub.sln
+#dotnet.exe restore X:/device-main/VG1.Mock/VG1.Mock.csproj
+#dotnet.exe restore X:/device-main/VG1.G710/VG1.G710.csproj
