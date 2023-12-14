@@ -99,12 +99,13 @@ alias ll='command ls -alF --human-readable --group-directories-first --color=alw
 alias less='less --RAW-CONTROL-CHARS'
 alias x='clear'
 
-alias p1='ssh pi1'
-alias p2='ssh pi2'
+alias pi1='ssh pi1'
+alias pi2='ssh pi2'
 alias sb='ssh sb'
 alias nas='ssh nas'
-alias se='~/.config/work/login-sgw.exp sgw1'
-alias sr='~/.config/work/login-sgw.exp sgw2'
+alias s1='~/.config/work/login-sgw.exp sgw1'
+alias s2='~/.config/work/login-sgw.exp sgw2'
+alias sg='~/.config/work/login-sgw.exp sgw'
 alias d='cd $winroot/device-main'
 alias c='cd $winroot'
 alias s='cd $winroot/src'
@@ -122,10 +123,10 @@ alias mos='/mnt/c/Program\ Files/mosquitto/mosquitto_sub.exe'
 #-------------------------#
 
 # example use: qe 1.16
-qe() {
+t1() {
 	~/.config/work/transfer-sgw.sh "sgw1" "$@"
 }
 
-qr() {
+t2() {
 	~/.config/work/transfer-sgw.sh "sgw2" "$@"
 }
