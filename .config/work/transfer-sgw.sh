@@ -35,7 +35,7 @@ ssh_command() {
 scp_command() {
 	src="$1"
 	dest="$2"
-	ssh_options="-o LogLevel=QUIET -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
+	ssh_options="-o LogLevel=QUIET -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -O"
 
 	if sshpass -p "$SGW_PWD" scp $ssh_options -r $src $host:$dest 2>/dev/null; then
 		echo "SCP Command Successful"
