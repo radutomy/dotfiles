@@ -62,6 +62,9 @@ export LS_OPTS='--color=auto'
 export FZF_DEFAULT_COMMAND='rg --files --follow --line-number --no-ignore-vcs --no-require-git --hidden -g "!{node_modules,.git,downloads,build,.repo}"'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
+# Rust
+. "$HOME/.cargo/env"
+
 #-------------------------#
 # ALIASES - SYSTEM        #
 #-------------------------#
