@@ -50,6 +50,8 @@ install_az() {
 install_fish() {
 	apt install fish fzf fd-find bat lsd yadm -y
 	ln -s /usr/bin/batcat /usr/local/bin/bat # https://github.com/sharkdp/bat/issues/982
+	curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source
+	fisher update
 	chsh -s $(which fish)
 }
 
@@ -61,5 +63,5 @@ install_rust
 install_helix
 install_docker
 install_az
-#install_fish
+install_fish
 
