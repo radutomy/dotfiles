@@ -12,6 +12,10 @@ update_system() {
 	export GPG_TTY=$(tty)
 }
 
+update_yadm() {
+	yadm remote set-url origin git@github.com:radutomy/dotfiles.git
+}
+
 install_packages() {
 	apt remove vim* -y
 	apt install wget lsb-release libfuse2 bash-completion apt-transport-https \
@@ -55,6 +59,7 @@ install_fish() {
 }
 
 update_system
+update_yadm
 install_packages
 configure_git
 repo_sgw
