@@ -1,0 +1,40 @@
+#!/usr/bin/expect -f
+
+# Set variables
+set timeout 5
+set hostname "192.168.23.254"
+set username "developer"
+set host [lindex $argv 0]
+
+# Get the directory of the currently executing script
+set DIR  [file dirname [info script]]
+# create .env file with SGW_PWD=mypassword
+set password [exec sh -c "grep 'SGW_PWD=' $DIR/.env | cut -d'=' -f2"]
+
+# Log in via SSH
+#spawn ssh $username@$hostname
+spawn ssh $host
+
+# Wait for the prompt
+expect "*password: "
+send "$password\r"
+
+expect "$ "
+
+# Send the sudo command
+send "sudo -i\r"
+
+# Wait for the password prompt
+expect "Password:"
+
+# Send the password
+send "$password\r"
+
+# Wait for the new prompt
+expect "# "
+
+send "cd\r"
+send "clear\r"
+
+# Interactive mode
+interact
