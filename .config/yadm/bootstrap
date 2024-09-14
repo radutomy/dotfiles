@@ -1,0 +1,69 @@
+#!/bin/bash
+
+# ATTENTION !!!
+# If the script complains about Android SDK not found, make sure this is in the .bashrc file
+#	export ANDROID_HOME=${HOME}/.android-sdk
+#	export ANDROID_SDK_ROOT=${ANDROID_HOME}
+
+
+update_system() {
+	echo "Updating and upgrading the system..."
+	apt update && apt upgrade -y
+	export GPG_TTY=$(tty)
+}
+
+install_packages() {
+	apt remove vim* -y
+	apt install wget lsb-release libfuse2 bash-completion apt-transport-https \
+	build-essential git expect sshpass neovim unzip mosquitto mosquitto-clients \
+	dotnet-sdk-8.0 -y
+}
+
+configure_git() {
+	echo "Configuring Git..."
+	git config --global user.name "Radu Tomuleasa"
+	git config --global user.email "radu.tomuleasa@ticketer.co.uk"
+	git config --global init.defaultBranch main 
+}
+
+repo_sgw() {
+	echo "Cloning SGW repo.."
+	cd ~ || exit
+	git clone --branch dev tktr01@vs-ssh.visualstudio.com:v3/tktr01/TktrDev/device-sgw device-sgw
+}
+
+install_rust() {
+	apt install libssl-dev pkg-config build-essential gdb clang rustup -y
+	rustup default stable
+	rustup target add armv7-unknown-linux-musleabihf
+}
+
+install_helix() {
+	add-apt-repository ppa:maveonair/helix-editor -y
+	apt install helix -y
+}
+
+install_docker() {
+	apt install docker.io docker-buildx docker-compose-v2 -y
+}
+
+install_az() {
+	curl -sL https://aka.ms/InstallAzureCLIDeb | bash
+}
+
+install_fish() {
+	apt install fish fzf fd-find bat lsd yadm -y
+	ln -s /usr/bin/batcat /usr/local/bin/bat # https://github.com/sharkdp/bat/issues/982
+	chsh -s $(which fish)
+}
+
+update_system
+install_packages
+configure_git
+repo_sgw
+install_rust
+install_helix
+install_docker
+install_az
+#install_fish
+
