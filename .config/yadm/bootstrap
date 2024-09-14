@@ -19,17 +19,13 @@ install_packages() {
 	dotnet-sdk-8.0 -y
 }
 
-configure_git() {
-	echo "Configuring Git..."
-	git config --global user.name "Radu Tomuleasa"
-	git config --global user.email "radu.tomuleasa@ticketer.co.uk"
-	git config --global init.defaultBranch main 
-}
 
 repo_sgw() {
 	echo "Cloning SGW repo.."
 	cd ~ || exit
-	git clone --branch dev tktr01@vs-ssh.visualstudio.com:v3/tktr01/TktrDev/device-sgw device-sgw
+	git clone --branch dev tktr01@vs-ssh.visualstudio.com:v3/tktr01/TktrDev/device-sgw device-sgw && cd device-sgw
+	git config --local user.email "radu.tomuleasa@ticketer.co.uk"
+	cd ~
 }
 
 install_rust() {
