@@ -20,7 +20,7 @@ install_packages() {
 	apt remove vim* -y
 	apt install wget lsb-release libfuse2 bash-completion apt-transport-https \
 	build-essential git expect sshpass neovim unzip mosquitto mosquitto-clients \
-	ripgrep npm dotnet-sdk-8.0 -y
+	ripgrep npm python3-venv dotnet-sdk-8.0 -y
 }
 
 repo_sgw() {
