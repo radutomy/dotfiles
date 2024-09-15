@@ -34,6 +34,7 @@ repo_sgw() {
 install_rust() {
 	apt install libssl-dev pkg-config build-essential gdb clang rustup -y
 	rustup default stable
+	rustup component add rust-analyzer
 	rustup target add armv7-unknown-linux-musleabihf
 }
 
