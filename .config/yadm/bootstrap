@@ -64,6 +64,10 @@ install_fish() {
 	chsh -s $(which fish)
 }
 
+install_zellij() {
+	cargo install --locked zellij
+}
+
 update_system
 update_yadm
 install_packages
@@ -75,4 +79,4 @@ install_neovim
 install_docker
 #install_az
 install_fish
-
+install_zellij
