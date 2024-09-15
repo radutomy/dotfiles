@@ -27,6 +27,8 @@ alias lr='lsd --tree --group-dirs=first'
 alias lx='lsd -X --group-dirs=first'
 alias lt='lsd --tree --group-dirs=first'
 
+alias vim='nvim'
+
 # ===== SET ===== #
 
 set hydro_color_pwd green
@@ -46,7 +48,7 @@ set fzf_directory_opts --bind "enter:execute($EDITOR {} &> /dev/tty)"
 fzf_configure_bindings --directory=\cf --git_log=\cl --git_status=\cs
 
 # fzf - find hidden files
-set -g fzf_fd_opts --hidden --max-depth 5
+set fzf_fd_opts --hidden --max-depth 5
 
 #bind \t accept-autosuggestion
 #bind \t 'commandline -f complete-and-search'
