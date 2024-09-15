@@ -43,8 +43,8 @@ install_helix() {
 	apt install helix -y
 }
 
-install_neovim {
-	sudo add-apt-repository ppa:neovim-ppa/unstable	-y
+install_neovim() {
+	add-apt-repository ppa:neovim-ppa/unstable -y
 	apt install neovim ripgrep npm python3-venv -y
 }
 
@@ -71,6 +71,7 @@ configure_git
 repo_sgw
 install_rust
 install_helix
+install_neovim
 install_docker
 #install_az
 install_fish
