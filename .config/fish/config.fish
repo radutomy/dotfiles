@@ -4,6 +4,9 @@ if status is-interactive
 	eval (zellij setup --generate-auto-start fish | string collect)
 end
 
+# ===== ENV ===== #
+
+fish_add_path $HOME/.cargo/bin
 
 # ===== ALIAS ===== #
 
