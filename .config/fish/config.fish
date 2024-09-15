@@ -21,7 +21,7 @@ alias g='cd /mnt/c/gdrive'
 alias c='clear'
 
 alias ls='lsd --group-dirs=first'
-alias ll='lsd -lh --group-dirs=first'
+alias ll='lsd -lah --group-dirs=first'
 alias l='lsd -A --group-dirs=first'
 alias lr='lsd --tree --group-dirs=first'
 alias lx='lsd -X --group-dirs=first'
@@ -30,6 +30,8 @@ alias lt='lsd --tree --group-dirs=first'
 alias vim='nvim'
 
 # ===== SET ===== #
+
+set fish_greeting # supress fish greeting
 
 set hydro_color_pwd green
 set hydro_color_git yellow
