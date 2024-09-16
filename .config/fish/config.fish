@@ -1,12 +1,14 @@
-if status is-interactive
-	set -x ZELLIJ_AUTO_EXIT true
-	set -x ZELLIJ_AUTO_ATTACH true
-	eval (zellij setup --generate-auto-start fish | string collect)
-end
-
 # ===== ENV ===== #
 
 fish_add_path $HOME/.cargo/bin
+
+# ===== INTERACTIVE ===== #
+
+if status is-interactive
+	set -x ZELLIJ_AUTO_EXIT false
+	set -x ZELLIJ_AUTO_ATTACH true
+	eval (zellij setup --generate-auto-start fish | string collect)
+end
 
 # ===== ALIAS ===== #
 
