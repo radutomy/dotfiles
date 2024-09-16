@@ -1,0 +1,150 @@
+" List of commands: :actionlist
+" https://gist.github.com/zchee/9c78f91cc5ad771c1f5d
+
+" ------------------------
+" Leader Key Configuration
+" ------------------------
+let mapleader=" "
+
+" ------------------------
+" Interface and Display Settings
+" ------------------------
+set colorscheme slate
+set visualbell               " Use visual bell (no beeping)
+set relativenumber           " Show relative line numbers
+set number                   " Show absolute line number for the current line
+set scrolloff=10             " Keep at least 10 lines above/below the cursor
+set incsearch                " Incremental search
+set hlsearch                 " Highlight search results
+set ignorecase               " Ignore capitalization when searching
+set title                    " Set window title to file name
+set cursorline               " Highlight the current line
+"set clipboard+=unnamed       " Use the system clipboard
+set surround
+
+" ------------------------
+" Tab and Indentation Settings
+" ------------------------
+set tabstop=4                " Number of spaces that a tab character represents
+set shiftwidth=4             " Width for autoindents
+set softtabstop=4            " Number of spaces per Tab
+set autoread                 " Auto-read files when modified outside Vim
+
+" ------------------------
+" Set Handlers - Use vim or ide for set shortcuts
+" ------------------------
+sethandler <S-Space> n-v-i:ide
+sethandler <C-C> n-v-i:ide
+sethandler <C-A> n-v-i:ide
+sethandler <C-V> n-v-i:ide 
+sethandler <C-H> n-v-i:ide 
+sethandler <A-Q> n-v-i:ide
+sethandler <A-E> n-v-i:ide
+sethandler <A-S> n-v-i:ide
+sethandler <A-X> n-v-i:ide
+sethandler <A-J> n-v-i:ide
+
+sethandler <C-Q> n-v-i:vim
+sethandler <C-S> n-v-i:vim
+sethandler <C-S> n-v-i:vim
+sethandler <C-Q> n-v-i:vim
+sethandler <C-D> n-v-i:vim
+sethandler <C-U> n-v-i:vim
+sethandler <C-W> n-v-i:vim
+sethandler <C-F> n-v-i:vim
+sethandler <C-X> n-v-i:vim
+sethandler <C-O> n-v-i:vim
+sethandler <C-I> n-v-i:vim
+sethandler <C-P> n-v-i:vim
+sethandler <C-R> n-v-i:vim
+sethandler <F1> n-v-i:vim
+sethandler <F2> n-v-i:vim
+sethandler <F3> n-v-i:vim
+sethandler <F4> n-v-i:vim
+
+" ------------------------
+" Normal Mode Key Remappings
+" ------------------------
+nnoremap <C-q> <C-v> 
+nnoremap J mzJ`z 
+nnoremap <C-d> <C-d>zz 
+nnoremap <C-u> <C-u>zz
+nnoremap n nzzzv
+nnoremap N Nzzzv
+nnoremap gs ^
+nnoremap gl $
+nnoremap <Leader>o o<Esc>0"_D
+nnoremap <Leader>O O<Esc>0"_D
+" shift+# searches for word under cursor 
+nnoremap ~ *
+
+" ------------------------
+" Pane Navigation
+" ------------------------
+nnoremap <A-h> <C-w>h
+nnoremap <A-l> <C-w>l
+nnoremap <A-k> <C-w>k
+nnoremap <A-j> <C-w>j
+
+" ------------------------
+" Visual Mode Enhancements
+" ------------------------
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
+" ------------------------
+" IDE Specific Mappings (IntelliJ IDEA with IdeaVim plugin)
+" ------------------------
+" Go to Actions
+nmap gd <Action>(GotoDeclaration)
+map <leader><leader> <Action>(GotoDeclaration)
+nmap gy <Action>(GotoTypeDeclaration)
+nmap gi <Action>(GotoImplementation)
+nmap gu <Action>(ShowUsages)
+nmap gt <Action>(GotoTest)
+" In settings: Compare with the same repository version
+nmap gc <Action>(Compare.LastVersion) 
+nmap gr <Action>(ChangesView.Revert) 
+nmap [ <Action>(MethodUp)
+nmap ] <Action>(MethodDown)
+nmap <C-o> :action Back<CR>
+nmap <C-i> :action Forward<CR>
+nmap <BS> <Action>(Back)
+nmap <S-BS> <Action>(Forward)
+
+" IDE Function Mappings
+map <C-s> <Action>(CommentByLineComment)
+map <leader>h <Action>(ReformatCode)
+map <leader>g <Action>(SilentCodeCleanup)
+map <leader>r <Action>(RenameElement)
+map <leader>d <Action>(Debug)
+map <leader>s <Action>(RebuildSolutionAction)
+map <leader>b <Action>(ToggleLineBreakpoint)
+map <leader>q <Action>(CloseContent)
+
+" Tool Windows
+map <A-s> <Action>(ActivateProjectToolWindow)
+map <A-b> <Action>(ActivateBuildToolWindow)
+map <A-q> <Action>(ActivateTerminalToolWindow)
+map <A-e> <Action>(ActivateProblemsViewToolWindow)
+map <A-d> <Action>(ActivateDebugToolWindow)
+map <A-x> <Action>(ActivateVersionControlToolWindow)
+map <A-z> <Action>(ActivateCommitToolWindow)
+map <F1> <Action>(ToggleLineBreakpoint)
+
+map <F2> <Action>(ParameterInfo)
+imap <F2> <Action>(ParameterInfo)
+map <F3> <Action>(ShowErrorDescription)
+imap <F3> <Action>(ShowErrorDescription)
+nmap <F4> <Action>(GotoNextError)
+inmap <F4> <Action>(GotoNextError)
+"nmap <F3> <Action>(ReSharperGotoNextErrorInSolution)
+
+nmap f :action KJumpAction.Word0<cr>
+
+" WhichKey and Timeout Settings
+set which-key
+set timeoutlen=5000
+
+nmap <C-w><Space> <Action>(MaximizeEditorInSplit)
+nmap <A-w> <Action>(HideAllWindows)
