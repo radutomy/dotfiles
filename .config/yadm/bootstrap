@@ -79,4 +79,4 @@ install_neovim
 install_docker
 #install_az
 install_fish
-install_zellij
+#install_zellij
