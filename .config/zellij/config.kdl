@@ -1,6 +1,0 @@
-
-keybinds {
-	normal {
-		bind "Ctrl q" { GoToNextTab; }
-    }
-}
