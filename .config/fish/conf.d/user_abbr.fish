@@ -24,6 +24,6 @@ abbr -a lt 'lsd --tree --group-dirs=first'
 # Vim abbreviation
 abbr -a vim nvim
 
-bind yy fish_clipboard_copy
-bind Y fish_clipboard_copy
-bind p fish_clipboard_paste
+#bind yy fish_clipboard_copy
+#bind Y fish_clipboard_copy
+#bind p fish_clipboard_paste

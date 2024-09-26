@@ -6,7 +6,8 @@ set fish_color_valid_path # no text underlying when pressing tab
 set fish_pager_color_prefix # no text underying when pressing tab
 
 set fish_prompt_pwd_dir_length 100 # maximum lenght of dir path
-set fish_key_bindings fish_vi_key_bindings
+#set fish_key_bindings fish_vi_key_bindings
+set fish_key_bindings fish_default_key_bindings
 
 set -x EDITOR nvim
 
