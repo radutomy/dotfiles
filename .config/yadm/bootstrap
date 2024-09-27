@@ -16,7 +16,7 @@ update_yadm() {
 }
 
 install_packages() {
-	apt remove vim* snapd* -y
+	apt remove vim* -y
 	apt install wget lsb-release libfuse2 bash-completion apt-transport-https \
 	build-essential git expect sshpass unzip mosquitto mosquitto-clients \
 	dotnet-sdk-8.0 -y
@@ -39,7 +39,7 @@ repo_sgw() {
 
 install_rust() {
 	apt install libssl-dev pkg-config build-essential gdb clang -y
-	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path -y
+	snap install rustup --classic
 	rustup component add rust-analyzer
 	rustup target add armv7-unknown-linux-musleabihf
 }
@@ -72,7 +72,7 @@ install_az() {
 #}
 
 install_fish() {
-apt install fish fzf fd-find bat yadm -y
+	apt install fish fzf fd-find bat -y
 	cargo install lsd 
 	# https://github.com/sharkdp/bat/issues/982
 	ln -s /usr/bin/batcat /usr/local/bin/bat
