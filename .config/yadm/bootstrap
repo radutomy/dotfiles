@@ -85,7 +85,7 @@ update_yadm
 install_packages
 configure_git
 repo_sgw
-install_rust_temp
+install_rust
 install_helix
 install_neovim
 install_docker
