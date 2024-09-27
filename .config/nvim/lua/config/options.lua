@@ -12,3 +12,5 @@ vim.opt.shiftwidth = 2
 vim.opt.softtabstop = 2
 vim.opt.smarttab = true
 vim.opt.signcolumn = "yes:1" -- make the gutter smaller
+
+vim.opt.timeoutlen = 1000
