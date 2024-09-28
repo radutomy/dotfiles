@@ -9,6 +9,7 @@ update_system() {
 	echo "Updating and upgrading the system..."
 	apt update && apt upgrade -y
 	export GPG_TTY=$(tty)
+	tabs 4 # configure the number of tabs the OS displays
 }
 
 update_yadm() {
