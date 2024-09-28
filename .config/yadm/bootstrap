@@ -1,10 +1,5 @@
 #!/bin/bash
 
-# ATTENTION !!!
-# If the script complains about Android SDK not found, make sure this is in the .bashrc file
-#	export ANDROID_HOME=${HOME}/.android-sdk
-#	export ANDROID_SDK_ROOT=${ANDROID_HOME}
-
 update_system() {
 	echo "Updating and upgrading the system..."
 	apt update && apt upgrade -y
@@ -53,7 +48,8 @@ install_helix() {
 
 install_neovim() {
 	apt install ripgrep npm python3-venv -y
-	curl -L https://github.com/neovim/neovim/releases/download/v0.10.1/nvim.appimage -o /bin/nvim
+	#curl -L https://github.com/neovim/neovim/releases/download/v0.10.1/nvim.appimage -o /bin/nvim
+	curl -L https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage -o /bin/nvim
 	chmod +x /bin/nvim
 	
 	# LazyGit
