@@ -26,20 +26,20 @@ repo_sgw() {
 	cd ~
 }
 
-install_rust() {
-  apt install libssl-dev pkg-config build-essential gdb clang lldb rustup -y
-  rustup default stable
-  rustup component add rust-analyzer
-  rustup target add armv7-unknown-linux-musleabihf
-}
-
 #install_rust() {
-#	apt install libssl-dev pkg-config build-essential gdb clang lldb -y
-#	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path -y
-#	source "$HOME/.cargo/env"
-#	rustup component add rust-analyzer
-#	rustup target add armv7-unknown-linux-musleabihf
+#  apt install libssl-dev pkg-config build-essential gdb clang rustup -y
+#  rustup default stable
+#  rustup component add rust-analyzer
+#  rustup target add armv7-unknown-linux-musleabihf
 #}
+
+install_rust() {
+	apt install libssl-dev pkg-config build-essential gdb clang -y
+	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path -y
+	source "$HOME/.cargo/env"
+	rustup component add rust-analyzer
+	rustup target add armv7-unknown-linux-musleabihf
+}
 
 install_helix() {
 	add-apt-repository ppa:maveonair/helix-editor -y
@@ -68,23 +68,23 @@ install_az() {
 	curl -sL https://aka.ms/InstallAzureCLIDeb | bash
 }
 
-install_fish() {
-  apt install fish fzf fd-find bat lsd yadm -y
-  # https://github.com/sharkdp/bat/issues/982
-  ln -s /usr/bin/batcat /usr/local/bin/bat
-  fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher update"
-  chsh -s $(which fish)
-}
-
 #install_fish() {
-#	apt-add-repository ppa:fish-shell/release-3 -y
-#	apt install fish fzf fd-find bat -y
-#	cargo install lsd 
-#	# https://github.com/sharkdp/bat/issues/982
-#	ln -s /usr/bin/batcat /usr/local/bin/bat
-#	fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher update"
-#	chsh -s $(which fish)
+#  apt install fish fzf fd-find bat lsd yadm -y
+#  # https://github.com/sharkdp/bat/issues/982
+#  ln -s /usr/bin/batcat /usr/local/bin/bat
+#  fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher update"
+#  chsh -s $(which fish)
 #}
+
+install_fish() {
+	apt-add-repository ppa:fish-shell/release-3 -y
+	apt install fish fzf fd-find bat -y
+	cargo install lsd 
+	# https://github.com/sharkdp/bat/issues/982
+	ln -s /usr/bin/batcat /usr/local/bin/bat
+	fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher update"
+	chsh -s $(which fish)
+}
 
 update_system
 update_yadm
