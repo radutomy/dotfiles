@@ -21,6 +21,9 @@ abbr -a lr 'lsd --tree --group-dirs=first'
 abbr -a lx 'lsd -X --group-dirs=first'
 abbr -a lt 'lsd --tree --group-dirs=first'
 
+# bat abbreviation
+abbr -a cat bat
+
 # Vim abbreviation
 abbr -a vim nvim
 
