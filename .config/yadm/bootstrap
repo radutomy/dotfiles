@@ -19,8 +19,6 @@ install_packages() {
 }
 
 repo_sgw() {
-	echo "Cloning SGW repo.."
-
 	cd ~ || exit
 	git clone --branch dev tktr01@vs-ssh.visualstudio.com:v3/tktr01/TktrDev/device-sgw device-sgw && cd device-sgw
 	git config --local user.email "radu.tomuleasa@ticketer.co.uk"
