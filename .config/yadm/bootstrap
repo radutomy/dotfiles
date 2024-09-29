@@ -86,6 +86,11 @@ install_fish() {
 	chsh -s $(which fish)
 }
 
+cleanup() {
+	cd ~
+	rm .bash_history .lesshst .motd_shown
+}
+
 update_system
 update_yadm
 install_packages
@@ -97,3 +102,4 @@ install_neovim
 install_docker
 #install_az
 install_fish
+cleanup
