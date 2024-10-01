@@ -10,6 +10,7 @@ set fish_prompt_pwd_dir_length 100 # maximum lenght of dir path
 set fish_key_bindings fish_default_key_bindings
 
 set -x EDITOR nvim
+set -x GPG_TTY=$(tty)
 
 # when CTRL+F press ENTER to open the file in EDITOR
 set fzf_directory_opts --bind "enter:execute($EDITOR {} &> /dev/tty)"
