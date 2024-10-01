@@ -1,3 +1,4 @@
 .ssh/id_rsa
 .config/work/.env
 .config/work/mqtt/*
+.config/mosquitto_sub
