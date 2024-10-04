@@ -24,3 +24,10 @@ vim.keymap.set({ "n", "i" }, "<Esc>", function()
 		end
 	end
 end, { desc = "Clear highlight of search, messages, floating windows" })
+
+vim.keymap.set("n", "<F2>", vim.lsp.buf.signature_help, { noremap = true, silent = true })
+
+-- Jump to next diagnostic error using F4
+vim.keymap.set("n", "<F4>", function()
+	vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
+end, { noremap = true, silent = true, desc = "Go to next error" })
