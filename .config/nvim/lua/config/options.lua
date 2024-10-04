@@ -2,19 +2,19 @@
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 -- Add any additional options here
 
+vim.g.rust_recommended_style = false
+
 -- disable auto comment
 vim.cmd [[autocmd FileType * set formatoptions-=ro]]
-
---vim.g.rust_recommended_style = false
 
 local o = vim.opt
 
 o.clipboard = ""
 o.autoindent = false
 o.expandtab = false
-o.tabstop = 4
-o.shiftwidth = 4
-o.softtabstop = 4
+o.tabstop = 2
+o.shiftwidth = 2
+o.softtabstop = 2
 o.smarttab = true
 o.signcolumn = "yes:1" -- make the gutter smaller
 o.wrap = true
