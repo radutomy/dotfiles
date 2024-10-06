@@ -71,22 +71,12 @@ install_az() {
 }
 
 install_fish() {
-  apt install fish fzf fd-find bat lsd yadm -y
-  # https://github.com/sharkdp/bat/issues/982
-  ln -s /usr/bin/batcat /usr/local/bin/bat
-  fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher update"
-  chsh -s $(which fish)
+	apt install fish fzf fd-find bat lsd yadm -y
+	# https://github.com/sharkdp/bat/issues/982
+	ln -s /usr/bin/batcat /usr/local/bin/bat
+	fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher update"
+	chsh -s $(which fish)
 }
-
-#install_fish() {
-#	apt-add-repository ppa:fish-shell/release-3 -y
-#	apt install fish fzf fd-find bat -y
-#	cargo install lsd 
-#	# https://github.com/sharkdp/bat/issues/982
-#	ln -s /usr/bin/batcat /usr/local/bin/bat
-#	fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher update"
-#	chsh -s $(which fish)
-#}
 
 cleanup() {
 	cd ~
