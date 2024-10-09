@@ -1,7 +1,6 @@
 #!/bin/bash
 
 update_system() {
-	echo "Updating and upgrading the system..."
 	apt update && apt upgrade -y
 	export GPG_TTY=$(tty)
 	tabs 4 # configure the number of tabs the OS displays
@@ -55,7 +54,6 @@ install_helix() {
 install_neovim() {
 	apt install ripgrep npm python3-venv -y
 	curl -L https://github.com/neovim/neovim/releases/download/stable/nvim.appimage -o /bin/nvim
-	#curl -L https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage -o /bin/nvim
 	chmod +x /bin/nvim
 	
 	# LazyGit
@@ -70,16 +68,16 @@ install_docker() {
 	apt install docker.io docker-buildx docker-compose-v2 -y
 }
 
-install_az() {
-	curl -sL https://aka.ms/InstallAzureCLIDeb | bash
-}
-
 install_fish() {
 	apt install fish fzf fd-find bat lsd yadm -y
 	# https://github.com/sharkdp/bat/issues/982
 	ln -s /usr/bin/batcat /usr/local/bin/bat
 	fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher update"
 	chsh -s $(which fish)
+}
+
+install_az() {
+	curl -sL https://aka.ms/InstallAzureCLIDeb | bash
 }
 
 cleanup() {
@@ -96,6 +94,6 @@ install_rust
 install_helix
 install_neovim
 install_docker
-#install_az
 install_fish
+#install_az
 cleanup
