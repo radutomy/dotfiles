@@ -15,6 +15,7 @@ return {
 							String = { fg = colors.orange, bg = "NONE" }, -- Orange for strings
 							Type = { fg = "#4EC9B0", bg = "NONE" }, -- Teal for types
 							Function = { fg = "#A53FD6", bg = "NONE" }, -- Purple for functions
+							Constant = { fg = colors.white, bg = "NONE" }, -- this is a weird one
 						}
 					end,
 					colors = {
