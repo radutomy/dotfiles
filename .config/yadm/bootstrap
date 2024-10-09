@@ -20,11 +20,15 @@ install_packages() {
 
 repo_sgw() {
 	cd ~ || exit
-	git clone --branch dev tktr01@vs-ssh.visualstudio.com:v3/tktr01/TktrDev/device-sgw device-sgw && cd device-sgw
+	git clone --branch dev tktr01@vs-ssh.visualstudio.com:v3/tktr01/TktrDev/device-sgw && cd device-sgw
 	git config --local user.email "radu.tomuleasa@ticketer.co.uk"
 	cd ~
 
-	git clone --branch dev tktr01@vs-ssh.visualstudio.com:v3/tktr01/TktrDev/device-sgw-watcher device-sgw-watcher && cd device-sgw-watcher
+	git clone --branch dev tktr01@vs-ssh.visualstudio.com:v3/tktr01/TktrDev/device-sgw-watcher && cd device-sgw-watcher
+	git config --local user.email "radu.tomuleasa@ticketer.co.uk"
+	cd ~
+
+	git clone --branch dev tktr01@vs-ssh.visualstudio.com:v3/tktr01/TktrDev/device-sgw-vg1 && cd device-sgw-vg1
 	git config --local user.email "radu.tomuleasa@ticketer.co.uk"
 	cd ~
 }
