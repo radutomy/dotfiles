@@ -54,7 +54,7 @@ install_helix() {
 
 install_neovim() {
 	apt install ripgrep npm python3-venv -y
-	curl -L https://github.com/neovim/neovim/releases/download/v0.10.1/nvim.appimage -o /bin/nvim
+	curl -L https://github.com/neovim/neovim/releases/download/stable/nvim.appimage -o /bin/nvim
 	#curl -L https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage -o /bin/nvim
 	chmod +x /bin/nvim
 	
