@@ -31,3 +31,7 @@ vim.keymap.set("n", "<F2>", vim.lsp.buf.signature_help, { noremap = true, silent
 vim.keymap.set("n", "<F4>", function()
 	vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
 end, { noremap = true, silent = true, desc = "Go to next error" })
+
+vim.keymap.set("n", "<C-a>", function()
+	vim.cmd "normal! ggVG"
+end, { noremap = true, silent = true, desc = "Select all text" })
