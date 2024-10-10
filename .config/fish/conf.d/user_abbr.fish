@@ -22,7 +22,7 @@ abbr -a lx 'lsd -X --group-dirs=first'
 abbr -a lt 'lsd --tree --group-dirs=first'
 
 # bat abbreviation
-abbr -a cat bat
+abbr -a cat bat --style=plain
 
 # Vim abbreviation
 abbr -a vim nvim
