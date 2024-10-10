@@ -25,13 +25,35 @@ vim.keymap.set({ "n", "i" }, "<Esc>", function()
 	end
 end, { desc = "Clear highlight of search, messages, floating windows" })
 
+-- F2 - show function signature
 vim.keymap.set("n", "<F2>", vim.lsp.buf.signature_help, { noremap = true, silent = true })
 
--- Jump to next diagnostic error using F4
+-- F4 - Jump to next diagnostic error
 vim.keymap.set("n", "<F4>", function()
 	vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
 end, { noremap = true, silent = true, desc = "Go to next error" })
 
+-- <C-A> select all text
 vim.keymap.set("n", "<C-a>", function()
 	vim.cmd "normal! ggVG"
 end, { noremap = true, silent = true, desc = "Select all text" })
+
+-------------------------------------------------------------------------------
+
+function nav(vim_direction, wezterm_pane_direction, wezterm_tab_direction)
+	local wezterm_exe = "/mnt/c/gdrive/apps/wezterm/wezterm.exe"
+	if vim.fn.winnr(vim_direction) ~= vim.fn.winnr() then
+		vim.cmd("wincmd " .. vim_direction)
+	else
+		local pane_result = io.popen(wezterm_exe .. " cli activate-pane-direction " .. wezterm_pane_direction):read "*a"
+		if pane_result == "" and wezterm_tab_direction then
+			local _ = io.popen(wezterm_exe .. " cli activate-tab --tab-relative " .. wezterm_tab_direction):read "*a"
+		end
+	end
+end
+
+-- ALT+<hjkl> to change vim panes, with fallback to wezterm pane, then to wezterm tab if no pane is found
+vim.api.nvim_set_keymap("n", "<M-h>", [[<Cmd>lua nav('h', 'Left', '-1')<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<M-l>", [[<Cmd>lua nav('l', 'Right', '1')<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<M-j>", [[<Cmd>lua nav('j', 'Down', nil)<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<M-k>", [[<Cmd>lua nav('k', 'Up', nil)<CR>]], { noremap = true, silent = true })
