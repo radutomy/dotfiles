@@ -57,3 +57,6 @@ vim.api.nvim_set_keymap("n", "<M-h>", [[<Cmd>lua nav('h', 'Left', '-1')<CR>]], {
 vim.api.nvim_set_keymap("n", "<M-l>", [[<Cmd>lua nav('l', 'Right', '1')<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<M-j>", [[<Cmd>lua nav('j', 'Down', nil)<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<M-k>", [[<Cmd>lua nav('k', 'Up', nil)<CR>]], { noremap = true, silent = true })
+
+-- Rename
+vim.api.nvim_set_keymap("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<CR>", { noremap = true, silent = true, desc = "Rename" })
