@@ -12,7 +12,7 @@ update_yadm() {
 
 install_packages() {
 	apt remove vim* snap* -y
-	apt install wget lsb-release libfuse2 bash-completion apt-transport-https \
+	apt install wget curl yadm lsb-release libfuse2 bash-completion apt-transport-https \
 	build-essential git git-delta expect sshpass unzip mosquitto mosquitto-clients \
 	dotnet-sdk-8.0 -y
 }
@@ -70,7 +70,7 @@ install_docker() {
 }
 
 install_fish() {
-	apt install fish fzf fd-find bat lsd yadm -y
+	apt install fish fzf fd-find bat lsd -y
 	# https://github.com/sharkdp/bat/issues/982
 	ln -s /usr/bin/batcat /usr/local/bin/bat
 	fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher update"
