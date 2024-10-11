@@ -95,6 +95,6 @@ install_rust
 install_helix
 install_neovim
 install_docker
-install_fish
+#install_fish
 #install_az
 cleanup
