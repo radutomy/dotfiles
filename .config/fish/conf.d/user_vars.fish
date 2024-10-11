@@ -23,8 +23,6 @@ end
 
 # fzf - find hidden files
 set fzf_fd_opts --hidden --max-depth 5
-#set -x ZELLIJ_AUTO_EXIT false
-#set -x ZELLIJ_AUTO_ATTACH true
 
 #bind \t accept-autosuggestion
 #bind \t 'commandline -f complete-and-search'
