@@ -83,7 +83,7 @@ install_az() {
 
 cleanup() {
 	cd ~
-	rm .bash_history .lesshst .motd_shown
+	rm .motd_shown
 }
 
 update_system
