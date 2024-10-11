@@ -59,4 +59,13 @@ vim.api.nvim_set_keymap("n", "<M-j>", [[<Cmd>lua nav('j', 'Down', nil)<CR>]], { 
 vim.api.nvim_set_keymap("n", "<M-k>", [[<Cmd>lua nav('k', 'Up', nil)<CR>]], { noremap = true, silent = true })
 
 -- Rename
-vim.api.nvim_set_keymap("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<CR>", { noremap = true, silent = true, desc = "Rename" })
+vim.keymap.set("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<CR>", { noremap = true, silent = true, desc = "Rename" })
+
+-- Toggle comment
+vim.keymap.set("n", "<M-w>", "gcc", { remap = true, silent = true, desc = "Comment line" })
+vim.keymap.set("x", "<M-w>", "gc", { remap = true, silent = true, desc = "Comment selection" })
+
+-- Exits insert mode and returns the cursor to the same position it was before insert mode.
+vim.keymap.set("i", "<Esc>", "<Esc>`^", { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap("n", "d0", "d^", { noremap = true, silent = true })
