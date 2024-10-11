@@ -13,7 +13,7 @@ update_yadm() {
 install_packages() {
 	apt remove vim* snap* -y
 	apt install wget lsb-release libfuse2 bash-completion apt-transport-https \
-	build-essential git expect sshpass unzip mosquitto mosquitto-clients \
+	build-essential git git-delta expect sshpass unzip mosquitto mosquitto-clients \
 	dotnet-sdk-8.0 -y
 }
 
