@@ -52,11 +52,11 @@ function nav(vim_direction, wezterm_pane_direction, wezterm_tab_direction)
 	end
 end
 
--- ALT+<hjkl> to change vim panes, with fallback to wezterm pane, then to wezterm tab if no pane is found
-vim.api.nvim_set_keymap("n", "<M-h>", [[<Cmd>lua nav('h', 'Left', '-1')<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<M-l>", [[<Cmd>lua nav('l', 'Right', '1')<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<M-j>", [[<Cmd>lua nav('j', 'Down', nil)<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<M-k>", [[<Cmd>lua nav('k', 'Up', nil)<CR>]], { noremap = true, silent = true })
+-- CTRL + <hjkl> to change vim panes, with fallback to wezterm pane, then to wezterm tab if no pane is found
+vim.keymap.set("n", "<C-h>", "<Cmd>lua nav('h', 'Left', '-1')<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-l>", "<Cmd>lua nav('l', 'Right', '1')<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-j>", "<Cmd>lua nav('j', 'Down', nil)<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-k>", "<Cmd>lua nav('k', 'Up', nil)<CR>", { noremap = true, silent = true })
 
 -- Rename
 vim.keymap.set("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<CR>", { noremap = true, silent = true, desc = "Rename" })

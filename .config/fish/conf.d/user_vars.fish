@@ -16,7 +16,8 @@ set -x GPG_TTY $(tty)
 set fzf_directory_opts --bind "enter:execute($EDITOR {} &> /dev/tty)"
 
 # CTRL+F search for file; CTRL+L git status
-fzf_configure_bindings --directory=\cf --git_log=\cl --git_status=\cs --variables=\ck
+# fzf_configure_bindings --directory=\cf --git_log=\cl --git_status=\cs --variables=\ck
+fzf_configure_bindings --directory=\cf --git_status=\cs
 
 # fzf - find hidden files
 set fzf_fd_opts --hidden --max-depth 5

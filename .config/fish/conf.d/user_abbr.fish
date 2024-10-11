@@ -27,6 +27,8 @@ abbr -a cat bat --style=plain
 # Vim abbreviation
 abbr -a vim nvim
 
+bind \ce clear-screen
+
 #bind yy fish_clipboard_copy
 #bind Y fish_clipboard_copy
 #bind p fish_clipboard_paste
