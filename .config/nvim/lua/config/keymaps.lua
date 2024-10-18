@@ -68,4 +68,4 @@ vim.keymap.set("x", "<M-w>", "gc", { remap = true, silent = true, desc = "Commen
 -- Exits insert mode and returns the cursor to the same position it was before insert mode.
 vim.keymap.set("i", "<Esc>", "<Esc>`^", { noremap = true, silent = true })
 
-vim.api.nvim_set_keymap("n", "d0", "d^", { noremap = true, silent = true })
+vim.keymap.set("n", "d0", "d^", { noremap = true, silent = true })
