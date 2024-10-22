@@ -16,6 +16,9 @@ return {
 							Type = { fg = "#4EC9B0", bg = "NONE" }, -- Teal for types
 							Function = { fg = "#A53FD6", bg = "NONE" }, -- Purple for functions
 							Constant = { fg = colors.white, bg = "NONE" }, -- this is a weird one
+							-- BlinkCmpMenu = { fg = "#FFFFFF" },
+							-- BlinkCmpDoc = { fg = "#FFFFFF" },
+							BlinkCmpMenuSelection = { fg = colors.grey, bg = "#61AFEF" },
 						}
 					end,
 					colors = {
