@@ -25,3 +25,7 @@ o.ttimeoutlen = 50
 -- disable built-in completion
 o.complete = ""
 o.completeopt = ""
+
+-- Disable transparency for floating windows
+o.winblend = 0
+o.pumblend = 0

@@ -10,6 +10,7 @@ return {
 			local cmp = require "cmp"
 			local lspkind = require "lspkind"
 			local context = require "cmp.config.context"
+
 			-- Set tab to select the first item in the autocomplete pop-up
 			opts.mapping = vim.tbl_extend("force", opts.mapping, {
 				["<Tab>"] = cmp.mapping(function(fallback)
@@ -41,7 +42,7 @@ return {
 				fields = { "kind", "abbr" }, -- Display "kind" (icon) first
 				format = function(entry, vim_item)
 					-- Use lspkind for the icons
-					vim_item.kind = lspkind.symbolic(vim_item.kind, { mode = "symbol" })
+					vim_item.kind = lspkind.symbolic(vim_item.kind, { mode = "symbol" }) .. " " -- Add two spaces after icon
 					-- Remove the tilde or any extra characters
 					vim_item.abbr = vim_item.abbr:gsub("~", "") -- Remove tilde
 					vim_item.menu = nil -- Remove extra menu items
@@ -83,15 +84,25 @@ return {
 				},
 			}
 			-- Adjust the completion window size and layout with non-transparent background
+			-- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#1a1b26" })
+			-- vim.api.nvim_set_hl(0, "Pmenu", { bg = "#1a1b26", fg = "#c0caf5" })
+			-- vim.api.nvim_set_hl(0, "PmenuSel", { bg = "#283457", fg = "#c0caf5" })
+			-- vim.api.nvim_set_hl(0, "FloatBorder", { bg = "#1a1b26", fg = "#3b4261" })
+			-- vim.api.nvim_set_hl(0, "CmpNormal", { bg = "#1a1b26" })
+
+			-- Complete window override
 			opts.window = {
 				completion = cmp.config.window.bordered({
-					winhighlight = "Normal:Pmenu,FloatBorder:PmenuBorder,CursorLine:PmenuSel,Search:None",
-					col_offset = -3, -- Adjust the column offset to remove extra padding
-					side_padding = 0, -- Remove side padding
+					scrollbar = false,
+					-- col_offset = -3,
+					-- side_padding = 0,
+					winhighlight = "Normal:CmpNormal,NormalFloat:CmpNormal,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
+					border = "single",
 				}),
 				documentation = cmp.config.window.bordered({
-					border = { "╔", "═", "╗", "║", "╝", "═", "╚", "║" }, -- Thick border characters
-					winhighlight = "Normal:Pmenu,FloatBorder:PmenuBorder", -- Match completion window style
+					scrollbar = false,
+					border = "rounded",
+					winhighlight = "Normal:CmpNormal,NormalFloat:CmpNormal,FloatBorder:FloatBorder",
 				}),
 			}
 			-- Limit the max width of completion entries
