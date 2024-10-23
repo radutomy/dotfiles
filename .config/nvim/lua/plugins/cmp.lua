@@ -3,12 +3,13 @@ return {
 		"hrsh7th/nvim-cmp",
 		dependencies = {
 			"hrsh7th/cmp-emoji",
+			"onsails/lspkind-nvim", -- Add lspkind for icons
 		},
 		---@param opts cmp.ConfigSchema
 		opts = function(_, opts)
 			local cmp = require "cmp"
+			local lspkind = require "lspkind"
 			local context = require "cmp.config.context"
-
 			-- Set tab to select the first item in the autocomplete pop-up
 			opts.mapping = vim.tbl_extend("force", opts.mapping, {
 				["<Tab>"] = cmp.mapping(function(fallback)
@@ -24,7 +25,6 @@ return {
 					end
 				end, { "i", "s", "c" }),
 			})
-
 			-- Disable completion in comments and strings
 			opts.enabled = function()
 				if vim.api.nvim_get_mode().mode == "c" then
@@ -36,9 +36,69 @@ return {
 					return not in_comment and not in_string
 				end
 			end
+			-- Modify lspkind to show icons only, placed to the left of the completion text
+			opts.formatting = {
+				fields = { "kind", "abbr" }, -- Display "kind" (icon) first
+				format = function(entry, vim_item)
+					-- Use lspkind for the icons
+					vim_item.kind = lspkind.symbolic(vim_item.kind, { mode = "symbol" })
+					-- Remove the tilde or any extra characters
+					vim_item.abbr = vim_item.abbr:gsub("~", "") -- Remove tilde
+					vim_item.menu = nil -- Remove extra menu items
+					return vim_item
+				end,
+			}
+			-- Sort fields, properties, functions, and methods first
+			opts.sorting = {
+				priority_weight = 2,
+				comparators = {
+					-- Prioritize fields, properties, functions, and methods
+					function(entry1, entry2)
+						local kind1 = entry1:get_kind()
+						local kind2 = entry2:get_kind()
+						-- Priority: Field > Property > Function > Method
+						local priority = {
+							[cmp.lsp.CompletionItemKind.Field] = 1,
+							[cmp.lsp.CompletionItemKind.Property] = 2,
+							[cmp.lsp.CompletionItemKind.Function] = 3,
+							[cmp.lsp.CompletionItemKind.Method] = 4,
+						}
+						-- Compare priorities if both are in the priority list
+						if priority[kind1] and priority[kind2] then
+							return priority[kind1] < priority[kind2]
+						elseif priority[kind1] then
+							return true -- Kind1 has priority
+						elseif priority[kind2] then
+							return false -- Kind2 has priority
+						end
+					end,
+					cmp.config.compare.offset,
+					cmp.config.compare.exact,
+					cmp.config.compare.score,
+					cmp.config.compare.recently_used,
+					cmp.config.compare.kind,
+					cmp.config.compare.sort_text,
+					cmp.config.compare.length,
+					cmp.config.compare.order,
+				},
+			}
+			-- Adjust the completion window size and layout with non-transparent background
+			opts.window = {
+				completion = cmp.config.window.bordered({
+					winhighlight = "Normal:Pmenu,FloatBorder:PmenuBorder,CursorLine:PmenuSel,Search:None",
+					col_offset = -3, -- Adjust the column offset to remove extra padding
+					side_padding = 0, -- Remove side padding
+				}),
+				documentation = cmp.config.window.bordered({
+					border = { "╔", "═", "╗", "║", "╝", "═", "╚", "║" }, -- Thick border characters
+					winhighlight = "Normal:Pmenu,FloatBorder:PmenuBorder", -- Match completion window style
+				}),
+			}
+			-- Limit the max width of completion entries
+			opts.formatting.maxwidth = 50 -- Max width of the completion text
+			opts.formatting.ellipsis_char = "..." -- Truncate long items with ellipsis
 		end,
 	},
-
 	-- LuaSnip is needed only if you're using snippets with nvim-cmp
 	{
 		"L3MON4D3/LuaSnip",
