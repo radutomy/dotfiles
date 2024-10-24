@@ -84,11 +84,12 @@ return {
 				},
 			}
 			-- Adjust the completion window size and layout with non-transparent background
-			-- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#1a1b26" })
-			-- vim.api.nvim_set_hl(0, "Pmenu", { bg = "#1a1b26", fg = "#c0caf5" })
-			-- vim.api.nvim_set_hl(0, "PmenuSel", { bg = "#283457", fg = "#c0caf5" })
-			-- vim.api.nvim_set_hl(0, "FloatBorder", { bg = "#1a1b26", fg = "#3b4261" })
-			-- vim.api.nvim_set_hl(0, "CmpNormal", { bg = "#1a1b26" })
+			vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#1a1b26" })
+			vim.api.nvim_set_hl(0, "Pmenu", { bg = "#1a1b26", fg = "#c0caf5" })
+			vim.api.nvim_set_hl(0, "PmenuSel", { bg = "#283457", fg = "#c0caf5" })
+			vim.api.nvim_set_hl(0, "FloatBorder", { bg = "#1a1b26", fg = "#3b4261" })
+			vim.api.nvim_set_hl(0, "CmpNormal", { bg = "#1a1b26" })
+			vim.api.nvim_set_hl(0, "FloatBorder", { fg = "#c0c0c0", bg = "#1a1b26" }) -- White border with dark background
 
 			-- Complete window override
 			opts.window = {
