@@ -90,37 +90,37 @@ return {
 				end,
 			}
 
-			-- Sort fields, properties, functions, and methods first
-			opts.sorting = {
-				priority_weight = 2,
-				comparators = {
-					function(entry1, entry2)
-						local kind1 = entry1:get_kind()
-						local kind2 = entry2:get_kind()
-						local priority = {
-							[cmp.lsp.CompletionItemKind.Field] = 1,
-							[cmp.lsp.CompletionItemKind.Property] = 2,
-							[cmp.lsp.CompletionItemKind.Function] = 3,
-							[cmp.lsp.CompletionItemKind.Method] = 4,
-						}
-						if priority[kind1] and priority[kind2] then
-							return priority[kind1] < priority[kind2]
-						elseif priority[kind1] then
-							return true
-						elseif priority[kind2] then
-							return false
-						end
-					end,
-					cmp.config.compare.offset,
-					cmp.config.compare.exact,
-					cmp.config.compare.score,
-					cmp.config.compare.recently_used,
-					cmp.config.compare.kind,
-					cmp.config.compare.sort_text,
-					cmp.config.compare.length,
-					cmp.config.compare.order,
-				},
-			}
+			-- -- Sort fields, properties, functions, and methods first
+			-- opts.sorting = {
+			-- 	priority_weight = 2,
+			-- 	comparators = {
+			-- 		function(entry1, entry2)
+			-- 			local kind1 = entry1:get_kind()
+			-- 			local kind2 = entry2:get_kind()
+			-- 			local priority = {
+			-- 				[cmp.lsp.CompletionItemKind.Field] = 1,
+			-- 				[cmp.lsp.CompletionItemKind.Property] = 2,
+			-- 				[cmp.lsp.CompletionItemKind.Function] = 3,
+			-- 				[cmp.lsp.CompletionItemKind.Method] = 4,
+			-- 			}
+			-- 			if priority[kind1] and priority[kind2] then
+			-- 				return priority[kind1] < priority[kind2]
+			-- 			elseif priority[kind1] then
+			-- 				return true
+			-- 			elseif priority[kind2] then
+			-- 				return false
+			-- 			end
+			-- 		end,
+			-- 		cmp.config.compare.offset,
+			-- 		cmp.config.compare.exact,
+			-- 		cmp.config.compare.score,
+			-- 		cmp.config.compare.recently_used,
+			-- 		cmp.config.compare.kind,
+			-- 		cmp.config.compare.sort_text,
+			-- 		cmp.config.compare.length,
+			-- 		cmp.config.compare.order,
+			-- 	},
+			-- }
 
 			-- Window styling
 			vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#1a1b26" })
