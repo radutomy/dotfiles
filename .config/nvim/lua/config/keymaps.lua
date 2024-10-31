@@ -69,3 +69,8 @@ vim.keymap.set("x", "<C-s>", "gc", { remap = true, silent = true, desc = "Commen
 vim.keymap.set("i", "<Esc>", "<Esc>`^", { noremap = true, silent = true })
 
 vim.keymap.set("n", "d0", "d^", { noremap = true, silent = true })
+
+-- Rust format
+vim.keymap.set("n", "<leader>F", function()
+	vim.cmd "silent !cargo clippy --fix --allow-dirty"
+end, { remap = false, silent = true, desc = "Clippy Format" })

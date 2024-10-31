@@ -1,6 +1,4 @@
 return {
-	-- Plugin: auto-save.nvim
-	-- Source: https://github.com/pocco81/auto-save.nvim
 	{
 		"Pocco81/auto-save.nvim",
 		config = function()
@@ -17,7 +15,6 @@ return {
 				condition = function(buf)
 					local fn = vim.fn
 					local utils = require "auto-save.utils.data"
-
 					if fn.getbufvar(buf, "&modifiable") == 1 and utils.not_in(fn.getbufvar(buf, "&filetype"), {}) then
 						return true
 					end
@@ -26,11 +23,16 @@ return {
 				write_all_buffers = false,
 				debounce_delay = 135,
 				callbacks = {
-					enabling = nil,
-					disabling = nil,
-					before_asserting_save = nil,
-					before_saving = nil,
-					after_saving = nil,
+					before_saving = function()
+						vim.schedule(function()
+							-- Any additional async operations can go here
+						end)
+					end,
+					after_saving = function()
+						vim.schedule(function()
+							-- Post-save async operations can go here
+						end)
+					end,
 				},
 			})
 		end,
