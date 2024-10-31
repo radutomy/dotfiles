@@ -23,14 +23,14 @@ vim.api.nvim_create_autocmd("UILeave", {
 	end,
 })
 
--- -- format (and save) the document for these events
--- vim.api.nvim_create_autocmd({ "TextYankPost", "InsertLeave" }, {
--- 	pattern = "*",
--- 	callback = function()
--- 		vim.schedule(function()
--- 			require("conform").format()
--- 			vim.cmd "write"
--- 		end)
--- 	end,
--- 	desc = "Format on yank and before save",
--- })
+-- format (and save) the document for these events
+vim.api.nvim_create_autocmd({ "TextYankPost", "InsertLeave" }, {
+	pattern = "*",
+	callback = function()
+		vim.schedule(function()
+			require("conform").format()
+			vim.cmd "write"
+		end)
+	end,
+	desc = "Format on yank and before save",
+})
