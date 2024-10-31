@@ -67,20 +67,24 @@ return {
 				end
 			end
 
-			-- Modified formatting to include colors
+			-- Modified formatting to include colors with nil check
 			opts.formatting = {
 				fields = { "kind", "abbr" },
 				format = function(entry, vim_item)
 					local kind = vim_item.kind
-					local color = kind_colors[kind] or "#FFFFFF"
+					if kind then -- Add nil check here
+						local color = kind_colors[kind] or "#FFFFFF"
+						-- Create highlight group for this kind
+						local hl_group = "CmpItemKind" .. kind
+						vim.api.nvim_set_hl(0, hl_group, { fg = color })
 
-					-- Create highlight group for this kind
-					local hl_group = "CmpItemKind" .. kind
-					vim.api.nvim_set_hl(0, hl_group, { fg = color })
-
-					-- Use lspkind for the icons with color
-					vim_item.kind = lspkind.symbolic(kind, { mode = "symbol" }) .. " "
-					vim_item.kind_hl_group = hl_group -- Apply the highlight group
+						-- Use lspkind for the icons with color
+						local symbol = lspkind.symbolic(kind, { mode = "symbol" })
+						vim_item.kind = (symbol and (symbol .. " ")) or (kind .. " ")
+						vim_item.kind_hl_group = hl_group -- Apply the highlight group
+					else
+						vim_item.kind = "Text " -- Default fallback
+					end
 
 					-- Remove the tilde and menu
 					vim_item.abbr = vim_item.abbr:gsub("~", "")
@@ -89,38 +93,6 @@ return {
 					return vim_item
 				end,
 			}
-
-			-- -- Sort fields, properties, functions, and methods first
-			-- opts.sorting = {
-			-- 	priority_weight = 2,
-			-- 	comparators = {
-			-- 		function(entry1, entry2)
-			-- 			local kind1 = entry1:get_kind()
-			-- 			local kind2 = entry2:get_kind()
-			-- 			local priority = {
-			-- 				[cmp.lsp.CompletionItemKind.Field] = 1,
-			-- 				[cmp.lsp.CompletionItemKind.Property] = 2,
-			-- 				[cmp.lsp.CompletionItemKind.Function] = 3,
-			-- 				[cmp.lsp.CompletionItemKind.Method] = 4,
-			-- 			}
-			-- 			if priority[kind1] and priority[kind2] then
-			-- 				return priority[kind1] < priority[kind2]
-			-- 			elseif priority[kind1] then
-			-- 				return true
-			-- 			elseif priority[kind2] then
-			-- 				return false
-			-- 			end
-			-- 		end,
-			-- 		cmp.config.compare.offset,
-			-- 		cmp.config.compare.exact,
-			-- 		cmp.config.compare.score,
-			-- 		cmp.config.compare.recently_used,
-			-- 		cmp.config.compare.kind,
-			-- 		cmp.config.compare.sort_text,
-			-- 		cmp.config.compare.length,
-			-- 		cmp.config.compare.order,
-			-- 	},
-			-- }
 
 			-- Window styling
 			vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#1a1b26" })
