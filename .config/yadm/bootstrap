@@ -10,6 +10,16 @@ update_yadm() {
 	yadm remote set-url origin git@github.com:radutomy/dotfiles.git
 }
 
+update_wsl_conf() {
+	sudo tee /etc/wsl.conf << 'EOF'
+[boot]
+systemd=true
+
+[interop]
+appendWindowsPath = false
+EOF
+}
+
 install_packages() {
 	apt remove vim* snap* -y
 	apt install wget curl yadm lsb-release libfuse2 bash-completion apt-transport-https \
@@ -88,6 +98,7 @@ cleanup() {
 
 update_system
 update_yadm
+update_wsl_conf
 install_packages
 configure_git
 repo_sgw
