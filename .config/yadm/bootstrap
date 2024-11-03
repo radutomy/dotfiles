@@ -11,7 +11,7 @@ update_yadm() {
 }
 
 update_wsl_conf() {
-	sudo tee /etc/wsl.conf << 'EOF'
+	tee /etc/wsl.conf << 'EOF'
 [boot]
 systemd=true
 
