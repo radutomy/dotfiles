@@ -22,7 +22,7 @@ EOF
 
 install_packages() {
 	apt remove vim* snap* -y
-	apt install wget curl yadm lsb-release libfuse2 bash-completion apt-transport-https \
+	apt install wget curl yadm lsb-release libfuse2 bash-completion apt-transport-https net-tools \
 	build-essential git git-delta expect sshpass unzip mosquitto mosquitto-clients \
 	dotnet-sdk-8.0 -y
 }
