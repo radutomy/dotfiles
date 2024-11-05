@@ -38,12 +38,11 @@ vim.api.nvim_create_autocmd({ "InsertLeave" }, {
 	desc = "Format on yank and before save",
 })
 
--- Force kill terminal when :qa
+-- -- Force kill terminal when :qa
 vim.api.nvim_create_autocmd("TermOpen", {
-	pattern = "*",
-	callback = function()
-		-- Apply '++kill=term' option to automatically kill terminal buffers on quit
-		vim.cmd "setlocal bufhidden=wipe"
-		vim.cmd "silent! term ++kill=term"
+	pattern = "term://*toggleterm#*",
+	callback = function(args)
+		vim.cmd "setlocal bufhidden=hide"
+		vim.b[args.buf].terminal_kill_on_exit = "term"
 	end,
 })
