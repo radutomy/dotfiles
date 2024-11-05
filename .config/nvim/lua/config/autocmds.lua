@@ -38,7 +38,7 @@ vim.api.nvim_create_autocmd({ "InsertLeave" }, {
 	desc = "Format on yank and before save",
 })
 
--- -- Force kill terminal when :qa
+-- Force kill terminal when :qa
 vim.api.nvim_create_autocmd("TermOpen", {
 	pattern = "term://*toggleterm#*",
 	callback = function(args)
