@@ -20,9 +20,15 @@ return {
 			start_in_insert = true,
 
 			-- Custom settings to disable mouse in terminal mode
-			on_open = function()
-				vim.cmd "startinsert" -- Ensure Insert mode on open
-				vim.opt_local.mouse = "" -- Disable mouse for terminal buffer
+			on_open = function(term)
+				vim.cmd "startinsert" -- Start in Insert mode
+				vim.opt.mouse = "" -- Disable mouse globally
+				vim.api.nvim_create_autocmd("BufLeave", { -- Re-enable mouse on leaving terminal buffer
+					buffer = term.bufnr,
+					callback = function()
+						vim.opt.mouse = "a" -- Set your preferred mouse setting here
+					end,
+				})
 			end,
 			on_focus = function()
 				vim.cmd "startinsert" -- Re-enter Insert mode on focus
