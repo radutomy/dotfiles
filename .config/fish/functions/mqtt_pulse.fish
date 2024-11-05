@@ -1,12 +1,12 @@
-function mqtt_status
+function mqtt_pulse
     if test (count $argv) -eq 0
-        echo "Usage: check_mqtt_status SERIAL_NUMBER1 [SERIAL_NUMBER2 ...]"
+        echo "Usage: mqtt_pulse SERIAL_NUMBER1 [SERIAL_NUMBER2 ...]"
         return 1
     end
 
     set topics
     for serial in $argv
-        set -a topics -t "ticketer/device/sgw/$serial/service/watcher"
+        set -a topics -t "ticketer/device/sgw/$serial/service/pulse"
     end
 
     mosquitto_sub -v $topics | while read -l line
