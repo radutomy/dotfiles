@@ -29,7 +29,7 @@ install_packages() {
 
 repo_sgw() {
 	cd ~ || exit
-	git clone --branch 1.18 tktr01@vs-ssh.visualstudio.com:v3/tktr01/TktrDev/device-main && cd device-main
+	git clone --branch 1.18.1 tktr01@vs-ssh.visualstudio.com:v3/tktr01/TktrDev/device-main && cd device-main
 	git config --local user.email "radu.tomuleasa@ticketer.co.uk"
 	cd ~
 
@@ -41,7 +41,7 @@ repo_sgw() {
 	git config --local user.email "radu.tomuleasa@ticketer.co.uk"
 	cd ~
 
-	git clone --branch main tktr01@vs-ssh.visualstudio.com:v3/tktr01/TktrDev/device-sgw-watcher && cd device-sgw-watcher
+	git clone --branch main tktr01@vs-ssh.visualstudio.com:v3/tktr01/TktrDev/device-sgw-flashr && cd device-sgw-flashr
 	git config --local user.email "radu.tomuleasa@ticketer.co.uk"
 	cd ~
 
