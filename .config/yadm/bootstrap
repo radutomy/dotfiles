@@ -109,7 +109,7 @@ update_yadm
 update_wsl_conf
 install_packages
 configure_git
-repo_sgw
+#repo_sgw
 install_rust
 install_helix
 install_neovim
