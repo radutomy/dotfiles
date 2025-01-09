@@ -29,3 +29,7 @@ set fzf_fd_opts --hidden --max-depth 5
 #bind \t 'commandline -f complete-and-search'
 #bind -M insert \t accept-autosuggestion
 #bind -M insert \t 'commandline -f complete-and-search'
+
+# WORK
+set -x CARGO_TARGET_AARCH64_UNKNOWN_LINUX_MUSL_LINKER aarch64-linux-gnu-gcc
+set -x CARGO_TARGET_AARCH64_UNKNOWN_LINUX_MUSL_AR aarch64-linux-gnu-gcc-ar
