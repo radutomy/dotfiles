@@ -23,7 +23,7 @@ EOF
 install_packages() {
 	apt remove vim* snap* -y
 	apt install wget curl yadm lsb-release libfuse2 bash-completion apt-transport-https net-tools \
-	build-essential git git-delta expect sshpass unzip mosquitto mosquitto-clients powershell \
+	build-essential git git-delta expect sshpass unzip mosquitto mosquitto-clients powershell expect \
 	dotnet-sdk-8.0 azureauth -y
 }
 
@@ -58,6 +58,7 @@ install_rust() {
 }
 
 install_msrust() {
+	expect -c 'spawn ./msrustup; expect "press ENTER"; send "\r"; expect "Select Auth Provider"; send "\r"; expect "Press ENTER to exit"; send "\r"; interact'
 	apt install libssl-dev libudev-dev pkg-config build-essential gdb clang jq -y
 	apt install -y gcc-aarch64-linux-gnu protobuf-compiler -y
 	$HOME/.cargo/bin/msrustup component add rust-analyzer
