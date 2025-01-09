@@ -25,6 +25,11 @@ install_packages() {
 	apt install wget curl yadm lsb-release libfuse2t64 bash-completion apt-transport-https net-tools \
 	build-essential git git-delta expect sshpass unzip mosquitto mosquitto-clients expect \
 	dotnet-sdk-8.0 -y
+
+	wget https://github.com/PowerShell/PowerShell/releases/download/v7.4.6/powershell_7.4.6-1.deb_amd64.deb
+	dpkg -i powershell_7.4.6-1.deb_amd64.deb
+	apt install -f
+	rm powershell_7.4.6-1.deb_amd64.deb
 }
 
 repo_sgw() {
@@ -57,20 +62,64 @@ install_rust() {
 	$HOME/.cargo/bin/rustup target add armv7-unknown-linux-musleabihf
 }
 
-install_msrust() {
-	wget https://github.com/PowerShell/PowerShell/releases/download/v7.4.6/powershell_7.4.6-1.deb_amd64.deb
-	dpkg -i powershell_7.4.6-1.deb_amd64.deb
-	apt install -f
-	rm powershell_7.4.6-1.deb_amd64.deb
+download_msrust() {
+    # Check required commands
+    command -v curl >/dev/null 2>&1 || {
+        echo >&2 "curl is required"
+        return 1
+    }
+    command -v jq >/dev/null 2>&1 || {
+        echo >&2 "jq is required"
+        return 1
+    }
+    command -v unzip >/dev/null 2>&1 || {
+        echo >&2 "unzip is required"
+        return 1
+    }
 
+    # Set up authentication
+    if [ -z "$MSRUSTUP_ACCESS_TOKEN" ] && [ -z "$MSRUSTUP_PAT" ]; then
+        if command -v azureauth.exe >/dev/null 2>&1; then
+            MSRUSTUP_ACCESS_TOKEN=$(azureauth.exe ado token)
+        else
+            echo "MSRUSTUP_ACCESS_TOKEN or MSRUSTUP_PAT must be set or azureauth.exe must be present."
+            return 1
+        fi
+    fi
+
+    local feed_url=${MSRUSTUP_FEED_URL:-'https://mscodehub.pkgs.visualstudio.com/Rust/_packaging/Rust%40Release/nuget/v3/index.json'}
+    local package="rust.msrustup-x86_64-unknown-linux-gnu"
+
+    # Function to perform curl with proper authentication
+    do_curl() {
+        if [ -n "$MSRUSTUP_ACCESS_TOKEN" ]; then
+            curl -sSfL -H "Authorization: Bearer $MSRUSTUP_ACCESS_TOKEN" --retry 5 "$@"
+        else
+            curl -sSfL -u ":$MSRUSTUP_PAT" --retry 5 "$@"
+        fi
+    }
+
+    # Get package details and download URL
+	local response=$(do_curl "$feed_url")
+	local base=$(echo "$response" | jq -r '.resources[] | select(."@type"=="PackageBaseAddress/3.0.0") | .["@id"]')
+	local version=$(do_curl "$base$package/index.json" | jq -r '.versions[0]')
+	local download_url="${base}${package}/$version/$package.$version.nupkg"
+	echo "Downloading msrustup $version"
+	do_curl "$download_url" -o msrustup.zip
+	unzip -jqo msrustup.zip tools/msrustup
+	chmod +x msrustup
+	rm -f msrustup.zip
+}
+
+install_msrust() {
 	expect -c 'spawn ./msrustup; expect "press ENTER"; send "\r"; expect "Select Auth Provider"; send "\r"; expect "Press ENTER to exit"; send "\r"; interact'
 	apt install libssl-dev libudev-dev pkg-config build-essential gdb clang jq -y
 	apt install -y gcc-aarch64-linux-gnu protobuf-compiler -y
-	$HOME/.cargo/bin/msrustup component add rust-analyzer
 	$HOME/.cargo/bin/msrustup target add --toolchain ms-stable aarch64-unknown-linux-musl
 
 	export CARGO_TARGET_AARCH64_UNKNOWN_LINUX_MUSL_LINKER=aarch64-linux-gnu-gcc
 	export CARGO_TARGET_AARCH64_UNKNOWN_LINUX_MUSL_AR=aarch64-linux-gnu-gcc-ar
+	rustup default ms-stable
 }
 
 install_helix() {
@@ -119,6 +168,7 @@ update_wsl_conf
 install_packages
 configure_git
 #repo_sgw
+download_msrust
 install_msrust
 install_helix
 install_neovim
