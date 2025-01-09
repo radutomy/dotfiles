@@ -23,8 +23,8 @@ EOF
 install_packages() {
 	apt remove vim* snap* -y
 	apt install wget curl yadm lsb-release libfuse2 bash-completion apt-transport-https net-tools \
-	build-essential git git-delta expect sshpass unzip mosquitto mosquitto-clients powershell expect \
-	dotnet-sdk-8.0 azureauth -y
+	build-essential git git-delta expect sshpass unzip mosquitto mosquitto-clients expect \
+	dotnet-sdk-8.0 -y
 }
 
 repo_sgw() {
@@ -58,6 +58,11 @@ install_rust() {
 }
 
 install_msrust() {
+	wget https://github.com/PowerShell/PowerShell/releases/download/v7.4.6/powershell_7.4.6-1.deb_amd64.deb
+	dpkg -i powershell_7.4.6-1.deb_amd64.deb
+	apt install -f
+	rm powershell_7.4.6-1.deb_amd64.deb
+
 	expect -c 'spawn ./msrustup; expect "press ENTER"; send "\r"; expect "Select Auth Provider"; send "\r"; expect "Press ENTER to exit"; send "\r"; interact'
 	apt install libssl-dev libudev-dev pkg-config build-essential gdb clang jq -y
 	apt install -y gcc-aarch64-linux-gnu protobuf-compiler -y
