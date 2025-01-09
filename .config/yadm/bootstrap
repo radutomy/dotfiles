@@ -23,8 +23,8 @@ EOF
 install_packages() {
 	apt remove vim* snap* -y
 	apt install wget curl yadm lsb-release libfuse2 bash-completion apt-transport-https net-tools \
-	build-essential git git-delta expect sshpass unzip mosquitto mosquitto-clients \
-	dotnet-sdk-8.0 -y
+	build-essential git git-delta expect sshpass unzip mosquitto mosquitto-clients powershell \
+	dotnet-sdk-8.0 azureauth -y
 }
 
 repo_sgw() {
@@ -50,18 +50,21 @@ repo_sgw() {
 	cd ~
 }
 
-#install_rust() {
-#  apt install libssl-dev libudev-dev pkg-config build-essential gdb clang rustup -y
-#  rustup default stable
-#  rustup component add rust-analyzer
-#  rustup target add armv7-unknown-linux-musleabihf
-#}
-
 install_rust() {
 	apt install libssl-dev libudev-dev pkg-config build-essential gdb clang -y
 	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path -y
 	$HOME/.cargo/bin/rustup component add rust-analyzer
 	$HOME/.cargo/bin/rustup target add armv7-unknown-linux-musleabihf
+}
+
+install_msrust() {
+	apt install libssl-dev libudev-dev pkg-config build-essential gdb clang jq -y
+	apt install -y gcc-aarch64-linux-gnu protobuf-compiler -y
+	$HOME/.cargo/bin/msrustup component add rust-analyzer
+	$HOME/.cargo/bin/msrustup target add --toolchain ms-stable aarch64-unknown-linux-musl
+
+	export CARGO_TARGET_AARCH64_UNKNOWN_LINUX_MUSL_LINKER=aarch64-linux-gnu-gcc
+	export CARGO_TARGET_AARCH64_UNKNOWN_LINUX_MUSL_AR=aarch64-linux-gnu-gcc-ar
 }
 
 install_helix() {
@@ -110,7 +113,7 @@ update_wsl_conf
 install_packages
 configure_git
 #repo_sgw
-install_rust
+install_msrust
 install_helix
 install_neovim
 install_docker
