@@ -22,7 +22,7 @@ EOF
 
 install_packages() {
 	apt remove vim* snap* -y
-	apt install wget curl yadm lsb-release libfuse2t64 bash-completion apt-transport-https net-tools \
+	apt install wget curl yadm lsb-release libfuse2t64 bash-completion apt-transport-https net-tools jq \
 	build-essential git git-delta expect sshpass unzip mosquitto mosquitto-clients expect \
 	dotnet-sdk-8.0 -y
 
@@ -113,7 +113,7 @@ download_msrust() {
 
 install_msrust() {
 	expect -c 'spawn ./msrustup; expect "press ENTER"; send "\r"; expect "Select Auth Provider"; send "\r"; expect "Press ENTER to exit"; send "\r"; interact'
-	apt install libssl-dev libudev-dev pkg-config build-essential gdb clang jq -y
+	apt install libssl-dev libudev-dev pkg-config build-essential gdb clang -y
 	apt install -y gcc-aarch64-linux-gnu protobuf-compiler -y
 	$HOME/.cargo/bin/msrustup target add --toolchain ms-stable aarch64-unknown-linux-musl
 
