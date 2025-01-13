@@ -34,7 +34,7 @@ install_packages() {
 
 repo_cr() {
 	cd ~ || exit
-	git clone --branc main https://msr-optics.visualstudio.com/ProjectSilica/_git/ConceptReader && cd ConceptReader
+	git clone --branch main https://msr-optics.visualstudio.com/ProjectSilica/_git/ConceptReader && cd ConceptReader
 	git config --local user.email "a-rtomuleasa@microsoft.com"
 	cd ~
 }
