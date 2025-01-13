@@ -116,7 +116,7 @@ install_msrust() {
 	apt install libssl-dev libudev-dev pkg-config build-essential gdb clang -y
 	apt install -y gcc-aarch64-linux-gnu protobuf-compiler -y
 	$HOME/.cargo/bin/msrustup target add --toolchain ms-stable aarch64-unknown-linux-musl
-	rm msrstup
+	rm msrustup
 
 	export CARGO_TARGET_AARCH64_UNKNOWN_LINUX_MUSL_LINKER=aarch64-linux-gnu-gcc
 	export CARGO_TARGET_AARCH64_UNKNOWN_LINUX_MUSL_AR=aarch64-linux-gnu-gcc-ar
