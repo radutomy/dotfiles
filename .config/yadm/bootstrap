@@ -32,26 +32,10 @@ install_packages() {
 	rm powershell_7.4.6-1.deb_amd64.deb
 }
 
-repo_sgw() {
+repo_cr() {
 	cd ~ || exit
-	git clone --branch 1.18.1 tktr01@vs-ssh.visualstudio.com:v3/tktr01/TktrDev/device-main && cd device-main
-	git config --local user.email "radu.tomuleasa@ticketer.co.uk"
-	cd ~
-
-	git clone --branch libsgw tktr01@vs-ssh.visualstudio.com:v3/tktr01/TktrDev/device-sgw && cd device-sgw
-	git config --local user.email "radu.tomuleasa@ticketer.co.uk"
-	cd ~
-
-	git clone --branch dev tktr01@vs-ssh.visualstudio.com:v3/tktr01/TktrDev/device-sgw-pulse && cd device-sgw-pulse
-	git config --local user.email "radu.tomuleasa@ticketer.co.uk"
-	cd ~
-
-	git clone --branch main tktr01@vs-ssh.visualstudio.com:v3/tktr01/TktrDev/device-sgw-flashr && cd device-sgw-flashr
-	git config --local user.email "radu.tomuleasa@ticketer.co.uk"
-	cd ~
-
-	git clone --branch dev tktr01@vs-ssh.visualstudio.com:v3/tktr01/TktrDev/device-sgw-vg1 && cd device-sgw-vg1
-	git config --local user.email "radu.tomuleasa@ticketer.co.uk"
+	git clone --branc main https://msr-optics.visualstudio.com/ProjectSilica/_git/ConceptReader && cd ConceptReader
+	git config --local user.email "a-rtomuleasa@microsoft.com"
 	cd ~
 }
 
@@ -166,6 +150,7 @@ update_system
 update_yadm
 update_wsl_conf
 install_packages
+repo_cr
 install_rust
 download_msrust
 install_msrust
