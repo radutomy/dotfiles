@@ -165,7 +165,6 @@ update_system
 update_yadm
 update_wsl_conf
 install_packages
-configure_git
 #repo_sgw
 download_msrust
 install_msrust
