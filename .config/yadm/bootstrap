@@ -116,7 +116,7 @@ install_neovim() {
 	apt install ripgrep npm python3-venv -y
 	curl -L https://github.com/neovim/neovim/releases/download/stable/nvim.appimage -o /bin/nvim
 	chmod +x /bin/nvim
-	nvim --headless "+Lazy! sync" +qa
+	#nvim --headless "+Lazy! sync" +qa
 	
 	# LazyGit
 	LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
