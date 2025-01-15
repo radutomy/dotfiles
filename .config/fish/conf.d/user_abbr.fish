@@ -3,6 +3,7 @@ abbr -a pi1 'ssh pi1'
 abbr -a pi2 'ssh pi2'
 abbr -a sb 'ssh sb'
 abbr -a nas 'ssh nas'
+abbr -a ter 'ssh ter'
 abbr -a sgw1 '~/.config/work/login-sgw.exp sgw1'
 abbr -a sgw2 '~/.config/work/login-sgw.exp sgw2'
 
@@ -28,6 +29,8 @@ abbr -a cat bat --style=plain
 abbr -a vim nvim
 
 bind \ce clear-screen
+
+abbr -a cb cargo build --target aarch64-unknown-linux-musl --release --workspace --manifest-path ~/ConceptReader/Cargo.toml
 
 #bind yy fish_clipboard_copy
 #bind Y fish_clipboard_copy
