@@ -42,14 +42,16 @@ end, { noremap = true, silent = true, desc = "Select all text" })
 -------------------------------------------------------------------------------
 
 function nav(vim_direction, wezterm_pane_direction, wezterm_tab_direction)
-	local wezterm_exe = "/mnt/c/gdrive/apps/wezterm/wezterm.exe"
+	-- local wezterm_exe = "/mnt/c/gdrive/apps/wezterm/wezterm.exe"
+	local wezterm_exe = "wezterm.exe"
 	if vim.fn.winnr(vim_direction) ~= vim.fn.winnr() then
 		vim.cmd("wincmd " .. vim_direction)
-	else
-		local pane_result = io.popen(wezterm_exe .. " cli activate-pane-direction " .. wezterm_pane_direction):read "*a"
-		if pane_result == "" and wezterm_tab_direction then
-			local _ = io.popen(wezterm_exe .. " cli activate-tab --tab-relative " .. wezterm_tab_direction):read "*a"
+	elseif wezterm_tab_direction then
+		if io.popen(wezterm_exe .. " cli activate-tab --tab-relative " .. wezterm_tab_direction):read "*a" == "" then
+			local _ = io.popen(wezterm_exe .. " cli activate-pane-direction " .. wezterm_pane_direction):read "*a"
 		end
+	else
+		local _ = io.popen(wezterm_exe .. " cli activate-pane-direction " .. wezterm_pane_direction):read "*a"
 	end
 end
 
@@ -60,7 +62,12 @@ vim.keymap.set("n", "<C-j>", "<Cmd>lua nav('j', 'Down', nil)<CR>", { noremap = t
 vim.keymap.set("n", "<C-k>", "<Cmd>lua nav('k', 'Up', nil)<CR>", { noremap = true, silent = true })
 
 -- Rename
-vim.keymap.set("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<CR>", { noremap = true, silent = true, desc = "Rename" })
+vim.keymap.set(
+	"n",
+	"<leader>r",
+	"<cmd>lua vim.lsp.buf.rename()<CR>",
+	{ noremap = true, silent = true, desc = "Rename" }
+)
 
 -- Toggle comment
 vim.keymap.set("n", "<C-s>", "gcc", { remap = true, silent = true, desc = "Comment line" })
