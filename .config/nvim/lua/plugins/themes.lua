@@ -18,7 +18,7 @@ return {
 							Constant = { fg = colors.white, bg = "NONE" }, -- this is a weird one
 							-- BlinkCmpMenu = { fg = "#FFFFFF" },
 							-- BlinkCmpDoc = { fg = "#FFFFFF" },
-							BlinkCmpMenuSelection = { fg = colors.grey, bg = "#61AFEF" },
+							BlinkCmpMenuSelection = { fg = colors.white, bg = "#264f78" },
 						}
 					end,
 					colors = {
