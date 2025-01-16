@@ -43,6 +43,7 @@ install_rust() {
 	apt install libssl-dev libudev-dev pkg-config build-essential gdb clang -y
 	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path -y
 	$HOME/.cargo/bin/rustup component add rust-analyzer
+	$HOME/.cargo/bin/rustup target add aarch64-unknown-linux-musl
 	#$HOME/.cargo/bin/rustup target add armv7-unknown-linux-musleabihf
 }
 
@@ -113,7 +114,7 @@ install_helix() {
 }
 
 install_neovim() {
-	apt install ripgrep npm python3-venv -y
+	apt install ripgrep npm python3-venv python-is-python3 -y
 	curl -L https://github.com/neovim/neovim/releases/download/stable/nvim.appimage -o /bin/nvim
 	chmod +x /bin/nvim
 	nvim --headless "+Lazy! sync" +qa
