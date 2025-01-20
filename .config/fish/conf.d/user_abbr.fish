@@ -30,7 +30,7 @@ abbr -a vim nvim
 
 bind \ce clear-screen
 
-abbr -a cb cargo build --target aarch64-unknown-linux-musl --release --workspace --manifest-path ~/ConceptReader/Cargo.toml
+abbr -a cb cargo build --target aarch64-unknown-linux-musl --workspace --manifest-path ~/ConceptReader/Cargo.toml
 
 #bind yy fish_clipboard_copy
 #bind Y fish_clipboard_copy
