@@ -76,10 +76,6 @@ wezterm.on("gui-startup", function(cmd)
     local tab_4, pane_4 = window_0:spawn_tab {}
     tab_4:set_title("pwsh")
     pane_4:send_text("powershell.exe\r")
-    wezterm.sleep_ms(50)  -- Longer delay for PowerShell to initialize
-    pane_4:send_text("cd /\r")
-    wezterm.sleep_ms(50)
-    pane_4:send_text("clear\r")
     -- Activate Panes
     pane_1:activate()
     pane_2:activate()
