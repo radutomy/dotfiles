@@ -1,10 +1,19 @@
 return {
 	{
 		"nvim-lualine/lualine.nvim",
+		dependencies = {
+			"f-person/git-blame.nvim", -- Add git-blame plugin as a dependency
+		},
 		opts = function(_, opts)
+			-- git-blame integration: https://github.com/f-person/git-blame.nvim?tab=readme-ov-file#statusline-integration
+			local git_blame = require "gitblame"
+			vim.g.gitblame_display_virtual_text = 0
+			vim.g.gitblame_date_format = "%r"
+			vim.g.gitblame_message_template = "  <author> • <date> • <summary>"
+
 			-- remove date and time from the far-right corner
 			opts.sections.lualine_z = {}
-			-- show only the filename
+
 			opts.sections.lualine_c = {
 				{
 					"filename",
@@ -17,6 +26,11 @@ return {
 						unnamed = "[No Name]",
 						newfile = "[New]",
 					},
+				},
+				{
+					git_blame.get_current_blame_text,
+					cond = git_blame.is_blame_text_available,
+					color = { fg = "#666666" }, -- Added grey color
 				},
 			}
 		end,
