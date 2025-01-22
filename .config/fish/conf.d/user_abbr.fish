@@ -30,7 +30,10 @@ abbr -a vim nvim
 
 bind \ce clear-screen
 
-abbr -a cb cargo build --target aarch64-unknown-linux-musl --workspace --manifest-path ~/ConceptReader/Cargo.toml
+#!/bin/bash
+
+abbr -a cb 'cargo build --target aarch64-unknown-linux-musl --workspace --manifest-path ~/ConceptReader/Cargo.toml'
+abbr -a ct 'cargo build --target aarch64-unknown-linux-musl --workspace --manifest-path ~/ConceptReader/Cargo.toml && scp ~/ConceptReader/target/aarch64-unknown-linux-musl/debug/reader terasic@10.0.0.2:/home/terasic/rt'
 
 #bind yy fish_clipboard_copy
 #bind Y fish_clipboard_copy
