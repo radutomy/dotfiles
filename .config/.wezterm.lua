@@ -60,21 +60,19 @@ wezterm.on("gui-startup", function(cmd)
     }
 	-- Create first tab with no panes
     tab_0:set_title("ide")
-    -- pane_0:split { direction = "Bottom", size = 0.5, cwd = cwd_wsl }
+	--pane_0:split { direction = "Bottom", size = 0.5, cwd = cwd_wsl }
     -- Create second tab with two panes
     local tab_1, pane_1 = window_0:spawn_tab { cwd = cwd_wsl }
     tab_1:set_title("main")
-    pane_1:split { direction = "Bottom", size = 0.05, cwd = cwd_wsl }
+    pane_1:split { direction = "Top", size = 0.95, cwd = cwd_wsl }
     -- Create third tab with two panes
     local tab_2, pane_2 = window_0:spawn_tab { cwd = cwd_wsl }
     tab_2:set_title("remote")
-    pane_2:split { direction = "Bottom", size = 0.5, cwd = cwd_wsl }
+    pane_2:split { direction = "Top", size = 0.5, cwd = cwd_wsl }
     ---- Create fourth tab with two panes
     -- local tab_3, pane_3 = window_0:spawn_tab { cwd = cwd_wsl }
     -- tab_3:set_title("aux")
-    -- pane_3:split { direction = "Bottom", size = 0.5, cwd = cwd_wsl }
-    -- Create fifth tab with PowerShell
-	
+    -- pane_3:split { direction = "Top", size = 0.5, cwd = cwd_wsl }
 	-- Create fourth tab with Powershell pane
     local tab_4, pane_4 = window_0:spawn_tab {}
     tab_4:set_title("pwsh")
