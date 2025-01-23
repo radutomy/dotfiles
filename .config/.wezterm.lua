@@ -76,7 +76,7 @@ wezterm.on("gui-startup", function(cmd)
 	-- Create fourth tab with Powershell pane
     local tab_4, pane_4 = window_0:spawn_tab {}
     tab_4:set_title("pwsh")
-    pane_4:send_text("powershell.exe\r")
+    pane_4:send_text("pwsh.exe\r")
     -- Set active pane
     pane_0:activate()
     window_0:gui_window():maximize()
