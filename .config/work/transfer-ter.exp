@@ -31,8 +31,9 @@ proc do_scp {host usr_pwd ter_pwd} {
    return [expr {[lindex [wait] 3] == 0}]
 }
 
-status_msg "Stopping reader" [do_ssh $host $usr_pwd $ter_pwd "pkill reader"]
+puts "Connecting to $host.."
+status_msg "Stopping reader service" [do_ssh $host $usr_pwd $ter_pwd "pkill reader"]
 sleep 1
-status_msg "Copying binary" [do_scp $host $usr_pwd $ter_pwd] 
+status_msg "Copying binary to remote" [do_scp $host $usr_pwd $ter_pwd] 
 sleep 1
-status_msg "Starting reader" [do_ssh $host $usr_pwd $ter_pwd "cd /home/terasic/rt && nohup ./reader -c silica-cr2.toml > /dev/null 2>&1 &"]
+status_msg "Starting reader service" [do_ssh $host $usr_pwd $ter_pwd "cd /home/terasic/rt && nohup ./reader -c silica-cr2.toml > /dev/null 2>&1 &"]
