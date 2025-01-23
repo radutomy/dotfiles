@@ -3,9 +3,6 @@ abbr -a pi1 'ssh pi1'
 abbr -a pi2 'ssh pi2'
 abbr -a sb 'ssh sb'
 abbr -a nas 'ssh nas'
-abbr -a ter 'ssh ter'
-abbr -a sgw1 '~/.config/work/login-sgw.exp sgw1'
-abbr -a sgw2 '~/.config/work/login-sgw.exp sgw2'
 
 # Directory navigation abbreviations
 abbr -a w 'cd $winhome/Downloads'
@@ -30,11 +27,19 @@ abbr -a vim nvim
 
 bind \ce clear-screen
 
-#!/bin/bash
+# --- WORK --- #
 
+set CR_PATH ~/ConceptReader
+set WORK_PATH ~/.config/work
+
+function build_reader
+    cargo build --target aarch64-unknown-linux-musl --workspace --manifest-path $CR_PATH/Cargo.toml
+end
+
+abbr -a ter 'ssh ter'
+abbr -a ter1 "$WORK_PATH/login-ter.exp ter1"
+abbr -a ter2 "$WORK_PATH/login-ter.exp ter2"
+abbr -a tter "build_reader && scp $CR_PATH/target/aarch64-unknown-linux-musl/debug/reader terasic@10.0.0.2:/home/terasic/rt"
+abbr -a tter1 "build_reader && $WORK_PATH/transfer-ter.exp ter1"
+abbr -a tter2 "build_reader && $WORK_PATH/transfer-ter.exp ter2"
 abbr -a cb 'cargo build --target aarch64-unknown-linux-musl --workspace --manifest-path ~/ConceptReader/Cargo.toml'
-abbr -a ct 'cargo build --target aarch64-unknown-linux-musl --workspace --manifest-path ~/ConceptReader/Cargo.toml && scp ~/ConceptReader/target/aarch64-unknown-linux-musl/debug/reader terasic@10.0.0.2:/home/terasic/rt'
-
-#bind yy fish_clipboard_copy
-#bind Y fish_clipboard_copy
-#bind p fish_clipboard_paste
