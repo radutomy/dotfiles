@@ -5,11 +5,24 @@ set DIR [file dirname [info script]]
 set usr_pwd [exec sh -c "grep 'USR_PWD=' $DIR/.env | cut -d'=' -f2"]
 set ter_pwd [exec sh -c "grep 'TER_PWD=' $DIR/.env | cut -d'=' -f2"]
 
-spawn scp /root/ConceptReader/target/aarch64-unknown-linux-musl/debug/reader $host:/home/terasic/rt
+proc do_ssh {host usr_pwd ter_pwd cmd} {
+   spawn ssh $host
+   expect "password: " {send "$usr_pwd\r"}
+   expect "password: " {send "$ter_pwd\r"}
+   expect "$ " {send "$cmd\r"}
+   expect "$ " {send "exit\r"}
+   expect eof
+}
 
-expect "*password: "
-send "$usr_pwd\r"
-expect "*password: "
-send "$ter_pwd\r"
+proc do_scp {host usr_pwd ter_pwd} {
+   spawn scp /root/ConceptReader/target/aarch64-unknown-linux-musl/debug/reader $host:/home/terasic/rt
+   expect "password: " {send "$usr_pwd\r"}
+   expect "password: " {send "$ter_pwd\r"}
+   expect eof
+}
 
-expect eof
+do_ssh $host $usr_pwd $ter_pwd "pkill reader"
+sleep 1
+do_scp $host $usr_pwd $ter_pwd
+sleep 1
+do_ssh $host $usr_pwd $ter_pwd "cd /home/terasic/rt && nohup ./reader -c silica-cr2.toml"
