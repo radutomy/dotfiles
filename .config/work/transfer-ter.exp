@@ -5,24 +5,34 @@ set DIR [file dirname [info script]]
 set usr_pwd [exec sh -c "grep 'USR_PWD=' $DIR/.env | cut -d'=' -f2"]
 set ter_pwd [exec sh -c "grep 'TER_PWD=' $DIR/.env | cut -d'=' -f2"]
 
+trap {exit 1} SIGINT
+
+proc status_msg {op result} {
+   puts "$op... [expr {$result ? "✓ Done" : "✗ Failed"}]"
+}
+
 proc do_ssh {host usr_pwd ter_pwd cmd} {
+   log_user 0
    spawn ssh $host
    expect "password: " {send "$usr_pwd\r"}
    expect "password: " {send "$ter_pwd\r"}
    expect "$ " {send "$cmd\r"}
    expect "$ " {send "exit\r"}
    expect eof
+   return [expr {[lindex [wait] 3] == 0}]
 }
 
 proc do_scp {host usr_pwd ter_pwd} {
+   log_user 0
    spawn scp /root/ConceptReader/target/aarch64-unknown-linux-musl/debug/reader $host:/home/terasic/rt
    expect "password: " {send "$usr_pwd\r"}
    expect "password: " {send "$ter_pwd\r"}
    expect eof
+   return [expr {[lindex [wait] 3] == 0}]
 }
 
-do_ssh $host $usr_pwd $ter_pwd "pkill reader"
+status_msg "Stopping reader" [do_ssh $host $usr_pwd $ter_pwd "pkill reader"]
 sleep 1
-do_scp $host $usr_pwd $ter_pwd
+status_msg "Copying binary" [do_scp $host $usr_pwd $ter_pwd] 
 sleep 1
-do_ssh $host $usr_pwd $ter_pwd "cd /home/terasic/rt && nohup ./reader -c silica-cr2.toml"
+status_msg "Starting reader" [do_ssh $host $usr_pwd $ter_pwd "cd /home/terasic/rt && nohup ./reader -c silica-cr2.toml > /dev/null 2>&1 &"]
