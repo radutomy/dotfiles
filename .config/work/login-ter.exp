@@ -1,26 +1,15 @@
 #!/usr/bin/expect -f
-
-# Set variables
-set timeout 5
+set timeout 2
 set host [lindex $argv 0]
-
-# Get the directory of the currently executing script
-set DIR  [file dirname [info script]]
-# create .env file with SGW_PWD=mypassword
+set DIR [file dirname [info script]]
 set usr_pwd [exec sh -c "grep 'USR_PWD=' $DIR/.env | cut -d'=' -f2"]
 set ter_pwd [exec sh -c "grep 'TER_PWD=' $DIR/.env | cut -d'=' -f2"]
 
-# Log in via SSH
-#spawn ssh $username@$hostname
+log_user 0
 spawn ssh $host
-
-# Wait for the prompt
-expect "*password: "
-send "$usr_pwd\r"
-
-expect "*password: "
-send "$ter_pwd\r"
-
-# Interactive mode
+expect "password: " {send "$usr_pwd\r"}
+expect "password: " {send "$ter_pwd\r"}
+expect "$ "
+send "clear\r"
+log_user 1
 interact
-
