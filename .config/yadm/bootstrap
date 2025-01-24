@@ -27,10 +27,10 @@ install_packages() {
 	build-essential git git-delta expect sshpass unzip mosquitto mosquitto-clients expect \
 	dotnet-sdk-8.0 -y
 
-	wget https://github.com/PowerShell/PowerShell/releases/download/v7.4.6/powershell_7.4.6-1.deb_amd64.deb
-	dpkg -i powershell_7.4.6-1.deb_amd64.deb
+	wget https://github.com/PowerShell/PowerShell/releases/download/v7.5.0/powershell_7.5.0-1.deb_amd64.deb
+	dpkg -i powershell_7.5.0-1.deb_amd64.deb
 	apt install -f
-	rm powershell_7.4.6-1.deb_amd64.deb
+	rm powershell_7.5.0-1.deb_amd64.deb
 }
 
 repo_cr() {
