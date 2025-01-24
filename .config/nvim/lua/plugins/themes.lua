@@ -9,7 +9,7 @@ return {
 				theme = {
 					overrides = function(colors)
 						return {
-							Comment = { fg = colors.grey, bg = "NONE", italic = true }, -- Grey color for comments
+							Comment = { fg = colors.green, bg = "NONE", italic = true }, -- Grey color for comments
 							-- CursorLineNr = { fg = "#FFC800", bg = "NONE", bold = true }, -- Bright yellow for the current line number
 							Keyword = { fg = colors.blue, bg = "NONE" }, -- Blue for keywords
 							String = { fg = colors.orange, bg = "NONE" }, -- Orange for strings
