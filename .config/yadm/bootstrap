@@ -42,11 +42,6 @@ repo_cr() {
 	cd ~
 }
 
-install_python {
-	cd ConceptReader
-	
-}
-
 install_rust() {
 	apt install libssl-dev libudev-dev pkg-config build-essential gdb clang -y
 	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path -y
