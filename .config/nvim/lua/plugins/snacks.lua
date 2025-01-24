@@ -1,6 +1,5 @@
 return {
 	"folke/snacks.nvim",
-	---@type snacks.Config
 	opts = {
 		picker = {
 			-- refer to the configuration section below
@@ -8,6 +7,11 @@ return {
 				file = {
 					filename_first = true,
 				},
+			},
+		},
+		terminal = {
+			win = {
+				position = "float",
 			},
 		},
 	},

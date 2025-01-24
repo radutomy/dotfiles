@@ -23,6 +23,13 @@ return {
 			on_open = function(term)
 				vim.cmd "startinsert" -- Start in Insert mode
 				vim.opt.mouse = "" -- Disable mouse globally
+				vim.api.nvim_buf_set_keymap(
+					term.bufnr,
+					"t",
+					"<Esc>",
+					[[<C-\><C-n>:silent! execute v:count1 . "ToggleTerm"<CR>]],
+					{ noremap = true, silent = true }
+				)
 				vim.api.nvim_create_autocmd("BufLeave", { -- Re-enable mouse on leaving terminal buffer
 					buffer = term.bufnr,
 					callback = function()
