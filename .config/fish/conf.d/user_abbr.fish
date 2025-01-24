@@ -26,6 +26,7 @@ abbr -a cat bat --style=plain
 abbr -a vim nvim
 
 bind \ce clear-screen
+abbr -a p python
 
 # --- WORK --- #
 
