@@ -25,7 +25,7 @@ install_packages() {
 	apt remove vim* snap* -y
 	apt install wget curl yadm lsb-release libfuse2t64 bash-completion apt-transport-https net-tools jq \
 	build-essential git git-delta expect sshpass unzip mosquitto mosquitto-clients expect \
-	dotnet-sdk-8.0 -y
+	python3-venv python-is-python3 dotnet-sdk-8.0 -y
 
 	wget https://github.com/PowerShell/PowerShell/releases/download/v7.5.0/powershell_7.5.0-1.deb_amd64.deb
 	dpkg -i powershell_7.5.0-1.deb_amd64.deb
@@ -118,7 +118,7 @@ install_helix() {
 }
 
 install_neovim() {
-	apt install ripgrep npm python3-venv python-is-python3 -y
+	apt install ripgrep npm -y
 	curl -L https://github.com/neovim/neovim/releases/download/stable/nvim.appimage -o /bin/nvim
 	chmod +x /bin/nvim
 	nvim --headless "+Lazy! sync" +qa
