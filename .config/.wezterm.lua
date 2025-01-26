@@ -6,6 +6,7 @@ local cwd_wsl = "/root"
 
 ------------- Configuration -------------
 
+config.prefer_egl=true	-- https://github.com/wez/wezterm/issues/1813
 config.disable_default_key_bindings = true
 config.leader = { key = " ", mods = "CTRL", timeout_milliseconds = 3000 }
 -- config.leader = { key = "F20", timeout_milliseconds = 3000 }
