@@ -4,7 +4,10 @@ update_system() {
 	apt update && apt upgrade -y
 	export GPG_TTY=$(tty)
 	tabs 4 # configure the number of tabs the OS displays
-	cp ~/.config/.wezterm.lua /mnt/c/Users/$(cmd.exe /c "echo %USERNAME%" 2>/dev/null | tr -d '\r') # update wezterm config on Windows
+	# update wezterm config on Windows
+	cp ~/.config/.wezterm.lua /mnt/c/Users/$(cmd.exe /c "echo %USERNAME%" 2>/dev/null | tr -d '\r')
+	# create symbolic link if path exists
+	if [ -d "/mnt/c/Users/a-rtomuleasa/OneDrive - Microsoft" ]; then ln -s "/mnt/c/Users/a-rtomuleasa/OneDrive - Microsoft" ~/one 2>/dev/null; fi
 }
 
 update_yadm() {
