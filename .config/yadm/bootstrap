@@ -23,7 +23,7 @@ options = "metadata,uid=0,gid=0,umask=022,fmask=144"
 systemd=true
 
 [interop]
-appendWindowsPath = false
+appendWindowsPath = true
 EOF
 }
 
