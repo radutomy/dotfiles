@@ -17,7 +17,7 @@ update_yadm() {
 update_wsl_conf() {
 	tee /etc/wsl.conf << 'EOF'
 [automount]
-options = "metadata,uid=0,gid=0,umask=022,fmask=133,dmask=022"
+options = "metadata,uid=0,gid=0,umask=022,fmask=144"
 
 [boot]
 systemd=true
