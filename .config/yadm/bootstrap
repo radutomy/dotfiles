@@ -126,7 +126,8 @@ install_helix() {
 
 install_neovim() {
 	apt install ripgrep npm -y
-	curl -L https://github.com/neovim/neovim/releases/download/stable/nvim.appimage -o /bin/nvim
+	#curl -L https://github.com/neovim/neovim/releases/download/stable/nvim.appimage -o /bin/nvim
+	curl -L	https://github.com/neovim/neovim/releases/download/stable/nvim-linux-x86_64.appimage -o /bin/nvim
 	chmod +x /bin/nvim
 	nvim --headless "+Lazy! sync" +qa
 	
