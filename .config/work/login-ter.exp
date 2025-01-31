@@ -1,5 +1,5 @@
 #!/usr/bin/expect -f
-set timeout 2
+set timeout 5
 set host [lindex $argv 0]
 set DIR [file dirname [info script]]
 set usr_pwd [exec sh -c "grep 'USR_PWD=' $DIR/.env | cut -d'=' -f2"]
