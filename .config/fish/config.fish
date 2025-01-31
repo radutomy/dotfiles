@@ -1,3 +1,5 @@
+functions -q auto_activate_venv; or source ~/.config/fish/functions/auto_activate_venv.fish
+
 ### Set PATH ###
 
 fish_add_path $HOME/.cargo/bin
