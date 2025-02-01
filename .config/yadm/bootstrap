@@ -160,17 +160,24 @@ cleanup() {
 	rm .motd_shown
 }
 
+
+
 update_system
 update_yadm
 update_wsl_conf
 install_packages
-repo_cr
 install_rust
-download_msrust
-install_msrust
+# Only execute these functions if somevar is NOT set
+if [ -z "${play+x}" ]; then
+    repo_cr
+    download_msrust
+    install_msrust
+fi
 install_helix
 install_neovim
 install_docker
 install_fish
 #install_az
 cleanup
+
+
