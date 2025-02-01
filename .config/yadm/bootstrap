@@ -167,12 +167,13 @@ update_yadm
 update_wsl_conf
 install_packages
 install_rust
-# Only execute these functions if somevar is NOT set
-if [ -z "${play+x}" ]; then
+
+if [ -z "${runtime+x}" ] || [ "$runtime" = "work" ]; then
     repo_cr
     download_msrust
     install_msrust
 fi
+
 install_helix
 install_neovim
 install_docker
