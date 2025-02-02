@@ -43,9 +43,8 @@ repo_cr() {
 	cd ~ || exit
 	git clone --branch main https://msr-optics.visualstudio.com/ProjectSilica/_git/ConceptReader && cd ConceptReader
 	git config --local user.email "a-rtomuleasa@microsoft.com"
-	python -m venv .venv
-	.venv/bin/pip install click grpcio grpcio-tools tqdm matplotlib pillow pandas numpy scipy \
-	scikit-image opencv-python tifffile
+	apt install python3-click python3-grpcio python3-matplotlib python3-pil python3-pandas \
+	python3-numpy python3-scipy python3-tifffile python3-tqdm
 	cd ~
 }
 
