@@ -186,6 +186,11 @@ install_az() {
 	curl -sL https://aka.ms/InstallAzureCLIDeb | bash
 }
 
+install_tauri() {
+	apt install file libwebkit2gtk-4.1-dev libxdo-dev libssl-dev libayatana-appindicator3-dev librsvg2-dev -y
+	cargo install tauri-cli --version '^2.0.0' --locked
+}
+
 cleanup() {
 	cd ~
 	rm .motd_shown
