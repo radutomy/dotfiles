@@ -31,7 +31,7 @@ install_packages() {
 	apt remove vim* snap* -y
 	apt install wget curl yadm lsb-release libfuse2t64 bash-completion apt-transport-https net-tools jq \
 	build-essential git git-delta expect sshpass unzip mosquitto mosquitto-clients expect \
-	python3-venv python-is-python3 dotnet-sdk-8.0 -y
+	python3-venv python-is-python3 python3-pip dotnet-sdk-8.0 -y
 
 	wget https://github.com/PowerShell/PowerShell/releases/download/v7.5.0/powershell_7.5.0-1.deb_amd64.deb
 	dpkg -i powershell_7.5.0-1.deb_amd64.deb
@@ -43,8 +43,8 @@ repo_cr() {
 	cd ~ || exit
 	git clone --branch main https://msr-optics.visualstudio.com/ProjectSilica/_git/ConceptReader && cd ConceptReader
 	git config --local user.email "a-rtomuleasa@microsoft.com"
-	apt install python3-click python3-grpcio python3-matplotlib python3-pil python3-pandas \
-	python3-numpy python3-scipy python3-tifffile python3-tqdm -y
+	#apt install python3-click python3-grpcio python3-matplotlib python3-pil python3-pandas python3-numpy python3-scipy python3-tifffile python3-tqdm -y
+	pip install --break-system-packages click grpcio matplotlib pillow pandas numpy scipy tifffile tqdm
 	cd ~
 }
 
