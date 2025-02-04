@@ -85,8 +85,10 @@ install_rust() {
 	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path -y
 	$HOME/.cargo/bin/rustup component add rust-analyzer
 	$HOME/.cargo/bin/rustup target add aarch64-unknown-linux-musl
+
+	$HOME/.cargo/bin/rustup target add wasm-unknown-unknown
 	$HOME/.cargo/bin/rustup target add x86_64-pc-windows-gnu
-	$HOME/.cargo/bin/rustup target add x86_64-pc-windows-msvc
+	#$HOME/.cargo/bin/rustup target add x86_64-pc-windows-msvc
 	#$HOME/.cargo/bin/rustup target add armv7-unknown-linux-musleabihf
 }
 
@@ -179,6 +181,10 @@ install_tauri() {
 	apt install file libwebkit2gtk-4.1-dev libxdo-dev libssl-dev libayatana-appindicator3-dev librsvg2-dev gcc-mingw-w64-x86-64-win32 nsis -y
 	$HOME/.cargo/bin/cargo install tauri-cli --version '^2.0.0' --locked
 	$HOME/.cargo/bin/cargo install cargo-xwin
+	
+	# dioxus
+	$HOME/.cargo/bin/cargo install trunk
+	$HOME/.cargo/bin/cargo install dioxus-cli
 }
 
 install_fish() {
