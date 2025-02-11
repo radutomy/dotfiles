@@ -220,8 +220,8 @@ fi
 
 install_helix
 install_neovim
-install_docker
+#install_docker
+#install_az
 #install_tauri
 install_fish
-#install_az
 cleanup
