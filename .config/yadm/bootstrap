@@ -102,6 +102,9 @@ install_rust() {
 }
 
 download_msrust() {
+    # TEMPORARY HACK 
+    export MSRUSTUP_FEED_URL="https://mscodehub.pkgs.visualstudio.com/Rust/_packaging/Rust/nuget/v3/index.json"
+
     # Check required commands
     command -v curl >/dev/null 2>&1 || {
         echo >&2 "curl is required"
