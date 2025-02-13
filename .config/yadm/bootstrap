@@ -220,7 +220,7 @@ update_yadm
 #update_wsl_conf
 install_packages
 #install_vscode_extensions
-install_rust
+#install_rust
 
 if [ -z "${runtime+x}" ] || [ "$runtime" = "work" ]; then
     repo_cr
@@ -228,10 +228,10 @@ if [ -z "${runtime+x}" ] || [ "$runtime" = "work" ]; then
     #install_msrust
 fi
 
-install_helix
-install_neovim
+#install_helix
+#install_neovim
 #install_docker
 #install_az
 #install_tauri
-install_fish
+#install_fish
 cleanup
