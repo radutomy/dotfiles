@@ -33,10 +33,10 @@ install_packages() {
 	build-essential git git-delta expect sshpass unzip mosquitto mosquitto-clients expect \
 	python3-venv python-is-python3 python3-pip dotnet-sdk-8.0 -y
 
-	wget https://github.com/PowerShell/PowerShell/releases/download/v7.5.0/powershell_7.5.0-1.deb_amd64.deb
-	dpkg -i powershell_7.5.0-1.deb_amd64.deb
-	apt install -f
-	rm powershell_7.5.0-1.deb_amd64.deb
+	#wget https://github.com/PowerShell/PowerShell/releases/download/v7.5.0/powershell_7.5.0-1.deb_amd64.deb
+	#dpkg -i powershell_7.5.0-1.deb_amd64.deb
+	#apt install -f
+	#rm powershell_7.5.0-1.deb_amd64.deb
 }
 
 install_vscode_extensions() {
@@ -219,13 +219,13 @@ update_system
 update_yadm
 #update_wsl_conf
 install_packages
-install_vscode_extensions
+#install_vscode_extensions
 install_rust
 
 if [ -z "${runtime+x}" ] || [ "$runtime" = "work" ]; then
     repo_cr
-    download_msrust
-    install_msrust
+    #download_msrust
+    #install_msrust
 fi
 
 install_helix
