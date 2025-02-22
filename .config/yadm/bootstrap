@@ -44,8 +44,6 @@ install_vscode_extensions() {
 		fill-labs.dependi
 		github.copilot
 		github.copilot-chat
-		kevin-kwong.vscode-autohide-keyboard
-		kvoon.command-task
 		mads-hartmann.bash-ide-vscode
 		mechatroner.rainbow-csv
 		mguellsegarra.highlight-on-copy
