@@ -193,8 +193,7 @@ install_dioxus() {
 	#$HOME/.cargo/bin/cargo install cargo-xwin
 	
 	# dioxus
-	apt install libwebkit2gtk-4.1-dev build-essential curl wget file libxdo-dev libssl-dev libayatana-appindicator3-dev librsvg2-dev
-	$HOME/.cargo/bin/cargo install trunk
+	apt install libwebkit2gtk-4.1-dev build-essential curl wget file libxdo-dev libssl-dev libayatana-appindicator3-dev librsvg2-dev -y
 	$HOME/.cargo/bin/cargo install dioxus-cli
 }
 
