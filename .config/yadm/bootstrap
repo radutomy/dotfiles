@@ -187,12 +187,13 @@ install_docker() {
 	apt install docker.io docker-buildx docker-compose-v2 -y
 }
 
-install_tauri() {
-	apt install file libwebkit2gtk-4.1-dev libxdo-dev libssl-dev libayatana-appindicator3-dev librsvg2-dev gcc-mingw-w64-x86-64-win32 nsis -y
-	$HOME/.cargo/bin/cargo install tauri-cli --version '^2.0.0' --locked
-	$HOME/.cargo/bin/cargo install cargo-xwin
+install_dioxus() {
+	#apt install file libwebkit2gtk-4.1-dev libxdo-dev libssl-dev libayatana-appindicator3-dev librsvg2-dev gcc-mingw-w64-x86-64-win32 nsis -y
+	#$HOME/.cargo/bin/cargo install tauri-cli --version '^2.0.0' --locked
+	#$HOME/.cargo/bin/cargo install cargo-xwin
 	
 	# dioxus
+	apt install libwebkit2gtk-4.1-dev build-essential curl wget file libxdo-dev libssl-dev libayatana-appindicator3-dev librsvg2-dev
 	$HOME/.cargo/bin/cargo install trunk
 	$HOME/.cargo/bin/cargo install dioxus-cli
 }
@@ -232,6 +233,6 @@ install_helix
 install_neovim
 install_docker
 #install_az
-#install_tauri
+install_dioxus
 install_fish
 cleanup
