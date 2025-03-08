@@ -24,6 +24,10 @@ systemd=true
 
 [interop]
 appendWindowsPath = true
+
+[user]
+default=root
+
 EOF
 }
 
