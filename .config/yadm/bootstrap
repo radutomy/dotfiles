@@ -107,6 +107,18 @@ install_rust() {
 	#$HOME/.cargo/bin/rustup target add armv7-unknown-linux-musleabihf
 }
 
+dl_msrust() {
+	(export MSRUSTUP_FEED_URL="https://mscodehub.pkgs.visualstudio.com/Rust/_packaging/Rust/nuget/v3/index.json"; \
+	[ -z "$MSRUSTUP_ACCESS_TOKEN" ] && [ -z "$MSRUSTUP_PAT" ] && command -v azureauth.exe >/dev/null 2>&1 && \
+	export MSRUSTUP_ACCESS_TOKEN=$(azureauth.exe ado token); \
+	function do_curl() { if [ -n "$MSRUSTUP_ACCESS_TOKEN" ]; then curl -sSfL -H "Authorization: Bearer $MSRUSTUP_ACCESS_TOKEN" --retry 5 "$@"; else curl -sSfL -u ":$MSRUSTUP_PAT" --retry 5 "$@"; fi; }; \
+	package="rust.msrustup-x86_64-unknown-linux-gnu"; \
+	response=$(do_curl "$MSRUSTUP_FEED_URL"); \
+	base=$(echo "$response" | jq -r '.resources[] | select(."@type"=="PackageBaseAddress/3.0.0") | .["@id"]'); \
+	version=$(do_curl "$base$package/index.json" | jq -r '.versions[0]'); \
+	do_curl "${base}${package}/$version/$package.$version.nupkg" -o msrustup.zip && unzip -jqo msrustup.zip tools/msrustup && chmod +x msrustup && rm -f msrustup.zip)
+}
+
 download_msrust() {
     # TEMPORARY HACK 
     export MSRUSTUP_FEED_URL="https://mscodehub.pkgs.visualstudio.com/Rust/_packaging/Rust/nuget/v3/index.json"
@@ -232,7 +244,7 @@ install_rust
 
 if [ -z "${runtime+x}" ] || [ "$runtime" = "work" ]; then
     repo_cr
-    download_msrust
+    dl_msrust
     install_msrust
 fi
 
