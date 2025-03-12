@@ -107,7 +107,7 @@ install_rust() {
 	#$HOME/.cargo/bin/rustup target add armv7-unknown-linux-musleabihf
 }
 
-dl_msrust() {
+download_msrust() {
 	(export MSRUSTUP_FEED_URL="https://mscodehub.pkgs.visualstudio.com/Rust/_packaging/Rust/nuget/v3/index.json"; \
 	[ -z "$MSRUSTUP_ACCESS_TOKEN" ] && [ -z "$MSRUSTUP_PAT" ] && command -v azureauth.exe >/dev/null 2>&1 && \
 	export MSRUSTUP_ACCESS_TOKEN=$(azureauth.exe ado token); \
@@ -117,58 +117,6 @@ dl_msrust() {
 	base=$(echo "$response" | jq -r '.resources[] | select(."@type"=="PackageBaseAddress/3.0.0") | .["@id"]'); \
 	version=$(do_curl "$base$package/index.json" | jq -r '.versions[0]'); \
 	do_curl "${base}${package}/$version/$package.$version.nupkg" -o msrustup.zip && unzip -jqo msrustup.zip tools/msrustup && chmod +x msrustup && rm -f msrustup.zip)
-}
-
-download_msrust() {
-    # TEMPORARY HACK 
-    export MSRUSTUP_FEED_URL="https://mscodehub.pkgs.visualstudio.com/Rust/_packaging/Rust/nuget/v3/index.json"
-
-    # Check required commands
-    command -v curl >/dev/null 2>&1 || {
-        echo >&2 "curl is required"
-        return 1
-    }
-    command -v jq >/dev/null 2>&1 || {
-        echo >&2 "jq is required"
-        return 1
-    }
-    command -v unzip >/dev/null 2>&1 || {
-        echo >&2 "unzip is required"
-        return 1
-    }
-
-    # Set up authentication
-    if [ -z "$MSRUSTUP_ACCESS_TOKEN" ] && [ -z "$MSRUSTUP_PAT" ]; then
-        if command -v azureauth.exe >/dev/null 2>&1; then
-            MSRUSTUP_ACCESS_TOKEN=$(azureauth.exe ado token)
-        else
-            echo "MSRUSTUP_ACCESS_TOKEN or MSRUSTUP_PAT must be set or azureauth.exe must be present."
-            return 1
-        fi
-    fi
-
-    local feed_url=${MSRUSTUP_FEED_URL:-'https://mscodehub.pkgs.visualstudio.com/Rust/_packaging/Rust%40Release/nuget/v3/index.json'}
-    local package="rust.msrustup-x86_64-unknown-linux-gnu"
-
-    # Function to perform curl with proper authentication
-    do_curl() {
-        if [ -n "$MSRUSTUP_ACCESS_TOKEN" ]; then
-            curl -sSfL -H "Authorization: Bearer $MSRUSTUP_ACCESS_TOKEN" --retry 5 "$@"
-        else
-            curl -sSfL -u ":$MSRUSTUP_PAT" --retry 5 "$@"
-        fi
-    }
-
-    # Get package details and download URL
-	local response=$(do_curl "$feed_url")
-	local base=$(echo "$response" | jq -r '.resources[] | select(."@type"=="PackageBaseAddress/3.0.0") | .["@id"]')
-	local version=$(do_curl "$base$package/index.json" | jq -r '.versions[0]')
-	local download_url="${base}${package}/$version/$package.$version.nupkg"
-	echo "Downloading msrustup $version"
-	do_curl "$download_url" -o msrustup.zip
-	unzip -jqo msrustup.zip tools/msrustup
-	chmod +x msrustup
-	rm -f msrustup.zip
 }
 
 install_msrust() {
@@ -244,7 +192,7 @@ install_rust
 
 if [ -z "${runtime+x}" ] || [ "$runtime" = "work" ]; then
     repo_cr
-    dl_msrust
+    download_msrust
     install_msrust
 fi
 
