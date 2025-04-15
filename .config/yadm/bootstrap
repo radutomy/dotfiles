@@ -15,7 +15,7 @@ update_yadm() {
 }
 
 update_wsl_conf() {
-	tee /etc/wsl.conf << 'EOF'
+	tee /etc/wsl.conf <<'EOF'
 [automount]
 options = "metadata,uid=0,gid=0,umask=022,fmask=144"
 
@@ -34,8 +34,8 @@ EOF
 install_packages() {
 	apt remove vim* snap* -y
 	apt install wget curl yadm lsb-release libfuse2t64 bash-completion apt-transport-https net-tools jq \
-	build-essential git git-delta expect sshpass unzip mosquitto mosquitto-clients expect \
-	python3-venv python-is-python3 python3-pip dotnet-sdk-8.0 -y
+		build-essential git git-delta expect sshpass unzip mosquitto mosquitto-clients expect \
+		python3-venv python-is-python3 python3-pip dotnet-sdk-8.0 -y
 
 	#wget https://github.com/PowerShell/PowerShell/releases/download/v7.5.0/powershell_7.5.0-1.deb_amd64.deb
 	#dpkg -i powershell_7.5.0-1.deb_amd64.deb && apt install -f
@@ -72,7 +72,7 @@ install_vscode_extensions() {
 		vadimcn.vscode-lldb
 		vscode-icons-team.vscode-icons
 		vscodevim.vim
-    )
+	)
 
 	for ext in "${extensions[@]}"; do
 		# Skip if the line starts with #
@@ -87,7 +87,7 @@ repo_cr() {
 	git clone --branch main https://msr-optics.visualstudio.com/ProjectSilica/_git/ConceptReader && cd ConceptReader
 	git config --local user.email "a-rtomuleasa@microsoft.com"
 
-	cd ~ && git clone --branch main git@github.com:a-rtomuleasa_microsoft/reader.git && cd reader
+	cd ~ && git clone --branch main git@github-work:a-rtomuleasa_microsoft/reader.git && cd reader
 	git config --local user.email "a-rtomuleasa@microsoft.com"
 
 	apt install python3-click python3-grpcio python3-matplotlib python3-pil python3-pandas python3-numpy python3-scipy python3-tifffile python3-tqdm -y
@@ -108,22 +108,24 @@ install_rust() {
 }
 
 download_msrust() {
-	(export MSRUSTUP_FEED_URL="https://mscodehub.pkgs.visualstudio.com/Rust/_packaging/Rust/nuget/v3/index.json"; \
-	[ -z "$MSRUSTUP_ACCESS_TOKEN" ] && [ -z "$MSRUSTUP_PAT" ] && command -v azureauth.exe >/dev/null 2>&1 && \
-	export MSRUSTUP_ACCESS_TOKEN=$(azureauth.exe ado token); \
-	function do_curl() { if [ -n "$MSRUSTUP_ACCESS_TOKEN" ]; then curl -sSfL -H "Authorization: Bearer $MSRUSTUP_ACCESS_TOKEN" --retry 5 "$@"; else curl -sSfL -u ":$MSRUSTUP_PAT" --retry 5 "$@"; fi; }; \
-	package="rust.msrustup-x86_64-unknown-linux-gnu"; \
-	response=$(do_curl "$MSRUSTUP_FEED_URL"); \
-	base=$(echo "$response" | jq -r '.resources[] | select(."@type"=="PackageBaseAddress/3.0.0") | .["@id"]'); \
-	version=$(do_curl "$base$package/index.json" | jq -r '.versions[0]'); \
-	do_curl "${base}${package}/$version/$package.$version.nupkg" -o msrustup.zip && unzip -jqo msrustup.zip tools/msrustup && chmod +x msrustup && rm -f msrustup.zip)
+	(
+		export MSRUSTUP_FEED_URL="https://mscodehub.pkgs.visualstudio.com/Rust/_packaging/Rust/nuget/v3/index.json"
+		[ -z "$MSRUSTUP_ACCESS_TOKEN" ] && [ -z "$MSRUSTUP_PAT" ] && command -v azureauth.exe >/dev/null 2>&1 &&
+			export MSRUSTUP_ACCESS_TOKEN=$(azureauth.exe ado token)
+		function do_curl() { if [ -n "$MSRUSTUP_ACCESS_TOKEN" ]; then curl -sSfL -H "Authorization: Bearer $MSRUSTUP_ACCESS_TOKEN" --retry 5 "$@"; else curl -sSfL -u ":$MSRUSTUP_PAT" --retry 5 "$@"; fi; }
+		package="rust.msrustup-x86_64-unknown-linux-gnu"
+		response=$(do_curl "$MSRUSTUP_FEED_URL")
+		base=$(echo "$response" | jq -r '.resources[] | select(."@type"=="PackageBaseAddress/3.0.0") | .["@id"]')
+		version=$(do_curl "$base$package/index.json" | jq -r '.versions[0]')
+		do_curl "${base}${package}/$version/$package.$version.nupkg" -o msrustup.zip && unzip -jqo msrustup.zip tools/msrustup && chmod +x msrustup && rm -f msrustup.zip
+	)
 }
 
 install_msrust() {
 	expect -c 'spawn ./msrustup; expect "press ENTER"; send "\r"; expect "Select Auth Provider"; send "\r"; expect "Press ENTER to exit"; send "\r"; interact'
 	rm msrustup
 	apt install libssl-dev libudev-dev pkg-config build-essential gdb clang \
-	gcc-aarch64-linux-gnu protobuf-compiler -y
+		gcc-aarch64-linux-gnu protobuf-compiler -y
 	$HOME/.cargo/bin/msrustup target add aarch64-unknown-linux-musl
 	#rustup default ms-stable
 
@@ -140,10 +142,10 @@ install_neovim() {
 	curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
 	apt install ripgrep nodejs -y
 	#apt install npm -y
-	curl -L	https://github.com/neovim/neovim/releases/download/stable/nvim-linux-x86_64.appimage -o /bin/nvim
+	curl -L https://github.com/neovim/neovim/releases/download/stable/nvim-linux-x86_64.appimage -o /bin/nvim
 	chmod +x /bin/nvim
 	nvim --headless "+Lazy! sync" +qa
-	
+
 	# LazyGit
 	LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
 	curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
@@ -160,7 +162,7 @@ install_dioxus() {
 	#apt install file libwebkit2gtk-4.1-dev libxdo-dev libssl-dev libayatana-appindicator3-dev librsvg2-dev gcc-mingw-w64-x86-64-win32 nsis -y
 	#$HOME/.cargo/bin/cargo install tauri-cli --version '^2.0.0' --locked
 	#$HOME/.cargo/bin/cargo install cargo-xwin
-	
+
 	# dioxus
 	apt install libwebkit2gtk-4.1-dev build-essential curl wget file libxdo-dev libssl-dev libayatana-appindicator3-dev librsvg2-dev -y
 	$HOME/.cargo/bin/cargo install dioxus-cli
@@ -183,7 +185,6 @@ cleanup() {
 	rm .motd_shown
 }
 
-
 update_system
 update_yadm
 update_wsl_conf
@@ -192,9 +193,9 @@ install_vscode_extensions
 install_rust
 
 if [ -z "${runtime+x}" ] || [ "$runtime" = "work" ]; then
-    repo_cr
-    download_msrust
-    install_msrust
+	repo_cr
+	download_msrust
+	install_msrust
 fi
 
 install_helix

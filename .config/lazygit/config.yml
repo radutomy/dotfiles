@@ -1,9 +1,0 @@
-gui:
-  sidePanelWidth: 0.2
-  showCommandLog: false
-  nerdFontsVersion: "3"
-  border: "single"
-
-git:
-  paging:
-    pager: delta --dark --paging=never
