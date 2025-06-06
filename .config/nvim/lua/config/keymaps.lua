@@ -1,7 +1,7 @@
 -- Keymaps are automatically loaded on the VeryLazy event
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 
--- Make i, a, A, and I all use "cc" on empty lines
+-- Fix indentation for i, a, A and I
 for _, key in ipairs({ "i", "a", "A", "I" }) do
 	vim.keymap.set("n", key, function()
 		return vim.fn.trim(vim.fn.getline ".") == "" and '"_cc' or key
@@ -64,6 +64,9 @@ vim.keymap.set(
 	{ noremap = true, silent = true, desc = "Rename" }
 )
 
+-- Remap : to ;
+vim.keymap.set("n", ";", ":", { noremap = true, silent = false })
+
 -- Toggle comment
 vim.keymap.set("n", "<C-s>", "gcc", { remap = true, silent = true, desc = "Comment line" })
 vim.keymap.set("x", "<C-s>", "gc", { remap = true, silent = true, desc = "Comment selection" })
@@ -71,19 +74,13 @@ vim.keymap.set("x", "<C-s>", "gc", { remap = true, silent = true, desc = "Commen
 -- Exits insert mode and returns the cursor to the same position it was before insert mode.
 vim.keymap.set("i", "<Esc>", "<Esc>`^", { noremap = true, silent = true })
 
-vim.keymap.set("n", "d0", "d^", { noremap = true, silent = true })
-
 -- Rust format
 -- vim.keymap.set("n", "<leader>F", function()
 -- vim.cmd "silent !cargo clippy --fix --allow-dirty"
 -- end, { remap = false, silent = true, desc = "Clippy Format" })
 
+-- Enter in normal mode inserts a new line below the current line
 vim.keymap.set("n", "<CR>", "o<ESC>", {
 	noremap = true,
 	desc = "󰌑 Insert line below",
-})
-
-vim.keymap.set("n", "<S-CR>", "O<ESC>", {
-	noremap = true,
-	desc = "󰌒 Insert line above",
 })
