@@ -1,6 +1,13 @@
 -- Keymaps are automatically loaded on the VeryLazy event
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 
+-- Make i, a, A, and I all use "cc" on empty lines
+for _, key in ipairs({ "i", "a", "A", "I" }) do
+	vim.keymap.set("n", key, function()
+		return vim.fn.trim(vim.fn.getline ".") == "" and '"_cc' or key
+	end, { expr = true })
+end
+
 -- In normal mode, Ctrl+V creates a new line, and pastes from the system clipboard
 vim.keymap.set("n", "<C-v>", function()
 	vim.cmd "normal! $o"
