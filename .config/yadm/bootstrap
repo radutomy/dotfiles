@@ -164,7 +164,7 @@ install_packages
 install_vscode_extensions
 install_rust
 
-if [ -z "${runtime+x}" ] || [ "$runtime" = "work" ]; then
+if [ "$runtime" = "work" ]; then
 	install_dioxus
 fi
 
