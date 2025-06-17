@@ -1,6 +1,6 @@
 return {
 	"saghen/blink.cmp",
-	version = "*",
+	version = "1.3.1",
 	signature = { enabled = true },
 	---@module 'blink.cmp'
 	---@type blink.cmp.Config
