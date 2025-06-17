@@ -6,8 +6,6 @@ update_system() {
 	tabs 4 # configure the number of tabs the OS displays
 	# update wezterm config on Windows
 	cp ~/.config/.wezterm.lua /mnt/c/Users/$(cmd.exe /c "echo %USERNAME%" 2>/dev/null | tr -d '\r')
-	# create symbolic link if path exists
-	if [ -d "/mnt/c/Users/a-rtomuleasa/OneDrive - Microsoft" ]; then ln -s "/mnt/c/Users/a-rtomuleasa/OneDrive - Microsoft" ~/one 2>/dev/null; fi
 }
 
 update_yadm() {
@@ -88,8 +86,6 @@ repo_cr() {
 	cd ~ && git clone --branch main git@github-work:a-rtomuleasa_microsoft/reader.git && cd reader
 	git config --local user.email "a-rtomuleasa@microsoft.com"
 
-	apt install python3-click python3-grpcio python3-matplotlib python3-pil python3-pandas python3-numpy python3-scipy python3-tifffile python3-tqdm -y
-	#pip install --break-system-packages click grpcio matplotlib pillow pandas numpy scipy tifffile tqdm
 	cd ~
 }
 
