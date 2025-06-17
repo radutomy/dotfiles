@@ -5,7 +5,7 @@ return {
 	---@module 'blink.cmp'
 	---@type blink.cmp.Config
 	opts = {
-		-- keymap = { preset = "super-tab" },
+		keymap = { preset = "super-tab" },
 		sources = {
 			default = { "lsp", "path" },
 			providers = {
