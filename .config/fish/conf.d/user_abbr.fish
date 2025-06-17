@@ -5,7 +5,7 @@ abbr -a sb 'ssh sb'
 abbr -a nas 'ssh nas'
 
 # Directory navigation abbreviations
-abbr -a w "cd /mnt/c/Users/a-rtomuleasa/Downloads"
+abbr -a w "cd /mnt/c/Users/radut/Downloads"
 abbr -a e "explorer.exe ."
 abbr -a g 'cd /mnt/c/gdrive'
 
