@@ -20,7 +20,7 @@ config.color_scheme = "Vs Code Dark+ (Gogh)"
 -- config.color_scheme = "Solarized Dark Higher Contrast"
 
 config.font = wezterm.font 'JetBrains Mono'
-config.font_size = 10.5
+config.font_size = 11
 config.warn_about_missing_glyphs = false
 config.window_background_opacity = 1
 config.tab_and_split_indices_are_zero_based = true
