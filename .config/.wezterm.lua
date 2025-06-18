@@ -95,7 +95,7 @@ end)
 
 -- if changing the mod_key, also change in: .config/nvim/lua/config/keymaps.lua
 local function switch_pane(dir_key, direction)
-	local mod_key = 'CTRL'
+	local mod_key = 'ALT'
 	return {
 		key = dir_key,
 		mods = mod_key,
