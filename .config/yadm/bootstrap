@@ -78,13 +78,13 @@ install_vscode_extensions() {
 	done
 }
 
-repo_cr() {
+repos() {
 	cd ~ || exit
-	git clone --branch main https://msr-optics.visualstudio.com/ProjectSilica/_git/ConceptReader && cd ConceptReader
-	git config --local user.email "a-rtomuleasa@microsoft.com"
+	git clone --branch main git@github.com:radutomy/rustlings.git && cd rustlings
+	#git config --local user.email "radu@rtom.cc"
 
-	cd ~ && git clone --branch main git@github-work:a-rtomuleasa_microsoft/reader.git && cd reader
-	git config --local user.email "a-rtomuleasa@microsoft.com"
+	cd ~ && git clone --branch main git@github.com:radutomy/rustlings.git && cd ants
+	#git config --local user.email "radu@rtom.cc"
 
 	cd ~
 }
@@ -156,6 +156,7 @@ update_yadm
 #update_wsl_conf
 install_packages
 install_vscode_extensions
+repos
 install_rust
 
 if [ "$runtime" = "work" ]; then
