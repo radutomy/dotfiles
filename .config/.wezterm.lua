@@ -101,7 +101,7 @@ local function switch_pane(dir_key, direction)
 		mods = mod_key,
 		action = wezterm.action_callback(function(window, pane)
 			local process_name = pane:get_foreground_process_name() or ""
-			if process_name:find('n?vim') or pane:get_title():find("n?vim") then
+			if pane:get_title():match("nvim") then
 				-- Send key with dynamically passed mods
 				window:perform_action(act.SendKey({ key = dir_key, mods = mod_key }), pane)
 			else
