@@ -81,10 +81,10 @@ install_vscode_extensions() {
 repos() {
 	cd ~ || exit
 	git clone --branch main git@github.com:radutomy/rustlings.git && cd rustlings
-	#git config --local user.email "radu@rtom.cc"
+	#git config --local user.email "radu@rtom.dev"
 
 	cd ~ && git clone --branch main git@github.com:radutomy/rustlings.git && cd ants
-	#git config --local user.email "radu@rtom.cc"
+	#git config --local user.email "radu@rtom.dev"
 
 	cd ~
 }
