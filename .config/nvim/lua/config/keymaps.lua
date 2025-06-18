@@ -2,8 +2,10 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 
 -- CTRL D/U moves up and down and centers
+
 vim.keymap.set("n", "<C-u>", "10k zz", { desc = "Move 5 lines up" })
 vim.keymap.set("n", "<C-d>", "10j zz", { desc = "Move 5 lines down" })
+vim.keymap.set("n", "<C-f>", "10j zz", { desc = "Move 5 lines down" })
 
 -- Fix indentation for i, a, A and I
 for _, key in ipairs({ "i", "a", "A", "I" }) do
