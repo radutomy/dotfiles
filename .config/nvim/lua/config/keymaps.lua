@@ -37,16 +37,31 @@ end, { noremap = true, silent = true, desc = "Select all text" })
 -------------------------------------------------------------------------------
 
 function nav(vim_direction, wezterm_pane_direction, wezterm_tab_direction)
-	-- local wezterm_exe = "/mnt/c/gdrive/apps/wezterm/wezterm.exe"
+	-- Try to move in vim first
+	local current_win = vim.fn.winnr()
+	vim.cmd("wincmd " .. vim_direction)
+
+	-- If we moved in vim, we're done
+	if vim.fn.winnr() ~= current_win then
+		return
+	end
+
+	-- Otherwise use wezterm (async)
 	local wezterm_exe = "wezterm.exe"
-	if vim.fn.winnr(vim_direction) ~= vim.fn.winnr() then
-		vim.cmd("wincmd " .. vim_direction)
-	elseif wezterm_tab_direction then
-		if io.popen(wezterm_exe .. " cli activate-tab --tab-relative " .. wezterm_tab_direction):read "*a" == "" then
-			local _ = io.popen(wezterm_exe .. " cli activate-pane-direction " .. wezterm_pane_direction):read "*a"
-		end
+
+	if wezterm_tab_direction then
+		-- Try tab switch first
+		vim.fn.jobstart({ wezterm_exe, "cli", "activate-tab", "--tab-relative", wezterm_tab_direction }, {
+			on_exit = function(_, exit_code)
+				if exit_code ~= 0 then
+					-- Tab switch failed, try pane
+					vim.fn.jobstart({ wezterm_exe, "cli", "activate-pane-direction", wezterm_pane_direction })
+				end
+			end,
+		})
 	else
-		local _ = io.popen(wezterm_exe .. " cli activate-pane-direction " .. wezterm_pane_direction):read "*a"
+		-- Just do pane navigation
+		vim.fn.jobstart({ wezterm_exe, "cli", "activate-pane-direction", wezterm_pane_direction })
 	end
 end
 
@@ -55,6 +70,8 @@ vim.keymap.set("n", "<C-h>", "<Cmd>lua nav('h', 'Left', '-1')<CR>", { noremap = 
 vim.keymap.set("n", "<C-l>", "<Cmd>lua nav('l', 'Right', '1')<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<C-j>", "<Cmd>lua nav('j', 'Down', nil)<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<C-k>", "<Cmd>lua nav('k', 'Up', nil)<CR>", { noremap = true, silent = true })
+
+-------------------------------------------------------------------------------
 
 -- Rename
 vim.keymap.set(
