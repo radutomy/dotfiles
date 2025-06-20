@@ -4,7 +4,7 @@ return {
 		version = "*",
 		opts = {
 			direction = "float",
-			open_mapping = [[<C-t>]],
+			open_mapping = [[<C-/>]],
 			float_opts = {
 				border = "curved",
 				width = function()
