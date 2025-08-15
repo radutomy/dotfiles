@@ -1,6 +1,10 @@
 -- Keymaps are automatically loaded on the VeryLazy event
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 
+-- j/k special handling to move to the first non-blank character of the line
+vim.keymap.set("n", "j", "j^", { noremap = true, silent = true })
+vim.keymap.set("n", "k", "k^", { noremap = true, silent = true })
+
 -- CTRL D/U moves up and down and centers
 vim.keymap.set("n", "<C-u>", "10k zz", { desc = "Move 5 lines up" })
 vim.keymap.set("n", "<C-d>", "10j zz", { desc = "Move 5 lines down" })
