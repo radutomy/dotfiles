@@ -2,7 +2,6 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 
 -- CTRL D/U moves up and down and centers
-
 vim.keymap.set("n", "<C-u>", "10k zz", { desc = "Move 5 lines up" })
 vim.keymap.set("n", "<C-d>", "10j zz", { desc = "Move 5 lines down" })
 vim.keymap.set("n", "<C-f>", "10j zz", { desc = "Move 5 lines down" })
@@ -27,12 +26,56 @@ vim.keymap.set({ "n", "x" }, "<C-c>", function()
 	vim.fn.setreg("+", vim.fn.getreg("+"):match "^%s*(.-)%s*$")
 end, { noremap = true, silent = true })
 
--- F2 - show function signature
-vim.keymap.set("n", "<F2>", vim.lsp.buf.signature_help, { noremap = true, silent = true })
+-- -- F2 - show function signature
+-- vim.keymap.set("n", "<F2>", vim.lsp.buf.signature_help, { noremap = true, silent = true })
+--
+-- -- F3 - show hover docs (what K does)
+-- vim.keymap.set("n", "<F3>", vim.lsp.buf.hover, { noremap = true, silent = true, desc = "LSP Hover" })
 
--- F4 - Jump to next diagnostic error
+-- F2 - Toggle context-aware documentation
+vim.keymap.set("n", "<F2>", function()
+	-- Close floating windows if any exist
+	for _, win in ipairs(vim.api.nvim_list_wins()) do
+		local ok, config = pcall(vim.api.nvim_win_get_config, win)
+		if ok and config.relative ~= "" then
+			vim.api.nvim_win_close(win, false)
+			return
+		end
+	end
+
+	-- Open appropriate documentation
+	local line = vim.api.nvim_get_current_line()
+	local col = vim.api.nvim_win_get_cursor(0)[2]
+	local before = line:sub(1, col + 1)
+	local parens = 0
+
+	for i = #before, 1, -1 do
+		local c = before:sub(i, i)
+		if c == ")" then
+			parens = parens - 1
+		elseif c == "(" then
+			parens = parens + 1
+		end
+		if parens > 0 then
+			return vim.lsp.buf.signature_help()
+		end
+	end
+	vim.lsp.buf.hover()
+end, { noremap = true, silent = true, desc = "Toggle LSP docs" })
+
+-- Close floating windows with Escape
+vim.keymap.set("n", "<Esc>", function()
+	for _, win in ipairs(vim.api.nvim_list_wins()) do
+		local config = vim.api.nvim_win_get_config(win)
+		if config.relative ~= "" then -- is floating window
+			vim.api.nvim_win_close(win, false)
+		end
+	end
+end, { noremap = true, silent = true, desc = "Close floating windows" })
+
+-- F4 - next ERROR (no deprecation)
 vim.keymap.set("n", "<F4>", function()
-	vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
+	vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR })
 end, { noremap = true, silent = true, desc = "Go to next error" })
 
 -- <C-A> select all text
@@ -97,13 +140,20 @@ vim.keymap.set("x", "<C-s>", "gc", { remap = true, silent = true, desc = "Commen
 -- Exits insert mode and returns the cursor to the same position it was before insert mode.
 vim.keymap.set("i", "<Esc>", "<Esc>`^", { noremap = true, silent = true })
 
--- Rust format
--- vim.keymap.set("n", "<leader>F", function()
--- vim.cmd "silent !cargo clippy --fix --allow-dirty"
--- end, { remap = false, silent = true, desc = "Clippy Format" })
+-- F3 - Rust Clippy fix
+vim.keymap.set("n", "<F3>", function()
+	vim.cmd "write"
+	vim.cmd "silent !cargo clippy --fix --allow-dirty --allow-staged 2>/dev/null"
+	vim.cmd "edit"
+	-- Delay needed for LSP to recognize external changes
+	vim.defer_fn(function()
+		vim.cmd "write"
+	end, 500)
+	print "Clippy fix applied"
+end, { noremap = true, silent = true, desc = "Clippy Fix" })
 
--- Enter in normal mode inserts a new line below the current line
-vim.keymap.set("n", "<CR>", "o<ESC>", {
+-- Enter in normal mode inserts a new line below with proper indentation
+vim.keymap.set("n", "<CR>", "ox<BS><ESC>", {
 	noremap = true,
 	desc = "󰌑 Insert line below",
 })
