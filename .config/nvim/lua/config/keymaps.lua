@@ -144,6 +144,12 @@ vim.keymap.set("n", "<M-l>", "<Cmd>lua nav('l', 'Right', '1')<CR>", { noremap = 
 vim.keymap.set("n", "<M-j>", "<Cmd>lua nav('j', 'Down', nil)<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<M-k>", "<Cmd>lua nav('k', 'Up', nil)<CR>", { noremap = true, silent = true })
 
+-- Insert mode mappings for ALT + <hjkl>
+vim.keymap.set("i", "<M-h>", "<C-\\><C-n><Cmd>lua nav('h', 'Left', '-1')<CR>", { noremap = true, silent = true })
+vim.keymap.set("i", "<M-l>", "<C-\\><C-n><Cmd>lua nav('l', 'Right', '1')<CR>", { noremap = true, silent = true })
+vim.keymap.set("i", "<M-j>", "<C-\\><C-n><Cmd>lua nav('j', 'Down', nil)<CR>", { noremap = true, silent = true })
+vim.keymap.set("i", "<M-k>", "<C-\\><C-n><Cmd>lua nav('k', 'Up', nil)<CR>", { noremap = true, silent = true })
+
 -------------------------------------------------------------------------------
 
 -- Rename
