@@ -32,7 +32,7 @@ end, { noremap = true, silent = true })
 -- -- F3 - show hover docs (what K does)
 -- vim.keymap.set("n", "<F3>", vim.lsp.buf.hover, { noremap = true, silent = true, desc = "LSP Hover" })
 
--- F2 - Toggle context-aware documentation
+-- F2 - Toggle context-aware documentation and function signature
 vim.keymap.set("n", "<F2>", function()
 	-- Close floating windows if any exist
 	for _, win in ipairs(vim.api.nvim_list_wins()) do
@@ -73,7 +73,7 @@ vim.keymap.set("n", "<Esc>", function()
 	end
 end, { noremap = true, silent = true, desc = "Close floating windows" })
 
--- F4 - next ERROR (no deprecation)
+-- F4 - next ERROR
 vim.keymap.set("n", "<F4>", function()
 	vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR })
 end, { noremap = true, silent = true, desc = "Go to next error" })
