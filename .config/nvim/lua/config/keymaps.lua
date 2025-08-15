@@ -5,6 +5,26 @@
 vim.keymap.set("n", "j", "j^", { noremap = true, silent = true })
 vim.keymap.set("n", "k", "k^", { noremap = true, silent = true })
 
+-- vim.keymap.set("n", "j", function()
+-- 	vim.cmd "normal! j"
+-- 	local col = vim.fn.col "."
+-- 	local line = vim.fn.getline "."
+-- 	local first_non_blank = vim.fn.match(line, "\\S") + 1
+-- 	if first_non_blank > 0 and col < first_non_blank then
+-- 		vim.fn.cursor(vim.fn.line ".", first_non_blank)
+-- 	end
+-- end, { noremap = true, silent = true })
+--
+-- vim.keymap.set("n", "k", function()
+-- 	vim.cmd "normal! k"
+-- 	local col = vim.fn.col "."
+-- 	local line = vim.fn.getline "."
+-- 	local first_non_blank = vim.fn.match(line, "\\S") + 1
+-- 	if first_non_blank > 0 and col < first_non_blank then
+-- 		vim.fn.cursor(vim.fn.line ".", first_non_blank)
+-- 	end
+-- end, { noremap = true, silent = true })
+
 -- CTRL D/U moves up and down and centers
 vim.keymap.set("n", "<C-u>", "10k zz", { desc = "Move 5 lines up" })
 vim.keymap.set("n", "<C-d>", "10j zz", { desc = "Move 5 lines down" })
