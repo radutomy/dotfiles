@@ -56,8 +56,8 @@ end, { noremap = true, silent = true })
 -- -- F3 - show hover docs (what K does)
 -- vim.keymap.set("n", "<F3>", vim.lsp.buf.hover, { noremap = true, silent = true, desc = "LSP Hover" })
 
--- F2 - Toggle context-aware documentation and function signature
-vim.keymap.set("n", "<F2>", function()
+-- F3 - Toggle context-aware documentation and function signature
+vim.keymap.set("n", "<F3>", function()
 	-- Close floating windows if any exist
 	for _, win in ipairs(vim.api.nvim_list_wins()) do
 		local ok, config = pcall(vim.api.nvim_win_get_config, win)
@@ -170,8 +170,8 @@ vim.keymap.set("x", "<C-s>", "gc", { remap = true, silent = true, desc = "Commen
 -- Exits insert mode and returns the cursor to the same position it was before insert mode.
 vim.keymap.set("i", "<Esc>", "<Esc>`^", { noremap = true, silent = true })
 
--- F3 - Rust Clippy fix
-vim.keymap.set("n", "<F3>", function()
+-- F1 - Rust Clippy fix
+vim.keymap.set("n", "<F1>", function()
 	vim.cmd "write"
 	vim.cmd "silent !cargo clippy --fix --allow-dirty --allow-staged 2>/dev/null"
 	vim.cmd "edit"
