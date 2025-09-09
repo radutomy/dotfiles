@@ -1,6 +1,7 @@
 [user]
 	name = Radu T
 	email = radu@rtom.dev
+	signingkey = /root/.ssh/id_ed25519
 [init]
 	defaultBranch = main
 
@@ -24,3 +25,9 @@
 
 [credential]
     helper = /mnt/c/Program\\ Files/Git/mingw64/bin/git-credential-manager.exe
+[gpg]
+	format = ssh
+[commit]
+	gpgsign = true
+[tag]
+	gpgsign = true
