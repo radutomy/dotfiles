@@ -87,15 +87,15 @@ vim.keymap.set("n", "<F3>", function()
 	vim.lsp.buf.hover()
 end, { noremap = true, silent = true, desc = "Toggle LSP docs" })
 
--- Close floating windows with Escape
-vim.keymap.set("n", "<Esc>", function()
-	for _, win in ipairs(vim.api.nvim_list_wins()) do
-		local config = vim.api.nvim_win_get_config(win)
-		if config.relative ~= "" then -- is floating window
-			vim.api.nvim_win_close(win, false)
-		end
-	end
-end, { noremap = true, silent = true, desc = "Close floating windows" })
+-- -- Close floating windows with Escape
+-- vim.keymap.set("n", "<Esc>", function()
+-- 	for _, win in ipairs(vim.api.nvim_list_wins()) do
+-- 		local config = vim.api.nvim_win_get_config(win)
+-- 		if config.relative ~= "" then -- is floating window
+-- 			vim.api.nvim_win_close(win, false)
+-- 		end
+-- 	end
+-- end, { noremap = true, silent = true, desc = "Close floating windows" })
 
 -- F4 - next ERROR
 vim.keymap.set("n", "<F4>", function()

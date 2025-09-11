@@ -2,11 +2,19 @@ return {
 	"folke/snacks.nvim",
 	opts = {
 		picker = {
-			-- refer to the configuration section below
 			formatters = {
 				file = {
 					filename_first = true,
-					truncate = 80,
+					truncate = 80, -- path is set to this many characters max
+				},
+			},
+			sources = {
+				explorer = {
+					auto_close = false, -- Prevent auto-closing when focusing other windows
+					jump = { close = false }, -- Don't close when jumping to files
+					layout = {
+						hidden = { "input" }, -- Hide the search bar
+					},
 				},
 			},
 		},
@@ -17,6 +25,14 @@ return {
 		},
 	},
 	keys = {
+		-- Add a key for the explorer
+		{
+			"<leader>e",
+			function()
+				Snacks.picker.explorer()
+			end,
+			desc = "File Explorer",
+		},
 		{
 			"<leader>fF",
 			function()
