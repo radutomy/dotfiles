@@ -1,6 +1,7 @@
 if status is-login
     # Set PATH (one time for the entire session)
     fish_add_path $HOME/.cargo/bin
+    fish_add_path $HOME/.local/bin
 end
 
 if status is-interactive
@@ -13,3 +14,5 @@ if status is-interactive
     # Custom key bindings for finding files
     bind \cg _fzf_grep_directory
 end
+
+zoxide init fish | source
