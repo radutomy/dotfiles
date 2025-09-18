@@ -32,7 +32,7 @@ EOF
 install_packages() {
 	apt remove vim* snap* -y
 	apt install wget curl yadm lsb-release libfuse2t64 bash-completion apt-transport-https net-tools jq tree \
-		build-essential mingw-w64 git git-delta expect sshpass unzip mosquitto mosquitto-clients expect zoxide \
+		build-essential mingw-w64 git git-delta expect sshpass unzip mosquitto mosquitto-clients expect zoxide just \
 		python3-venv python-is-python3 python3-pip dotnet-sdk-8.0 -y
 
 	#wget https://github.com/PowerShell/PowerShell/releases/download/v7.5.0/powershell_7.5.0-1.deb_amd64.deb
