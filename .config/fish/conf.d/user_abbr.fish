@@ -4,7 +4,7 @@ abbr -a pi2 'ssh pi2'
 abbr -a nas 'ssh nas'
 
 # Directory navigation abbreviations
-abbr -a w "cd /mnt/c/Users/radut/Downloads"
+abbr -a w "cd /mnt/c/Users/Radu/Downloads"
 abbr -a e "explorer.exe ."
 abbr -a g 'cd /mnt/c/gdrive'
 
