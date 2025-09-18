@@ -32,7 +32,7 @@ EOF
 install_packages() {
 	apt remove vim* snap* -y
 	apt install wget curl yadm lsb-release libfuse2t64 bash-completion apt-transport-https net-tools jq tree \
-		build-essential mingw-w64 git git-delta expect sshpass unzip expect zoxide just \
+		build-essential mingw-w64 git git-delta expect sshpass unzip expect just \
 		python3-venv python-is-python3 python3-pip dotnet-sdk-8.0 -y
 
 	#wget https://github.com/PowerShell/PowerShell/releases/download/v7.5.0/powershell_7.5.0-1.deb_amd64.deb
@@ -110,6 +110,8 @@ install_rust() {
 	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path -y
 	$HOME/.cargo/bin/rustup component add rust-analyzer
 
+	$HOME/.cargo/bin/cargo install cargo-binstall
+
 	$HOME/.cargo/bin/rustup target add aarch64-unknown-linux-musl
 	$HOME/.cargo/bin/rustup target add wasm32-unknown-unknown
 	$HOME/.cargo/bin/rustup target add x86_64-pc-windows-gnu
@@ -140,7 +142,9 @@ install_dioxus() {
 }
 
 install_fish() {
+	apt-add-repository ppa:fish-shell/release-4
 	apt install fish fzf fd-find bat lsd -y
+	$HOME/.cargo/bin/cargo binstall zoxide -y
 	# https://github.com/sharkdp/bat/issues/982
 	ln -s /usr/bin/batcat /usr/local/bin/bat
 	fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher update"
