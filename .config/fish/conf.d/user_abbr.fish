@@ -22,7 +22,7 @@ abbr -a vim nvim
 bind \ce clear-screen
 abbr -a c clear
 abbr -a p python
-abbr -a cd z
+#abbr -a cd z
 abbr -a gg lazygit
 
 # --- WORK --- #
