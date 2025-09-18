@@ -95,7 +95,7 @@ install_work() {
 	git config --global tag.gpgsign true
 	git config --global commit.gpgsign true
 
-	git clone --branch git@gitlab.protontech.ch:proton/clients/monorepo.git && cd monorepo
+	git clone --branch main git@gitlab.protontech.ch:proton/clients/monorepo.git && cd monorepo
 	git config --local user.email "radu.tomuleasa@external.proton.ch"
 
 	apt install gcc-multilib google-android-cmdline-tools-13.0-installer -y
