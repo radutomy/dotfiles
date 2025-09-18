@@ -98,7 +98,7 @@ install_work() {
 	git clone --branch git@gitlab.protontech.ch:proton/clients/monorepo.git && cd monorepo
 	git config --local user.email "radu.tomuleasa@external.proton.ch"
 
-	apt install gcc-multilib google-android-cmdline-tools-13.0-installer
+	apt install gcc-multilib google-android-cmdline-tools-13.0-installer -y
 	$HOME/.cargo/bin/rustup target add aarch64-apple-darwin
 	$HOME/.cargo/bin/cargo install --locked dprint
 
@@ -137,12 +137,6 @@ install_neovim() {
 
 install_docker() {
 	apt install docker.io docker-buildx docker-compose-v2 -y
-}
-
-install_work() {
-	apt install gcc-multilib
-	$HOME/.cargo/bin/rustup target add aarch64-apple-darwin
-	$HOME/.cargo/bin/cargo install --locked dprint
 }
 
 install_dioxus() {
