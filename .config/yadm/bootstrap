@@ -142,7 +142,7 @@ install_dioxus() {
 }
 
 install_fish() {
-	apt-add-repository ppa:fish-shell/release-4
+	apt-add-repository ppa:fish-shell/release-4 -y
 	apt install fish fzf fd-find bat lsd -y
 	$HOME/.cargo/bin/cargo binstall zoxide -y
 	# https://github.com/sharkdp/bat/issues/982
