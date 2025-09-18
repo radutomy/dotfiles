@@ -32,7 +32,7 @@ EOF
 install_packages() {
 	apt remove vim* snap* -y
 	apt install wget curl yadm lsb-release libfuse2t64 bash-completion apt-transport-https net-tools jq tree \
-		build-essential mingw-w64 git git-delta expect sshpass unzip mosquitto mosquitto-clients expect zoxide just \
+		build-essential mingw-w64 git git-delta expect sshpass unzip expect zoxide just \
 		python3-venv python-is-python3 python3-pip dotnet-sdk-8.0 -y
 
 	#wget https://github.com/PowerShell/PowerShell/releases/download/v7.5.0/powershell_7.5.0-1.deb_amd64.deb
@@ -81,10 +81,26 @@ install_vscode_extensions() {
 repos() {
 	cd ~ || exit
 	git clone --branch main git@github.com:radutomy/rustlings.git && cd rustlings
-	#git config --local user.email "radu@rtom.dev"
-
+	git config --local user.email "radu@rtom.dev"
 	cd ~ && git clone --branch main git@github.com:radutomy/rustlings.git && cd ants
-	#git config --local user.email "radu@rtom.dev"
+	git config --local user.email "radu@rtom.dev"
+	cd ~
+}
+
+install_work() {
+	cd ~ || exit
+
+	git config --global gpg.format ssh
+	git config --global user.signingkey ~/.ssh/id_ed25519
+	git config --global tag.gpgsign true
+	git config --global commit.gpgsign true
+
+	git clone --branch git@gitlab.protontech.ch:proton/clients/monorepo.git && cd monorepo
+	git config --local user.email "radu.tomuleasa@external.proton.ch"
+
+	apt install gcc-multilib google-android-cmdline-tools-13.0-installer
+	$HOME/.cargo/bin/rustup target add aarch64-apple-darwin
+	$HOME/.cargo/bin/cargo install --locked dprint
 
 	cd ~
 }
@@ -107,7 +123,6 @@ install_helix() {
 install_neovim() {
 	curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
 	apt install ripgrep nodejs -y
-	#apt install npm -y
 	curl -L https://github.com/neovim/neovim/releases/download/stable/nvim-linux-x86_64.appimage -o /bin/nvim
 	chmod +x /bin/nvim
 	nvim --headless "+Lazy! sync" +qa
@@ -122,6 +137,12 @@ install_neovim() {
 
 install_docker() {
 	apt install docker.io docker-buildx docker-compose-v2 -y
+}
+
+install_work() {
+	apt install gcc-multilib
+	$HOME/.cargo/bin/rustup target add aarch64-apple-darwin
+	$HOME/.cargo/bin/cargo install --locked dprint
 }
 
 install_dioxus() {
@@ -160,7 +181,7 @@ repos
 install_rust
 
 if [ "$runtime" = "work" ]; then
-	install_dioxus
+	install_work
 fi
 
 install_helix
