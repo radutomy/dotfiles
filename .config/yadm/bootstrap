@@ -144,9 +144,8 @@ install_dioxus() {
 install_fish() {
 	apt-add-repository ppa:fish-shell/release-4 -y
 	apt install fish fzf fd-find bat lsd -y
-	$HOME/.cargo/bin/cargo binstall zoxide -y
-	# https://github.com/sharkdp/bat/issues/982
-	ln -s /usr/bin/batcat /usr/local/bin/bat
+	curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh 		# Install zoxide
+	ln -s /usr/bin/batcat /usr/local/bin/bat			# https://github.com/sharkdp/bat/issues/982
 	fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher update"
 	chsh -s $(which fish)
 }
