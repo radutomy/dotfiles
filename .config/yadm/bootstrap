@@ -115,11 +115,6 @@ install_rust() {
 	$HOME/.cargo/bin/rustup target add x86_64-pc-windows-gnu
 }
 
-install_helix() {
-	add-apt-repository ppa:maveonair/helix-editor -y
-	apt install helix -y
-}
-
 install_neovim() {
 	curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
 	apt install ripgrep nodejs -y
@@ -140,11 +135,6 @@ install_docker() {
 }
 
 install_dioxus() {
-	#apt install file libwebkit2gtk-4.1-dev libxdo-dev libssl-dev libayatana-appindicator3-dev librsvg2-dev gcc-mingw-w64-x86-64-win32 nsis -y
-	#$HOME/.cargo/bin/cargo install tauri-cli --version '^2.0.0' --locked
-	#$HOME/.cargo/bin/cargo install cargo-xwin
-
-	# dioxus
 	apt install libwebkit2gtk-4.1-dev build-essential curl wget file libxdo-dev libssl-dev libayatana-appindicator3-dev librsvg2-dev -y
 	$HOME/.cargo/bin/cargo install dioxus-cli
 }
@@ -178,7 +168,6 @@ if [ "$runtime" = "work" ]; then
 	install_work
 fi
 
-install_helix
 install_neovim
 install_docker
 #install_az
