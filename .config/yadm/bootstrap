@@ -124,17 +124,11 @@ install_neovim() {
 	chmod +x /bin/nvim
 	nvim --headless "+Lazy! sync" +qa
 
-	install_lazy() {
-		local repo=$1 name=$2
-		local version=$(curl -s "https://api.github.com/repos/$repo/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
-		curl -Lo $name.tar.gz "https://github.com/$repo/releases/latest/download/${name}_${version}_Linux_x86_64.tar.gz"
-		tar xf $name.tar.gz $name
-		install $name /usr/local/bin
-		rm $name*
-	}
-
-	install_lazy jesseduffield/lazygit lazygit
-	install_lazy jorgerojas26/lazysql lazysql
+	# Install LazyGit (with version) and LazySQL (without version)
+	VER=$(curl -s https://api.github.com/repos/jesseduffield/lazygit/releases/latest|grep -Po '"tag_name": "v\K[^"]*')
+	curl -L "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${VER}_Linux_x86_64.tar.gz" | tar xz lazygit
+	curl -L "https://github.com/jorgerojas26/lazysql/releases/latest/download/lazysql_Linux_x86_64.tar.gz" | tar xz lazysql
+	install lazy{git,sql} /usr/local/bin && rm lazy{git,sql}
 }
 
 install_docker() {
