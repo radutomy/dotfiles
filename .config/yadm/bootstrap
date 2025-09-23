@@ -183,7 +183,7 @@ fi
 
 install_neovim
 install_docker
-install_gpt
+#install_gpt
 #install_az
 install_fish
 cleanup
