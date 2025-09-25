@@ -18,8 +18,14 @@ return {
 				explorer = {
 					auto_close = false, -- Prevent auto-closing when focusing other windows
 					jump = { close = false }, -- Don't close when jumping to files
+					follow_file = true, -- Automatically reveal current file in explorer
 					layout = {
 						hidden = { "input" }, -- Hide the search bar
+						layout = {
+							width = 0.20, -- 25% of screen width (dynamic)
+							-- min_width = 32,
+							position = "left",
+						},
 					},
 				},
 			},
