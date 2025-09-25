@@ -26,8 +26,14 @@
 -- end, { noremap = true, silent = true })
 
 -- CTRL D/U 10-line jumps
-vim.keymap.set("n", "<C-u>", function() vim.cmd("normal! 10kzz") end, { silent = true })
-vim.keymap.set("n", "<C-d>", function() vim.cmd("normal! 10jzz") end, { silent = true })
+local function scroll_and_center(dir)
+    vim.cmd("normal! 10" .. dir)
+    local l, ll, hw = vim.fn.line('.'), vim.fn.line('$'), vim.fn.winheight(0) / 2
+    if (dir == "k" and l > hw and l < ll - hw) or (dir == "j" and l + hw <= ll) then vim.cmd("normal! zz") end
+end
+
+vim.keymap.set("n", "<C-u>", function() scroll_and_center("k") end, { silent = true })
+vim.keymap.set("n", "<C-d>", function() scroll_and_center("j") end, { silent = true })
 vim.keymap.set("n", "<C-f>", "<C-f>zz", { desc = "Scroll down full page and center" })
 
 -- Fix indentation for i, a, A and I
