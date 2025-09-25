@@ -25,10 +25,10 @@
 -- 	end
 -- end, { noremap = true, silent = true })
 
--- CTRL D/U moves up and down and centers
-vim.keymap.set("n", "<C-u>", "10k zz", { desc = "Move 5 lines up" })
-vim.keymap.set("n", "<C-d>", "10j zz", { desc = "Move 5 lines down" })
-vim.keymap.set("n", "<C-f>", "10j zz", { desc = "Move 5 lines down" })
+-- CTRL D/U 10-line jumps
+vim.keymap.set("n", "<C-u>", function() vim.cmd("normal! 10kzz") end, { silent = true })
+vim.keymap.set("n", "<C-d>", function() vim.cmd("normal! 10jzz") end, { silent = true })
+vim.keymap.set("n", "<C-f>", "<C-f>zz", { desc = "Scroll down full page and center" })
 
 -- Fix indentation for i, a, A and I
 for _, key in ipairs({ "i", "a", "A", "I" }) do

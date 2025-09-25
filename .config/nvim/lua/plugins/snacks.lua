@@ -1,6 +1,12 @@
 return {
 	"folke/snacks.nvim",
 	opts = {
+		scroll = {
+			animate = {
+				duration = { step = 20, total = 120 },
+				easing = "linear",
+			},
+		},
 		picker = {
 			formatters = {
 				file = {
