@@ -19,6 +19,7 @@ return {
 					auto_close = false, -- Prevent auto-closing when focusing other windows
 					jump = { close = false }, -- Don't close when jumping to files
 					follow_file = true, -- Automatically reveal current file in explorer
+					hidden = true, -- Show hidden files by default
 					layout = {
 						hidden = { "input" }, -- Hide the search bar
 						layout = {
