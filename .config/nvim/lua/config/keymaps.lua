@@ -27,13 +27,19 @@
 
 -- CTRL D/U 10-line jumps
 local function scroll_and_center(dir)
-    vim.cmd("normal! 10" .. dir)
-    local l, ll, hw = vim.fn.line('.'), vim.fn.line('$'), vim.fn.winheight(0) / 2
-    if (dir == "k" and l > hw and l < ll - hw) or (dir == "j" and l + hw <= ll) then vim.cmd("normal! zz") end
+	vim.cmd("normal! 10" .. dir)
+	local l, ll, hw = vim.fn.line ".", vim.fn.line "$", vim.fn.winheight(0) / 2
+	if (dir == "k" and l > hw and l < ll - hw) or (dir == "j" and l + hw <= ll) then
+		vim.cmd "normal! zz"
+	end
 end
 
-vim.keymap.set("n", "<C-u>", function() scroll_and_center("k") end, { silent = true })
-vim.keymap.set("n", "<C-d>", function() scroll_and_center("j") end, { silent = true })
+vim.keymap.set("n", "<C-u>", function()
+	scroll_and_center "k"
+end, { silent = true })
+vim.keymap.set("n", "<C-d>", function()
+	scroll_and_center "j"
+end, { silent = true })
 vim.keymap.set("n", "<C-f>", "<C-f>zz", { desc = "Scroll down full page and center" })
 
 -- Fix indentation for i, a, A and I
@@ -62,18 +68,8 @@ end, { noremap = true, silent = true })
 -- -- F3 - show hover docs (what K does)
 -- vim.keymap.set("n", "<F3>", vim.lsp.buf.hover, { noremap = true, silent = true, desc = "LSP Hover" })
 
--- F3 - Toggle context-aware documentation and function signature
+-- F3 - Show signature help if inside function call, otherwise show hover docs
 vim.keymap.set("n", "<F3>", function()
-	-- Close floating windows if any exist
-	for _, win in ipairs(vim.api.nvim_list_wins()) do
-		local ok, config = pcall(vim.api.nvim_win_get_config, win)
-		if ok and config.relative ~= "" then
-			vim.api.nvim_win_close(win, false)
-			return
-		end
-	end
-
-	-- Open appropriate documentation
 	local line = vim.api.nvim_get_current_line()
 	local col = vim.api.nvim_win_get_cursor(0)[2]
 	local before = line:sub(1, col + 1)
@@ -85,23 +81,28 @@ vim.keymap.set("n", "<F3>", function()
 			parens = parens - 1
 		elseif c == "(" then
 			parens = parens + 1
-		end
-		if parens > 0 then
-			return vim.lsp.buf.signature_help()
+			if parens > 0 then
+				return vim.lsp.buf.signature_help()
+			end
 		end
 	end
 	vim.lsp.buf.hover()
-end, { noremap = true, silent = true, desc = "Toggle LSP docs" })
+end, { noremap = true, silent = true, desc = "LSP documentation" })
 
--- -- Close floating windows with Escape
--- vim.keymap.set("n", "<Esc>", function()
--- 	for _, win in ipairs(vim.api.nvim_list_wins()) do
--- 		local config = vim.api.nvim_win_get_config(win)
--- 		if config.relative ~= "" then -- is floating window
--- 			vim.api.nvim_win_close(win, false)
--- 		end
--- 	end
--- end, { noremap = true, silent = true, desc = "Close floating windows" })
+-- Close LSP floating windows with Escape (documentation/signature)
+vim.keymap.set("n", "<Esc>", function()
+	for _, win in ipairs(vim.api.nvim_list_wins()) do
+		local ok, config = pcall(vim.api.nvim_win_get_config, win)
+		if ok and config.relative ~= "" then -- Only floating windows
+			local buf = vim.api.nvim_win_get_buf(win)
+			local ft = vim.api.nvim_get_option_value("filetype", { buf = buf })
+			-- Exclude file explorers and pickers
+			if ft ~= "snacks_explorer" and ft ~= "snacks_picker_list" and ft ~= "neo-tree" and ft ~= "NvimTree" then
+				pcall(vim.api.nvim_win_close, win, false)
+			end
+		end
+	end
+end, { noremap = true, silent = true, desc = "Close LSP floating windows" })
 
 -- F4 - next ERROR
 vim.keymap.set("n", "<F4>", function()
