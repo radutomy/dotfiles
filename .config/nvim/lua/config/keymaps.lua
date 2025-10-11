@@ -189,6 +189,13 @@ vim.keymap.set("n", "<F1>", function()
 	print "Clippy fix applied"
 end, { noremap = true, silent = true, desc = "Clippy Fix" })
 
+-- F2 - Toggle inlay hints
+vim.keymap.set("n", "<F2>", function()
+	local enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = 0 })
+	vim.lsp.inlay_hint.enable(not enabled, { bufnr = 0 })
+	print("Inlay hints " .. (enabled and "disabled" or "enabled"))
+end, { noremap = true, silent = true, desc = "Toggle inlay hints" })
+
 -- Enter in normal mode inserts a new line below with proper indentation
 vim.keymap.set("n", "<CR>", "ox<BS><ESC>", {
 	noremap = true,
