@@ -1,0 +1,175 @@
+#!/bin/bash
+
+update_system() {
+	apt update && apt upgrade -y
+	export GPG_TTY=$(tty)
+	# update wezterm config on Windows
+	cp ~/.config/wezterm/wezterm.lua /mnt/c/Users/$(cmd.exe /c "echo %USERNAME%" 2>/dev/null | tr -d '\r')/.wezterm.lua
+}
+
+update_yadm() {
+	yadm remote set-url origin git@github.com:radutomy/dotfiles.git
+}
+
+update_wsl_conf() {
+	tee /etc/wsl.conf <<'EOF'
+[automount]
+options = "metadata,uid=0,gid=0,umask=022,fmask=144"
+
+[boot]
+systemd=true
+
+[interop]
+appendWindowsPath = true
+
+[user]
+default=root
+
+EOF
+}
+
+install_packages() {
+	apt remove vim* snap* -y
+	apt install wget curl yadm lsb-release libfuse2t64 bash-completion apt-transport-https net-tools jq tree \
+		build-essential mingw-w64 git git-delta expect sshpass unzip expect just \
+		python3-venv python-is-python3 python3-pip -y
+
+	#wget https://github.com/PowerShell/PowerShell/releases/download/v7.5.0/powershell_7.5.0-1.deb_amd64.deb
+	#dpkg -i powershell_7.5.0-1.deb_amd64.deb && apt install -f
+	#rm powershell_7.5.0-1.deb_amd64.deb
+}
+
+install_vscode_extensions() {
+	local extensions=(
+		fill-labs.dependi
+		github.copilot
+		github.copilot-chat
+		mads-hartmann.bash-ide-vscode
+		mechatroner.rainbow-csv
+		mguellsegarra.highlight-on-copy
+		mhutchie.git-graph
+		mk12.better-git-line-blame
+		ms-dotnettools.csdevkit
+		ms-dotnettools.csharp
+		ms-dotnettools.vscode-dotnet-runtime
+		ms-dotnettools.vscodeintellicode-csharp
+		ms-python.black-formatter
+		ms-python.debugpy
+		ms-python.python
+		ms-python.vscode-pylance
+		ms-vscode.hexeditor
+		ms-vscode.powershell
+		oderwat.indent-rainbow
+		rust-lang.rust-analyzer
+		ryuta46.multi-command
+		tamasfe.even-better-toml
+		usernamehw.errorlens
+		vadimcn.vscode-lldb
+		vscode-icons-team.vscode-icons
+		vscodevim.vim
+	)
+
+	for ext in "${extensions[@]}"; do
+		# Skip if the line starts with #
+		if [[ ! "$ext" == "#"* ]]; then
+			code --install-extension "$ext"
+		fi
+	done
+}
+
+repos() {
+	cd ~ || exit
+	git clone --branch main git@github.com:radutomy/rustlings.git && cd rustlings
+	git config --local user.email "radu@rtom.dev"
+	cd ~
+}
+
+install_work() {
+	cd ~ || exit
+
+	git config --global gpg.format ssh
+	git config --global user.signingkey ~/.ssh/id_ed25519
+	git config --global tag.gpgsign true
+	git config --global commit.gpgsign true
+
+	git clone --branch main git@gitlab.protontech.ch:proton/clients/monorepo.git && cd monorepo
+	git config --local user.email "radu.tomuleasa@external.proton.ch"
+
+	apt install gcc-multilib google-android-cmdline-tools-13.0-installer -y
+	$HOME/.cargo/bin/rustup target add aarch64-apple-darwin
+	$HOME/.cargo/bin/cargo install --locked dprint
+
+	cd ~
+}
+
+install_rust() {
+	apt install libssl-dev libudev-dev pkg-config build-essential gdb clang -y
+	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path -y
+	$HOME/.cargo/bin/rustup component add rust-analyzer
+
+	$HOME/.cargo/bin/cargo install cargo-binstall
+
+	$HOME/.cargo/bin/rustup target add aarch64-unknown-linux-musl
+	$HOME/.cargo/bin/rustup target add wasm32-unknown-unknown
+	$HOME/.cargo/bin/rustup target add x86_64-pc-windows-gnu
+}
+
+install_neovim() {
+	curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+	apt install ripgrep nodejs -y
+	curl -L https://github.com/neovim/neovim/releases/download/stable/nvim-linux-x86_64.appimage -o /bin/nvim
+	chmod +x /bin/nvim
+	nvim --headless "+Lazy! sync" +qa
+
+	# Install LazyGit (with version) and LazySQL (without version)
+	VER=$(curl -s https://api.github.com/repos/jesseduffield/lazygit/releases/latest|grep -Po '"tag_name": "v\K[^"]*')
+	curl -L "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${VER}_Linux_x86_64.tar.gz" | tar xz lazygit
+	curl -L "https://github.com/jorgerojas26/lazysql/releases/latest/download/lazysql_Linux_x86_64.tar.gz" | tar xz lazysql
+	install lazy{git,sql} /usr/local/bin && rm lazy{git,sql}
+}
+
+install_docker() {
+	apt install docker.io docker-buildx docker-compose-v2 -y
+}
+
+install_dioxus() {
+	apt install libwebkit2gtk-4.1-dev build-essential curl wget file libxdo-dev libssl-dev libayatana-appindicator3-dev librsvg2-dev -y
+	$HOME/.cargo/bin/cargo install dioxus-cli
+}
+
+install_fish() {
+	apt-add-repository ppa:fish-shell/release-4 -y
+	apt install fish fzf fd-find bat lsd -y
+	curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh 		# Install zoxide
+	ln -s /usr/bin/batcat /usr/local/bin/bat			# https://github.com/sharkdp/bat/issues/982
+	fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher update"
+	chsh -s $(which fish)
+}
+
+install_gpt() {
+	npm install -g @google/gemini-cli
+	npm install -g @anthropic-ai/claude-code
+}
+
+cleanup() {
+	cd ~
+	rm .motd_shown
+}
+
+update_system
+update_yadm
+#update_wsl_conf
+install_packages
+install_vscode_extensions
+repos
+install_rust
+
+if [ "$runtime" = "work" ]; then
+	install_work
+fi
+
+install_neovim
+install_docker
+install_gpt
+install_fish
+cleanup
