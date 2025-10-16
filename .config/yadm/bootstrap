@@ -11,23 +11,6 @@ update_yadm() {
 	yadm remote set-url origin git@github.com:radutomy/dotfiles.git
 }
 
-update_wsl_conf() {
-	tee /etc/wsl.conf <<'EOF'
-[automount]
-options = "metadata,uid=0,gid=0,umask=022,fmask=144"
-
-[boot]
-systemd=true
-
-[interop]
-appendWindowsPath = true
-
-[user]
-default=root
-
-EOF
-}
-
 install_packages() {
 	apt remove vim* snap* -y
 	apt install wget curl yadm lsb-release libfuse2t64 bash-completion apt-transport-https net-tools jq tree \
