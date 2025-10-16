@@ -6,7 +6,6 @@ local home = os.getenv("HOME")
 
 ------------- Configuration -------------
 
-config.prefer_egl=true	-- https://github.com/wez/wezterm/issues/1813
 config.disable_default_key_bindings = true
 config.leader = { key = " ", mods = "CTRL", timeout_milliseconds = 3000 }
 -- config.leader = { key = "F20", timeout_milliseconds = 3000 }
@@ -113,7 +112,7 @@ local function bind_copy_key(vim_key, mod_key)
 		action = wezterm.action_callback(function(window, pane)
 			local sel = window:get_selection_text_for_pane(pane)
 			window:perform_action(
-				sel and sel ~= '' and wezterm.action { CopyTo = 'ClipboardAndPrimarySelection' } or
+				sel and sel ~= '' and wezterm.action { CopyTo = 'Clipboard' } or
 				wezterm.action.SendKey { key = vim_key, mods = mod_key }, pane)
 		end)
 	}
@@ -125,6 +124,9 @@ config.keys = {
 	-- If text is selected, it copies the selection to clipboard. If no text is selected, it sends CTRL + C to the shell
 	bind_copy_key('c', "CTRL"),
 	{ key = "v", mods = "CTRL",   action = act.PasteFrom "Clipboard" },
+	-- macOS native copy/paste with CMD
+	{ key = "c", mods = "SUPER",  action = act.CopyTo "Clipboard" },
+	{ key = "v", mods = "SUPER",  action = act.PasteFrom "Clipboard" },
 	{ key = "p", mods = "LEADER", action = act.ActivateCommandPalette },
 	-- Pane Movement
 	switch_pane('h', 'Left'),
@@ -145,8 +147,11 @@ config.keys = {
 	{ key = "j",   mods = "CTRL|ALT",   action = act.AdjustPaneSize { "Down", 5 } },
 	{ key = "k",   mods = "CTRL|ALT",   action = act.AdjustPaneSize { "Up", 5 } },
 	{ key = "l",   mods = "CTRL|ALT",   action = act.AdjustPaneSize { "Right", 5 } },
+	-- Font size with both CTRL (terminal style) and CMD (macOS style)
 	{ key = '=',   mods = 'CTRL',       action = wezterm.action.IncreaseFontSize },
 	{ key = '-',   mods = 'CTRL',       action = wezterm.action.DecreaseFontSize },
+	{ key = '=',   mods = 'SUPER',      action = wezterm.action.IncreaseFontSize },
+	{ key = '-',   mods = 'SUPER',      action = wezterm.action.DecreaseFontSize },
 }
 
 ------------- Status Bar -------------
@@ -164,9 +169,9 @@ wezterm.on("update-right-status", function(window, pane)
 	end
 
 	local function replace_home_with_tilde(path)
-		local home = os.getenv("HOME")
-		if home and path:sub(1, #home) == home then
-			return "~" .. path:sub(#home + 1)
+		local home_env = os.getenv("HOME")
+		if home_env and path:sub(1, #home_env) == home_env then
+			return "~" .. path:sub(#home_env + 1)
 		end
 		return path
 	end
