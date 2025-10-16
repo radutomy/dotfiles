@@ -69,14 +69,19 @@ install_rust() {
 install_neovim() {
 	curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
 	apt install ripgrep nodejs -y
-	curl -L https://github.com/neovim/neovim/releases/download/stable/nvim-linux-x86_64.appimage -o /bin/nvim
+
+	# Detect architecture
+	ARCH=$(uname -m)
+	[ "$ARCH" = "aarch64" ] || [ "$ARCH" = "arm64" ] && ARCH="arm64" || ARCH="x86_64"
+
+	curl -L "https://github.com/neovim/neovim/releases/download/stable/nvim-linux-${ARCH}.appimage" -o /bin/nvim
 	chmod +x /bin/nvim
 	nvim --headless "+Lazy! sync" +qa
 
 	# Install LazyGit (with version) and LazySQL (without version)
 	VER=$(curl -s https://api.github.com/repos/jesseduffield/lazygit/releases/latest|grep -Po '"tag_name": "v\K[^"]*')
-	curl -L "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${VER}_Linux_x86_64.tar.gz" | tar xz lazygit
-	curl -L "https://github.com/jorgerojas26/lazysql/releases/latest/download/lazysql_Linux_x86_64.tar.gz" | tar xz lazysql
+	curl -L "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${VER}_Linux_${ARCH}.tar.gz" | tar xz lazygit
+	curl -L "https://github.com/jorgerojas26/lazysql/releases/latest/download/lazysql_Linux_${ARCH}.tar.gz" | tar xz lazysql
 	install lazy{git,sql} /usr/local/bin && rm lazy{git,sql}
 }
 
