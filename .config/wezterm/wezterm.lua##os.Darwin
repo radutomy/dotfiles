@@ -10,6 +10,8 @@ config.disable_default_key_bindings = true
 config.leader = { key = " ", mods = "CTRL", timeout_milliseconds = 3000 }
 
 config.audible_bell = "Disabled"
+-- Start Orb by default (similar to WSL on Linux)
+config.default_prog = { "/opt/orbstack/bin/orb", "-m", "-u", "root", "-l" }
 config.window_decorations = "RESIZE"
 config.color_scheme = "Vs Code Dark+ (Gogh)"
 -- config.color_scheme = "Monokai Pro (Gogh)"
