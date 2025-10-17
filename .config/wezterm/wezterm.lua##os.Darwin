@@ -126,6 +126,9 @@ config.keys = {
 	{ key = "c", mods = "SUPER",  action = act.CopyTo "Clipboard" },
 	{ key = "v", mods = "SUPER",  action = act.PasteFrom "Clipboard" },
 	{ key = "p", mods = "LEADER", action = act.ActivateCommandPalette },
+	-- Word jump with Ctrl+h/l
+	{ key = "h", mods = "CTRL",   action = act.SendKey { key = "LeftArrow", mods = "ALT" } },
+	{ key = "l", mods = "CTRL",   action = act.SendKey { key = "RightArrow", mods = "ALT" } },
 	-- Pane Movement
 	switch_pane('h', 'Left'),
 	switch_pane('l', 'Right'),
