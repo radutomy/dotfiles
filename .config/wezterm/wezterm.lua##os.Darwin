@@ -9,15 +9,11 @@ local home = "/root"
 config.disable_default_key_bindings = true
 config.leader = { key = " ", mods = "CTRL", timeout_milliseconds = 3000 }
 
-config.audible_bell = "Disabled"
--- Start Orb by default (similar to WSL on Linux)
 config.default_prog = { "orb", "-w", "/root" }
+
+config.audible_bell = "Disabled"
 config.window_decorations = "RESIZE"
 config.color_scheme = "Vs Code Dark+ (Gogh)"
--- config.color_scheme = "Monokai Pro (Gogh)"
--- config.color_scheme = "Monokai Remastered"
--- config.color_scheme = "Solarized Dark Higher Contrast"
-
 config.font = wezterm.font 'JetBrains Mono'
 config.font_size = 14
 config.warn_about_missing_glyphs = false
@@ -66,23 +62,27 @@ wezterm.on("gui-startup", function(cmd)
 	-- Create second tab with two panes
 	local tab_1, pane_1 = window_0:spawn_tab { cwd = home }
 	tab_1:set_title("main")
-	pane_1:split { direction = "Top", size = 0.95, cwd = home }
+	pane_1:split { direction = "Top", size = 0.5, cwd = home }
 
 	-- Create third tab with two panes
 	local tab_2, pane_2 = window_0:spawn_tab { cwd = home }
-	tab_2:set_title("remote")
+	tab_2:set_title("second")
 	pane_2:split { direction = "Top", size = 0.5, cwd = home }
+
+	-- Create third tab with two panes
+	local tab_3, pane_3 = window_0:spawn_tab { cwd = home }
+	tab_3:set_title("aux")
+	pane_3:split { direction = "Top", size = 0.5, cwd = home }
 
 	-- Set active pane
 	pane_0:activate()
 	window_0:gui_window():maximize()
 end)
 
-------------- Allow movement between VIM and Wezterm Panes -------------
 
 -- if changing the mod_key, also change in: .config/nvim/lua/config/keymaps.lua
 local function switch_pane(dir_key, direction)
-	local mod_key = 'SUPER'  -- Command key on macOS
+	local mod_key = 'CMD'
 	return {
 		key = dir_key,
 		mods = mod_key,
@@ -113,7 +113,7 @@ local function bind_copy_key(vim_key, mod_key)
 		action = wezterm.action_callback(function(window, pane)
 			local sel = window:get_selection_text_for_pane(pane)
 			window:perform_action(
-				sel and sel ~= '' and wezterm.action { CopyTo = 'Clipboard' } or
+				sel and sel ~= '' and wezterm.action { CopyTo = 'ClipboardAndPrimarySelection' } or
 				wezterm.action.SendKey { key = vim_key, mods = mod_key }, pane)
 		end)
 	}
@@ -122,13 +122,10 @@ end
 ------------- Keybindings -------------
 
 config.keys = {
-	-- macOS Command key copy/paste
-	{ key = "c", mods = "SUPER",  action = act.CopyTo "Clipboard" },
-	{ key = "v", mods = "SUPER",  action = act.PasteFrom "Clipboard" },
+	-- If text is selected, it copies the selection to clipboard. If no text is selected, it sends CTRL + C to the shell
+	bind_copy_key('c', "CMD"),
+	{ key = "v", mods = "CMD",   action = act.PasteFrom "Clipboard" },
 	{ key = "p", mods = "LEADER", action = act.ActivateCommandPalette },
-	-- Word jump with Ctrl+h/l
-	{ key = "h", mods = "CTRL",   action = act.SendKey { key = "LeftArrow", mods = "ALT" } },
-	{ key = "l", mods = "CTRL",   action = act.SendKey { key = "RightArrow", mods = "ALT" } },
 	-- Pane Movement
 	switch_pane('h', 'Left'),
 	switch_pane('l', 'Right'),
@@ -144,13 +141,12 @@ config.keys = {
 	{ key = "s",   mods = "LEADER",     action = act.SplitVertical { domain = "CurrentPaneDomain" } },
 	{ key = "r",   mods = "LEADER",     action = act.ResetTerminal  },
 	-- Pane resizing
-	{ key = "h",   mods = "SUPER|CTRL",   action = act.AdjustPaneSize { "Left", 5 } },
-	{ key = "j",   mods = "SUPER|CTRL",   action = act.AdjustPaneSize { "Down", 5 } },
-	{ key = "k",   mods = "SUPER|CTRL",   action = act.AdjustPaneSize { "Up", 5 } },
-	{ key = "l",   mods = "SUPER|CTRL",   action = act.AdjustPaneSize { "Right", 5 } },
-	-- Font size with Command +/-
-	{ key = '=',   mods = 'SUPER',      action = wezterm.action.IncreaseFontSize },
-	{ key = '-',   mods = 'SUPER',      action = wezterm.action.DecreaseFontSize },
+	{ key = "h",   mods = "CTRL|CMD",   action = act.AdjustPaneSize { "Left", 5 } },
+	{ key = "j",   mods = "CTRL|CMD",   action = act.AdjustPaneSize { "Down", 5 } },
+	{ key = "k",   mods = "CTRL|CMD",   action = act.AdjustPaneSize { "Up", 5 } },
+	{ key = "l",   mods = "CTRL|CMD",   action = act.AdjustPaneSize { "Right", 5 } },
+	{ key = '=',   mods = 'CTRL',       action = wezterm.action.IncreaseFontSize },
+	{ key = '-',   mods = 'CTRL',       action = wezterm.action.DecreaseFontSize },
 }
 
 ------------- Status Bar -------------
@@ -168,9 +164,9 @@ wezterm.on("update-right-status", function(window, pane)
 	end
 
 	local function replace_home_with_tilde(path)
-		local home_env = os.getenv("HOME")
-		if home_env and path:sub(1, #home_env) == home_env then
-			return "~" .. path:sub(#home_env + 1)
+		local home = os.getenv("HOME") or "/root" -- Fallback to "/root" if HOME is not set
+		if path:sub(1, #home) == home then
+			return "~" .. path:sub(#home + 1)
 		end
 		return path
 	end
