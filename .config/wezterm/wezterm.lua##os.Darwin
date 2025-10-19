@@ -7,6 +7,8 @@ local home = "/root"
 ------------- Configuration -------------
 
 config.disable_default_key_bindings = true
+--config.enable_kitty_keyboard = true
+--config.enable_csi_u_key_encoding = false
 config.leader = { key = " ", mods = "CTRL", timeout_milliseconds = 3000 }
 
 config.default_prog = { "orb", "-w", "/root" }
@@ -82,7 +84,7 @@ end)
 
 -- if changing the mod_key, also change in: .config/nvim/lua/config/keymaps.lua
 local function switch_pane(dir_key, direction)
-	local mod_key = 'CMD'
+	local mod_key = 'ALT'
 	return {
 		key = dir_key,
 		mods = mod_key,
