@@ -134,3 +134,25 @@ vim.keymap.set("n", "<CR>", "ox<BS><ESC>", {
 	noremap = true,
 	desc = "󰌑 Insert line below",
 })
+
+-- Tmux + Neovim seamless navigation
+if vim.env.TMUX then
+	-- Tell tmux that vim is active
+	vim.fn.system("tmux set -p @pane-is-vim 1")
+	vim.api.nvim_create_autocmd("VimResume", { command = "silent !tmux set -p @pane-is-vim 1" })
+	vim.api.nvim_create_autocmd({ "VimLeave", "VimSuspend" }, { command = "silent !tmux set -p -u @pane-is-vim" })
+
+	-- Navigate between vim panes, or tmux windows/panes at edges
+	local function navigate(vim_dir, tmux_cmd)
+		local win = vim.api.nvim_get_current_win()
+		vim.cmd("wincmd " .. vim_dir)
+		if vim.api.nvim_get_current_win() == win then
+			vim.fn.system("tmux " .. tmux_cmd)
+		end
+	end
+
+	vim.keymap.set("n", "<M-h>", function() navigate("h", "previous-window") end)
+	vim.keymap.set("n", "<M-j>", function() navigate("j", "select-pane -D") end)
+	vim.keymap.set("n", "<M-k>", function() navigate("k", "select-pane -U") end)
+	vim.keymap.set("n", "<M-l>", function() navigate("l", "next-window") end)
+end
