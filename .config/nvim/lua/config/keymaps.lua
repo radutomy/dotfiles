@@ -1,30 +1,6 @@
 -- Keymaps are automatically loaded on the VeryLazy event
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 
--- j/k special handling to move to the first non-blank character of the line
--- vim.keymap.set("n", "j", "j^", { noremap = true, silent = true })
--- vim.keymap.set("n", "k", "k^", { noremap = true, silent = true })
-
--- vim.keymap.set("n", "j", function()
--- 	vim.cmd "normal! j"
--- 	local col = vim.fn.col "."
--- 	local line = vim.fn.getline "."
--- 	local first_non_blank = vim.fn.match(line, "\\S") + 1
--- 	if first_non_blank > 0 and col < first_non_blank then
--- 		vim.fn.cursor(vim.fn.line ".", first_non_blank)
--- 	end
--- end, { noremap = true, silent = true })
---
--- vim.keymap.set("n", "k", function()
--- 	vim.cmd "normal! k"
--- 	local col = vim.fn.col "."
--- 	local line = vim.fn.getline "."
--- 	local first_non_blank = vim.fn.match(line, "\\S") + 1
--- 	if first_non_blank > 0 and col < first_non_blank then
--- 		vim.fn.cursor(vim.fn.line ".", first_non_blank)
--- 	end
--- end, { noremap = true, silent = true })
-
 -- CTRL D/U 10-line jumps
 local function scroll_and_center(dir)
 	vim.cmd("normal! 10" .. dir)
@@ -113,49 +89,6 @@ end, { noremap = true, silent = true, desc = "Go to next error" })
 vim.keymap.set("n", "<C-a>", function()
 	vim.cmd "normal! ggVG"
 end, { noremap = true, silent = true, desc = "Select all text" })
-
--------------------------------------------------------------------------------
-
-function nav(vim_direction, wezterm_pane_direction, wezterm_tab_direction)
-	-- Try to move in vim first
-	local current_win = vim.fn.winnr()
-	vim.cmd("wincmd " .. vim_direction)
-
-	-- If we moved in vim, we're done
-	if vim.fn.winnr() ~= current_win then
-		return
-	end
-
-	-- Otherwise use wezterm (async)
-	local wezterm_exe = "wezterm.exe"
-
-	if wezterm_tab_direction then
-		-- Try tab switch first
-		vim.fn.jobstart({ wezterm_exe, "cli", "activate-tab", "--tab-relative", wezterm_tab_direction }, {
-			on_exit = function(_, exit_code)
-				if exit_code ~= 0 then
-					-- Tab switch failed, try pane
-					vim.fn.jobstart({ wezterm_exe, "cli", "activate-pane-direction", wezterm_pane_direction })
-				end
-			end,
-		})
-	else
-		-- Just do pane navigation
-		vim.fn.jobstart({ wezterm_exe, "cli", "activate-pane-direction", wezterm_pane_direction })
-	end
-end
-
--- ALT + <hjkl> to change vim panes, with fallback to wezterm pane, then to wezterm tab if no pane is found
-vim.keymap.set("n", "<M-h>", "<Cmd>lua nav('h', 'Left', '-1')<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<M-l>", "<Cmd>lua nav('l', 'Right', '1')<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<M-j>", "<Cmd>lua nav('j', 'Down', nil)<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<M-k>", "<Cmd>lua nav('k', 'Up', nil)<CR>", { noremap = true, silent = true })
-
--- Insert mode mappings for ALT + <hjkl>
-vim.keymap.set("i", "<M-h>", "<C-\\><C-n><Cmd>lua nav('h', 'Left', '-1')<CR>", { noremap = true, silent = true })
-vim.keymap.set("i", "<M-l>", "<C-\\><C-n><Cmd>lua nav('l', 'Right', '1')<CR>", { noremap = true, silent = true })
-vim.keymap.set("i", "<M-j>", "<C-\\><C-n><Cmd>lua nav('j', 'Down', nil)<CR>", { noremap = true, silent = true })
-vim.keymap.set("i", "<M-k>", "<C-\\><C-n><Cmd>lua nav('k', 'Up', nil)<CR>", { noremap = true, silent = true })
 
 -------------------------------------------------------------------------------
 
