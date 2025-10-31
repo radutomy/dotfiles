@@ -151,8 +151,8 @@ if vim.env.TMUX then
 		end
 	end
 
-	vim.keymap.set("n", "<M-h>", function() navigate("h", "previous-window") end)
-	vim.keymap.set("n", "<M-j>", function() navigate("j", "select-pane -D") end)
-	vim.keymap.set("n", "<M-k>", function() navigate("k", "select-pane -U") end)
-	vim.keymap.set("n", "<M-l>", function() navigate("l", "next-window") end)
+	vim.keymap.set("n", "<C-h>", function() navigate("h", "previous-window") end)
+	vim.keymap.set("n", "<C-j>", function() navigate("j", "select-pane -D") end)
+	vim.keymap.set("n", "<C-k>", function() navigate("k", "select-pane -U") end)
+	vim.keymap.set("n", "<C-l>", function() navigate("l", "next-window") end)
 end
