@@ -41,30 +41,22 @@ return {
 		-- Add a key for the explorer
 		{
 			"<leader>e",
-			function()
-				Snacks.picker.explorer()
-			end,
+			function() Snacks.picker.explorer() end,
 			desc = "File Explorer",
 		},
 		{
 			"<leader>fF",
-			function()
-				Snacks.picker.files({ cwd = LazyVim.root() })
-			end,
+			function() Snacks.picker.files({ cwd = LazyVim.root() }) end,
 			desc = "Find Files (Root Dir)",
 		},
 		{
 			"<leader>ff",
-			function()
-				Snacks.picker.files({ cwd = vim.fn.getcwd() })
-			end,
+			function() Snacks.picker.files({ cwd = vim.fn.getcwd() }) end,
 			desc = "Find Files (cwd)",
 		},
 		{
 			"<leader><space>",
-			function()
-				Snacks.picker.files({ cwd = vim.fn.getcwd() })
-			end,
+			function() Snacks.picker.files({ cwd = vim.fn.getcwd() }) end,
 			desc = "Find Files (cwd)",
 		},
 	},
