@@ -5,24 +5,21 @@
 local function scroll_and_center(dir)
 	vim.cmd("normal! 10" .. dir)
 	local l, ll, hw = vim.fn.line ".", vim.fn.line "$", vim.fn.winheight(0) / 2
-	if (dir == "k" and l > hw and l < ll - hw) or (dir == "j" and l + hw <= ll) then
-		vim.cmd "normal! zz"
-	end
+	if (dir == "k" and l > hw and l < ll - hw) or (dir == "j" and l + hw <= ll) then vim.cmd "normal! zz" end
 end
 
-vim.keymap.set("n", "<C-u>", function()
-	scroll_and_center "k"
-end, { silent = true })
-vim.keymap.set("n", "<C-d>", function()
-	scroll_and_center "j"
-end, { silent = true })
+vim.keymap.set("n", "<C-u>", function() scroll_and_center "k" end, { silent = true })
+vim.keymap.set("n", "<C-d>", function() scroll_and_center "j" end, { silent = true })
 vim.keymap.set("n", "<C-f>", "<C-f>zz", { desc = "Scroll down full page and center" })
 
 -- Fix indentation for i, a, A and I
 for _, key in ipairs({ "i", "a", "A", "I" }) do
-	vim.keymap.set("n", key, function()
-		return vim.fn.trim(vim.fn.getline ".") == "" and '"_cc' or key
-	end, { expr = true })
+	vim.keymap.set(
+		"n",
+		key,
+		function() return vim.fn.trim(vim.fn.getline ".") == "" and '"_cc' or key end,
+		{ expr = true }
+	)
 end
 
 -- In normal mode, Ctrl+V creates a new line, and pastes from the system clipboard
@@ -57,9 +54,7 @@ vim.keymap.set("n", "<F3>", function()
 			parens = parens - 1
 		elseif c == "(" then
 			parens = parens + 1
-			if parens > 0 then
-				return vim.lsp.buf.signature_help()
-			end
+			if parens > 0 then return vim.lsp.buf.signature_help() end
 		end
 	end
 	vim.lsp.buf.hover()
@@ -81,14 +76,20 @@ vim.keymap.set("n", "<Esc>", function()
 end, { noremap = true, silent = true, desc = "Close LSP floating windows" })
 
 -- F4 - next ERROR
-vim.keymap.set("n", "<F4>", function()
-	vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR })
-end, { noremap = true, silent = true, desc = "Go to next error" })
+vim.keymap.set(
+	"n",
+	"<F4>",
+	function() vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR }) end,
+	{ noremap = true, silent = true, desc = "Go to next error" }
+)
 
 -- <C-A> select all text
-vim.keymap.set("n", "<C-a>", function()
-	vim.cmd "normal! ggVG"
-end, { noremap = true, silent = true, desc = "Select all text" })
+vim.keymap.set(
+	"n",
+	"<C-a>",
+	function() vim.cmd "normal! ggVG" end,
+	{ noremap = true, silent = true, desc = "Select all text" }
+)
 
 -------------------------------------------------------------------------------
 
@@ -116,9 +117,7 @@ vim.keymap.set("n", "<F1>", function()
 	vim.cmd "silent !cargo clippy --fix --allow-dirty --allow-staged 2>/dev/null"
 	vim.cmd "edit"
 	-- Delay needed for LSP to recognize external changes
-	vim.defer_fn(function()
-		vim.cmd "write"
-	end, 500)
+	vim.defer_fn(function() vim.cmd "write" end, 500)
 	print "Clippy fix applied"
 end, { noremap = true, silent = true, desc = "Clippy Fix" })
 
@@ -138,17 +137,16 @@ vim.keymap.set("n", "<CR>", "ox<BS><ESC>", {
 -- Tmux + Neovim seamless navigation
 if vim.env.TMUX then
 	-- Tell tmux that vim is active
-	vim.fn.system("tmux set -p @pane-is-vim 1")
+	vim.fn.system "tmux set -p @pane-is-vim 1"
 	vim.api.nvim_create_autocmd("VimResume", { command = "silent !tmux set -p @pane-is-vim 1" })
 	vim.api.nvim_create_autocmd({ "VimLeave", "VimSuspend" }, { command = "silent !tmux set -p -u @pane-is-vim" })
 
-	-- Navigate between vim panes, or tmux windows/panes at edges
 	local function navigate(vim_dir, tmux_cmd)
+		-- DELETE this if block if we stop using snacks picker (explorer)
+		if vim_dir == "h" and vim.bo.filetype:match "snacks_picker" then return vim.fn.system("tmux " .. tmux_cmd) end
 		local win = vim.api.nvim_get_current_win()
 		vim.cmd("wincmd " .. vim_dir)
-		if vim.api.nvim_get_current_win() == win then
-			vim.fn.system("tmux " .. tmux_cmd)
-		end
+		if vim.api.nvim_get_current_win() == win then vim.fn.system("tmux " .. tmux_cmd) end
 	end
 
 	vim.keymap.set("n", "<C-h>", function() navigate("h", "previous-window") end)
