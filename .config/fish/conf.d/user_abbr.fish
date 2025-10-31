@@ -25,4 +25,7 @@ abbr -a p python
 abbr -a cd z
 abbr -a gg lazygit
 
+# Tmux: always attach to existing session or create new one
+abbr -a tx 'tmux attach 2>/dev/null; or tmux'
+
 # --- WORK --- #
