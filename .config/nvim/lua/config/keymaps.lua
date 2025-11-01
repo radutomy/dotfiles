@@ -154,3 +154,9 @@ if vim.env.TMUX then
 	vim.keymap.set("n", "<C-k>", function() navigate("k", "select-pane -U") end)
 	vim.keymap.set("n", "<C-l>", function() navigate("l", "next-window") end)
 end
+
+-- Resize windows with Ctrl+Alt+hjkl
+vim.keymap.set("n", "<C-M-h>", "<cmd>vertical resize -5<CR>", { noremap = true, silent = true, desc = "Decrease width" })
+vim.keymap.set("n", "<C-M-j>", "<cmd>resize -5<CR>", { noremap = true, silent = true, desc = "Decrease height" })
+vim.keymap.set("n", "<C-M-k>", "<cmd>resize +5<CR>", { noremap = true, silent = true, desc = "Increase height" })
+vim.keymap.set("n", "<C-M-l>", "<cmd>vertical resize +5<CR>", { noremap = true, silent = true, desc = "Increase width" })
