@@ -5,11 +5,10 @@ local act = wezterm.action
 
 ------------- Configuration -------------
 
-config.disable_default_key_bindings = true
 --config.leader = { key = " ", mods = "CTRL", timeout_milliseconds = 3000 }
-
+config.disable_default_key_bindings = true
 config.audible_bell = "Disabled"
-config.default_prog = { "orb", "-w", "/root" }
+config.default_prog = { "orb", "-w", "/root", "sh", "-c", "tmux attach 2>/dev/null || tmux" }
 
 config.window_decorations = "RESIZE"
 config.color_scheme = "Vs Code Dark+ (Gogh)"
@@ -31,12 +30,9 @@ config.colors = {
 	cursor_border = '1E1E1E',
 }
 
--- Start maximized and focused
-wezterm.on("gui-startup", function(cmd)
-	local tab, pane, window = mux.spawn_window(cmd or {})
-	window:gui_window():maximize()
-end)
-
+-- Start maximized
+config.initial_rows = 999
+config.initial_cols = 999
 
 ------------- Keybindings -------------
 
