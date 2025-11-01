@@ -28,8 +28,8 @@ vim.api.nvim_create_autocmd({ "TextYankPost" }, {
 	pattern = "*",
 	callback = function()
 		vim.schedule(function()
-			-- Check if buffer is writable
-			if vim.bo.buftype == "" and vim.bo.modifiable then
+			-- Check if buffer is writable and has a filename
+			if vim.bo.buftype == "" and vim.bo.modifiable and vim.api.nvim_buf_get_name(0) ~= "" then
 				require("conform").format()
 				vim.cmd "write"
 			end
