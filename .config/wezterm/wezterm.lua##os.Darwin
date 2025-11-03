@@ -1,29 +1,25 @@
 local wezterm = require "wezterm"
 local mux = wezterm.mux
 local config = wezterm.config_builder()
-local act = wezterm.action
 
 ------------- Configuration -------------
 
 --config.leader = { key = " ", mods = "CTRL", timeout_milliseconds = 3000 }
+
 config.disable_default_key_bindings = true
 config.audible_bell = "Disabled"
 config.default_prog = { "orb", "-w", "/root", "sh", "-c", "tmux attach 2>/dev/null || tmux" }
 
 config.window_decorations = "RESIZE"
 config.color_scheme = "Vs Code Dark+ (Gogh)"
-
 config.font = wezterm.font 'JetBrains Mono'
 config.font_size = 14
 config.warn_about_missing_glyphs = false
-config.window_background_opacity = 1
 config.window_close_confirmation = "NeverPrompt"
 config.adjust_window_size_when_changing_font_size = false
-
--- Hide tab bar since tmux will handle tabs
 config.enable_tab_bar = false
-
 config.default_cursor_style = "BlinkingBlock"
+
 config.colors = {
 	foreground = "#F2F2F2",
 	cursor_bg = "#F21EE0",
@@ -36,28 +32,22 @@ config.initial_cols = 999
 
 ------------- Keybindings -------------
 
--- Copy/paste helper
-local function bind_copy_key(vim_key, mod_key)
-	return {
-		key = vim_key,
-		mods = mod_key,
-		action = wezterm.action_callback(function(window, pane)
-			local sel = window:get_selection_text_for_pane(pane)
-			window:perform_action(
-				sel and sel ~= '' and wezterm.action { CopyTo = 'ClipboardAndPrimarySelection' } or
-				wezterm.action.SendKey { key = vim_key, mods = mod_key }, pane)
-		end)
-	}
+local function copy_or_send_ctrl_c(window, pane)
+	local sel = window:get_selection_text_for_pane(pane)
+	if sel and sel ~= '' then
+		window:perform_action(wezterm.action.CopyTo 'ClipboardAndPrimarySelection', pane)
+	else
+		window:perform_action(wezterm.action.SendKey { key = 'c', mods = 'CTRL' }, pane)
+	end
 end
 
 config.keys = {
-	-- Copy/paste
-	bind_copy_key('c', "CMD"),
-	{ key = "v", mods = "CMD", action = act.PasteFrom "Clipboard" },
-	{ key = '=', mods = 'CTRL', action = wezterm.action.IncreaseFontSize },
-	{ key = '-', mods = 'CTRL', action = wezterm.action.DecreaseFontSize },
-	-- Quit app
-	{ key = "q", mods = "CMD", action = act.QuitApplication },
+	{ key = "c", mods = "CMD", action = wezterm.action_callback(copy_or_send_ctrl_c) },
+	{ key = "v", mods = "CMD", action = wezterm.action.PasteFrom "Clipboard" },
+	{ key = "a", mods = "CMD", action = wezterm.action.SendKey { key = 'a', mods = 'CTRL' } },
+	{ key = '=', mods = 'CMD', action = wezterm.action.IncreaseFontSize },
+	{ key = '-', mods = 'CMD', action = wezterm.action.DecreaseFontSize },
+	{ key = "q", mods = "CMD", action = wezterm.action.QuitApplication },
 }
 
 return config
