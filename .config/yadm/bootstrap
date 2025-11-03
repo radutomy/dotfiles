@@ -72,7 +72,7 @@ install_neovim() {
 	# Detect architecture
 	ARCH=$(uname -m); [[ $ARCH == aarch64 || $ARCH == arm64 ]] && ARCH=arm64 || ARCH=x86_64
 
-	curl -L "https://github.com/neovim/neovim/releases/download/stable/nvim-linux-${ARCH}.appimage" -o /bin/nvim
+	curl -L "https://github.com/neovim/neovim/releases/download/v0.11.4/nvim-linux-${ARCH}.appimage" -o /bin/nvim
 	chmod +x /bin/nvim
 	nvim --headless "+Lazy! sync" +qa
 
