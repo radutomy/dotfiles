@@ -120,7 +120,8 @@ if [ "$runtime" = "work" ]; then
 fi
 
 install_neovim
-install_docker
+#install_docker
+#install_dioxus
 install_gpt
 install_fish
 cleanup
