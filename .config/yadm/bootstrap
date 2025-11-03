@@ -21,7 +21,7 @@ update_yadm() {
 install_packages() {
 	apt remove vim* snap* -y
 	apt install wget curl yadm lsb-release libfuse2t64 bash-completion apt-transport-https net-tools jq tree \
-		build-essential mingw-w64 git git-delta expect sshpass unzip expect just zoxide \
+		build-essential mingw-w64 git git-delta tmux expect sshpass unzip expect just zoxide \
 		software-properties-common python3-venv python-is-python3 python3-pip -y
 }
 
