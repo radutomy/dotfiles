@@ -41,7 +41,10 @@ install_work() {
 	git config --global commit.gpgsign true
 
 	git clone --branch main git@gitlab.protontech.ch:proton/clients/monorepo.git && cd monorepo
-	git config --local user.email "radu.tomuleasa@external.proton.ch"
+	git config --local user.email "radu.tomuleasa@external.proton.ch" && cd ~
+
+	git clone --branch main git@gitlab.protontech.ch:chat/chat-client.git && cd chat-client
+	git config --local user.email "radu.tomuleasa@external.proton.ch" && cd ~
 
 	apt install gcc-multilib google-android-cmdline-tools-13.0-installer -y
 	$HOME/.cargo/bin/rustup target add aarch64-apple-darwin
