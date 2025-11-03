@@ -67,8 +67,7 @@ install_neovim() {
 	apt install ripgrep nodejs -y
 
 	# Detect architecture
-	ARCH=$(uname -m)
-	[ "$ARCH" = "aarch64" ] || [ "$ARCH" = "arm64" ] && ARCH="arm64" || ARCH="x86_64"
+	ARCH=$(uname -m); [[ $ARCH == aarch64 || $ARCH == arm64 ]] && ARCH=arm64 || ARCH=x86_64
 
 	curl -L "https://github.com/neovim/neovim/releases/download/stable/nvim-linux-${ARCH}.appimage" -o /bin/nvim
 	chmod +x /bin/nvim
