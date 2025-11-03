@@ -10,7 +10,7 @@ update_system() {
 	MAC_USER=$(ls /mnt/mac/Users 2>/dev/null | grep -v Shared | head -n 1)
 	if [ -n "$MAC_USER" ]; then
 		mkdir -p /mnt/mac/Users/$MAC_USER/.config/wezterm 2>/dev/null || true
-		cp ~/.config/wezterm/wezterm.lua /mnt/mac/Users/$MAC_USER/.config/wezterm/wezterm.lua 2>/dev/null || true
+		cp ~/.config/wezterm/wezterm.lua##os.Darwin /mnt/mac/Users/$MAC_USER/.config/wezterm/wezterm.lua 2>/dev/null || true
 	fi
 }
 
@@ -21,7 +21,7 @@ update_yadm() {
 install_packages() {
 	apt remove vim* snap* -y
 	apt install wget curl yadm lsb-release libfuse2t64 bash-completion apt-transport-https net-tools jq tree \
-		build-essential mingw-w64 git git-delta expect sshpass unzip expect just \
+		build-essential mingw-w64 git git-delta expect sshpass unzip expect just zoxide \
 		python3-venv python-is-python3 python3-pip -y
 }
 
