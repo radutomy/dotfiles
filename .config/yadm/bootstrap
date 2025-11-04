@@ -46,7 +46,7 @@ install_work() {
 	git clone --branch main git@gitlab.protontech.ch:chat/chat-client.git && cd chat-client
 	git config --local user.email "radu.tomuleasa@external.proton.ch" && cd ~
 
-	apt install gcc-multilib google-android-cmdline-tools-13.0-installer golang gcc-x86-64-linux-gnu g++-x86-64-linux-gnu -y
+	apt install gcc-multilib google-android-cmdline-tools-13.0-installer golang gcc-x86-64-linux-gnu g++-x86-64-linux-gnu default-jdk -y
 	$HOME/.cargo/bin/rustup target add aarch64-apple-darwin
 	$HOME/.cargo/bin/cargo install --locked dprint
 
