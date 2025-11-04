@@ -61,6 +61,7 @@ install_rust() {
 	$HOME/.cargo/bin/cargo install cargo-binstall
 
 	$HOME/.cargo/bin/rustup target add aarch64-unknown-linux-musl
+	$HOME/.cargo/bin/rustup target add x86_64-unknown-linux-gnu
 	$HOME/.cargo/bin/rustup target add wasm32-unknown-unknown
 	$HOME/.cargo/bin/rustup target add x86_64-pc-windows-gnu
 }
