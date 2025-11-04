@@ -28,3 +28,5 @@
 	gpgsign = true
 [tag]
 	gpgsign = true
+[url "ssh://git@gitlab.protontech.ch/"]
+	insteadOf = https://gitlab.protontech.ch/
