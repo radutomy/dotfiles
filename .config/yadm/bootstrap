@@ -67,7 +67,7 @@ install_rust() {
 
 install_neovim() {
 	curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
-	apt install ripgrep nodejs -y
+	apt install libreadline-dev ripgrep nodejs -y
 
 	# Detect architecture
 	ARCH=$(uname -m); [[ $ARCH == aarch64 || $ARCH == arm64 ]] && ARCH=arm64 || ARCH=x86_64
