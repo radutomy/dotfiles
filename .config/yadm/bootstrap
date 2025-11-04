@@ -102,8 +102,8 @@ install_fish() {
 }
 
 install_gpt() {
-	npm install -g @google/gemini-cli
-	npm install -g @anthropic-ai/claude-code
+	# npm install -g @google/gemini-cli
+	curl -fsSL https://claude.ai/install.sh | bash
 }
 
 cleanup() {
