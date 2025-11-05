@@ -47,6 +47,10 @@ install_work() {
 	git config --local user.email "radu.tomuleasa@external.proton.ch" && cd ~
 
 	apt install gcc-multilib google-android-cmdline-tools-13.0-installer golang gcc-x86-64-linux-gnu g++-x86-64-linux-gnu default-jdk -y
+	
+	curl -fsSL https://get.pnpm.io/install.sh | sh -
+	cargo install wasm-pack
+	
 	$HOME/.cargo/bin/rustup target add aarch64-apple-darwin
 	$HOME/.cargo/bin/cargo install --locked dprint
 
