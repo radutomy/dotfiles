@@ -50,7 +50,8 @@ install_work() {
 	sed -i '/dhcp-identifier: mac/a\      accept-ra: false\n      link-local: []' /etc/netplan/10-lxc.yaml && netplan apply
 
 	curl -fsSL https://get.pnpm.io/install.sh | sh -
-	$HOME/.cargo/bin/cargo install wasm-pack wasm-bindgen-cli
+	$HOME/.cargo/bin/cargo install wasm-pack
+    $HOME/.cargo/bin/cargo install wasm-bindgen-cli --version 0.2.104 --force
 	
 	$HOME/.cargo/bin/rustup target add aarch64-apple-darwin
 	$HOME/.cargo/bin/cargo install --locked dprint
