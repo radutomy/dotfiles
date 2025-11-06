@@ -79,7 +79,7 @@ install_neovim() {
 
 	curl -L "https://github.com/neovim/neovim/releases/download/v0.11.4/nvim-linux-${ARCH}.appimage" -o /bin/nvim
 	chmod +x /bin/nvim
-	#nvim --headless "+Lazy! sync" +qa
+	nvim --headless "+Lazy! sync" +qa
 
 	# Install LazyGit (with version) and LazySQL (without version)
 	VER=$(curl -s https://api.github.com/repos/jesseduffield/lazygit/releases/latest|grep -Po '"tag_name": "v\K[^"]*')
