@@ -33,7 +33,7 @@ return {
 		},
 		terminal = {
 			win = {
-				position = "float",
+				position = "bottom",
 			},
 		},
 	},
