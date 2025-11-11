@@ -17,26 +17,24 @@ vim.api.nvim_create_autocmd({ "UIEnter", "ColorScheme" }, {
 
 vim.api.nvim_create_autocmd("UILeave", {
 	callback = function()
-		if modified then
-			io.write "\027]111\027\\"
-		end
+		if modified then io.write "\027]111\027\\" end
 	end,
 })
 
 -- format (and save) the document for these events
-vim.api.nvim_create_autocmd({ "TextYankPost" }, {
-	pattern = "*",
-	callback = function()
-		vim.schedule(function()
-			-- Check if buffer is writable and has a filename
-			if vim.bo.buftype == "" and vim.bo.modifiable and vim.api.nvim_buf_get_name(0) ~= "" then
-				require("conform").format()
-				vim.cmd "write"
-			end
-		end)
-	end,
-	desc = "Format on yank and before save",
-})
+-- vim.api.nvim_create_autocmd({ "TextYankPost" }, {
+-- 	pattern = "*",
+-- 	callback = function()
+-- 		vim.schedule(function()
+-- 			-- Check if buffer is writable and has a filename
+-- 			if vim.bo.buftype == "" and vim.bo.modifiable and vim.api.nvim_buf_get_name(0) ~= "" then
+-- 				require("conform").format()
+-- 				vim.cmd "write"
+-- 			end
+-- 		end)
+-- 	end,
+-- 	desc = "Format on yank and before save",
+-- })
 
 -- Force kill terminal when :qa
 vim.api.nvim_create_autocmd("QuitPre", {
