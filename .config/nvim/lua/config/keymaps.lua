@@ -10,7 +10,8 @@ end
 
 vim.keymap.set("n", "<C-u>", function() scroll_and_center "k" end, { silent = true })
 vim.keymap.set("n", "<C-d>", function() scroll_and_center "j" end, { silent = true })
-vim.keymap.set("n", "<C-f>", "<C-f>zz", { desc = "Scroll down full page and center" })
+vim.keymap.set("n", "<C-space>", function() Snacks.terminal.toggle() end, { noremap = true, silent = true, desc = "Toggle Terminal" })
+vim.keymap.set("t", "<C-space>", function() Snacks.terminal.toggle() end, { noremap = true, silent = true, desc = "Toggle Terminal" })
 
 -- Fix indentation for i, a, A and I
 for _, key in ipairs({ "i", "a", "A", "I" }) do
@@ -103,6 +104,9 @@ vim.keymap.set(
 
 -- Remap : to ;
 vim.keymap.set("n", ";", ":", { noremap = true, silent = false })
+
+-- Ctrl+Q to save all and quit
+vim.keymap.set("n", "<C-q>", "<cmd>wqa!<CR>", { noremap = true, silent = true, desc = "Save all and quit" })
 
 -- Toggle comment
 vim.keymap.set("n", "<C-s>", "gcc", { remap = true, silent = true, desc = "Comment line" })
