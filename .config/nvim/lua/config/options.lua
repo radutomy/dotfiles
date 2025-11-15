@@ -28,3 +28,16 @@ o.completeopt = ""
 -- Disable transparency for floating windows
 -- o.winblend = 0
 o.pumblend = 0
+
+-- Rustaceanvim: use cargo check instead of clippy on save (faster)
+vim.g.rustaceanvim = {
+  server = {
+    default_settings = {
+      ['rust-analyzer'] = {
+        checkOnSave = {
+          command = 'check',
+        },
+      },
+    },
+  },
+}
