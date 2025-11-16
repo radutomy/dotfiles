@@ -10,8 +10,19 @@ end
 
 vim.keymap.set("n", "<C-u>", function() scroll_and_center "k" end, { silent = true })
 vim.keymap.set("n", "<C-d>", function() scroll_and_center "j" end, { silent = true })
-vim.keymap.set("n", "<C-space>", function() Snacks.terminal.toggle() end, { noremap = true, silent = true, desc = "Toggle Terminal" })
-vim.keymap.set("t", "<C-space>", function() Snacks.terminal.toggle() end, { noremap = true, silent = true, desc = "Toggle Terminal" })
+
+vim.keymap.set({ "n", "t" }, "<C-space>", function()
+	-- Check if any terminal window is visible
+	for _, win in ipairs(vim.api.nvim_list_wins()) do
+		local buf = vim.api.nvim_win_get_buf(win)
+		if vim.api.nvim_get_option_value("buftype", { buf = buf }) == "terminal" then
+			vim.api.nvim_win_close(win, false)
+			return
+		end
+	end
+	-- No terminal visible, open one in current file's directory
+	Snacks.terminal(nil, { cwd = vim.fn.expand("%:p:h") })
+end, { noremap = true, silent = true, desc = "Toggle Terminal" })
 
 -- Fix indentation for i, a, A and I
 for _, key in ipairs({ "i", "a", "A", "I" }) do
