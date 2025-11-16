@@ -10,7 +10,7 @@ update_system() {
 	MAC_USER=$(ls /mnt/mac/Users 2>/dev/null | grep -v Shared | head -n 1)
 	if [ -n "$MAC_USER" ]; then
 		mkdir -p /mnt/mac/Users/$MAC_USER/.config/wezterm 2>/dev/null || true
-		cp ~/.config/wezterm/wezterm.lua##os.Darwin /mnt/mac/Users/$MAC_USER/.config/wezterm/wezterm.lua 2>/dev/null || true
+		cp ~/.config/wezterm/wezterm.lua /mnt/mac/Users/$MAC_USER/.config/wezterm/wezterm.lua 2>/dev/null || true
 	fi
 }
 
