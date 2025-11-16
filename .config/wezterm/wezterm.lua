@@ -28,7 +28,7 @@ end
 config.window_decorations = "RESIZE"
 config.color_scheme = "Vs Code Dark+ (Gogh)"
 config.font = wezterm.font("JetBrains Mono")
-config.font_size = 14
+config.font_size = is_macos and 14 or 11
 config.warn_about_missing_glyphs = false
 config.window_close_confirmation = "NeverPrompt"
 config.adjust_window_size_when_changing_font_size = false
