@@ -13,6 +13,9 @@ if status is-interactive
 
     # Custom key bindings for finding files
     bind \cg _fzf_grep_directory
+
+    # Disable Alt+L (unbind it)
+    bind \el ''
 end
 
 zoxide init fish | source
