@@ -11,6 +11,9 @@ end
 vim.keymap.set("n", "<C-u>", function() scroll_and_center "k" end, { silent = true })
 vim.keymap.set("n", "<C-d>", function() scroll_and_center "j" end, { silent = true })
 
+--vim.keymap.set("t", "<C-space>", function() Snacks.terminal.toggle() end, { noremap = true, silent = true, desc = "Toggle Terminal" })
+--vim.keymap.set("n", "<C-space>", function() Snacks.terminal.toggle() end, { noremap = true, silent = true, desc = "Toggle Terminal" })
+
 vim.keymap.set({ "n", "t" }, "<C-space>", function()
 	-- Check if any terminal window is visible
 	for _, win in ipairs(vim.api.nvim_list_wins()) do
@@ -21,7 +24,7 @@ vim.keymap.set({ "n", "t" }, "<C-space>", function()
 		end
 	end
 	-- No terminal visible, open one in current file's directory
-	Snacks.terminal(nil, { cwd = vim.fn.expand("%:p:h") })
+	Snacks.terminal(nil, { cwd = vim.fn.expand "%:p:h" })
 end, { noremap = true, silent = true, desc = "Toggle Terminal" })
 
 -- Fix indentation for i, a, A and I
@@ -171,5 +174,15 @@ if vim.env.TMUX then
 end
 
 -- Resize windows with Ctrl+Alt+h/l (j/k handled by tmux only)
-vim.keymap.set("n", "<C-M-h>", "<cmd>vertical resize -5<CR>", { noremap = true, silent = true, desc = "Decrease width" })
-vim.keymap.set("n", "<C-M-l>", "<cmd>vertical resize +5<CR>", { noremap = true, silent = true, desc = "Increase width" })
+vim.keymap.set(
+	"n",
+	"<C-M-h>",
+	"<cmd>vertical resize -5<CR>",
+	{ noremap = true, silent = true, desc = "Decrease width" }
+)
+vim.keymap.set(
+	"n",
+	"<C-M-l>",
+	"<cmd>vertical resize +5<CR>",
+	{ noremap = true, silent = true, desc = "Increase width" }
+)
