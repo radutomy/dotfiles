@@ -126,23 +126,25 @@ vim.keymap.set(
 
 -- Tmux + Neovim seamless navigation
 if vim.env.TMUX then
-	-- Tell tmux that vim is active
-	vim.fn.system "tmux set -p @pane-is-vim 1"
-	vim.api.nvim_create_autocmd("VimResume", { command = "silent !tmux set -p @pane-is-vim 1" })
-	vim.api.nvim_create_autocmd({ "VimLeave", "VimSuspend" }, { command = "silent !tmux set -p -u @pane-is-vim" })
+	local tmux = function(args) vim.fn.jobstart(vim.list_extend({ "tmux" }, args)) end
 
-	local function navigate(vim_dir, tmux_cmd)
+	-- Tell tmux that vim is active
+	tmux({ "set", "-p", "@pane-is-vim", "1" })
+	vim.api.nvim_create_autocmd("VimResume", { callback = function() tmux({ "set", "-p", "@pane-is-vim", "1" }) end })
+	vim.api.nvim_create_autocmd({ "VimLeave", "VimSuspend" }, { callback = function() tmux({ "set", "-p", "-u", "@pane-is-vim" }) end })
+
+	local function navigate(vim_dir, tmux_args)
 		-- DELETE this if block if we stop using snacks picker (explorer)
-		if vim_dir == "h" and vim.bo.filetype:match "snacks_picker" then return vim.fn.system("tmux " .. tmux_cmd) end
+		if vim_dir == "h" and vim.bo.filetype:match "snacks_picker" then return tmux(tmux_args) end
 		local win = vim.api.nvim_get_current_win()
 		vim.cmd("wincmd " .. vim_dir)
-		if vim.api.nvim_get_current_win() == win then vim.fn.system("tmux " .. tmux_cmd) end
+		if vim.api.nvim_get_current_win() == win then tmux(tmux_args) end
 	end
 
-	vim.keymap.set("n", "<C-h>", function() navigate("h", "previous-window") end)
-	vim.keymap.set("n", "<C-j>", function() navigate("j", "select-pane -D") end)
-	vim.keymap.set("n", "<C-k>", function() navigate("k", "select-pane -U") end)
-	vim.keymap.set("n", "<C-l>", function() navigate("l", "next-window") end)
+	vim.keymap.set("n", "<C-h>", function() navigate("h", { "previous-window" }) end)
+	vim.keymap.set("n", "<C-j>", function() navigate("j", { "select-pane", "-D" }) end)
+	vim.keymap.set("n", "<C-k>", function() navigate("k", { "select-pane", "-U" }) end)
+	vim.keymap.set("n", "<C-l>", function() navigate("l", { "next-window" }) end)
 end
 
 -- Resize windows with Ctrl+Alt+h/l (j/k handled by tmux only)
