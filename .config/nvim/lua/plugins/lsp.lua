@@ -4,7 +4,8 @@ return {
 		diagnostics = {
 			virtual_text = false,
 			signs = { text = { "●", "●", "●", "●" } }, -- error, warn, info, hint
-			float = { border = "rounded" },
+			float = { border = "rounded", source = true, focusable = true },
+			severity_sort = true,
 		},
 	},
 	init = function()

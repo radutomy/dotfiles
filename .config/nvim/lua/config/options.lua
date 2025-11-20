@@ -20,6 +20,7 @@ o.wrap = true
 
 o.timeoutlen = 300
 o.ttimeoutlen = 50
+o.updatetime = 100
 
 -- disable built-in completion
 o.complete = ""
