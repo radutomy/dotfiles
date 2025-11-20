@@ -15,13 +15,6 @@ vim.keymap.set("n", "<F1>", function()
 	print "Clippy fix applied"
 end, { noremap = true, silent = true, desc = "Clippy Fix" })
 
--- F2 - Toggle inlay hints
-vim.keymap.set("n", "<F2>", function()
-	local enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = 0 })
-	vim.lsp.inlay_hint.enable(not enabled, { bufnr = 0 })
-	print("Inlay hints " .. (enabled and "disabled" or "enabled"))
-end, { noremap = true, silent = true, desc = "Toggle inlay hints" })
-
 -- F3 - Show signature help if inside function call, otherwise show hover docs
 vim.keymap.set("n", "<F3>", function()
 	local line = vim.api.nvim_get_current_line()
