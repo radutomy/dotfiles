@@ -1,5 +1,14 @@
 return {
 	"folke/snacks.nvim",
+	init = function()
+		vim.api.nvim_create_autocmd("User", {
+			pattern = "PersistenceLoadPost",
+			callback = function()
+				Snacks.picker.explorer()
+				vim.defer_fn(function() vim.cmd "wincmd l" end, 10)
+			end,
+		})
+	end,
 	opts = {
 		scroll = {
 			animate = {
