@@ -17,6 +17,11 @@
 -- 	desc = "Format on yank and before save",
 -- })
 
+-- Auto-reload files changed externally
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold" }, {
+	callback = function() vim.cmd("checktime") end,
+})
+
 -- Force kill terminal when :qa
 vim.api.nvim_create_autocmd("QuitPre", {
 	group = vim.api.nvim_create_augroup("TerminalClose", { clear = true }),
