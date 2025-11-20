@@ -1,32 +1,32 @@
 return {
 	"saghen/blink.cmp",
-	version = "*",
-	signature = { enabled = true },
-	---@module 'blink.cmp'
-	---@type blink.cmp.Config
-	opts = {
-		keymap = { preset = "super-tab" },
-		sources = {
+	opts = function(_, opts)
+		opts.cmdline = { enabled = false }
+
+		opts.keymap = {
+			preset = "super-tab",
+			["<C-j>"] = { "select_prev", "fallback" },
+			["<C-k>"] = { "select_next", "fallback" },
+		}
+		opts.sources = {
 			default = { "lsp", "path" },
 			providers = {
 				buffer = { enabled = false },
 				snippets = { enabled = false },
 			},
-		},
-		completion = {
+		}
+		opts.completion = {
 			menu = {
 				border = "single",
 			},
 			documentation = {
 				auto_show = true,
-				auto_show_delay_ms = 100,
+				auto_show_delay_ms = 500,
 				window = {
 					border = "single",
 				},
 			},
-			ghost_text = {
-				enabled = false,
-			},
-		},
-	},
+		}
+		return opts
+	end,
 }
