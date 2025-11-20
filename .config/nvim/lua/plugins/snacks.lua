@@ -8,6 +8,13 @@ return {
 			},
 		},
 		picker = {
+			win = {
+				input = {
+					keys = {
+						["<Esc>"] = { "close", mode = { "i", "n" } },
+					},
+				},
+			},
 			formatters = {
 				file = {
 					filename_first = true,
