@@ -131,7 +131,8 @@ if vim.env.TMUX then
 	-- Tell tmux that vim is active
 	tmux({ "set", "-p", "@pane-is-vim", "1" })
 	vim.api.nvim_create_autocmd("VimResume", { callback = function() tmux({ "set", "-p", "@pane-is-vim", "1" }) end })
-	vim.api.nvim_create_autocmd({ "VimLeave", "VimSuspend" }, { callback = function() tmux({ "set", "-p", "-u", "@pane-is-vim" }) end })
+	vim.api.nvim_create_autocmd("VimSuspend", { callback = function() tmux({ "set", "-p", "-u", "@pane-is-vim" }) end })
+	vim.api.nvim_create_autocmd("VimLeave", { callback = function() vim.fn.system({ "tmux", "set", "-p", "-u", "@pane-is-vim" }) end })
 
 	local function navigate(vim_dir, tmux_args)
 		-- DELETE this if block if we stop using snacks picker (explorer)
