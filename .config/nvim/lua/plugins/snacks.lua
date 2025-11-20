@@ -28,6 +28,13 @@ return {
 							position = "left",
 						},
 					},
+					win = {
+						list = {
+							keys = {
+								["<Esc>"] = false,
+							},
+						},
+					},
 				},
 			},
 		},
