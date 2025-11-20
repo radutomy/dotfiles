@@ -57,21 +57,6 @@ vim.keymap.set(
 	{ noremap = true, silent = true, desc = "Rename" }
 )
 
--- Close LSP floating windows with Escape (documentation/signature)
-vim.keymap.set("n", "<Esc>", function()
-	for _, win in ipairs(vim.api.nvim_list_wins()) do
-		local ok, config = pcall(vim.api.nvim_win_get_config, win)
-		if ok and config.relative ~= "" then -- Only floating windows
-			local buf = vim.api.nvim_win_get_buf(win)
-			local ft = vim.api.nvim_get_option_value("filetype", { buf = buf })
-			-- Exclude file explorers and pickers
-			if ft ~= "snacks_explorer" and ft ~= "snacks_picker_list" and ft ~= "neo-tree" and ft ~= "NvimTree" then
-				pcall(vim.api.nvim_win_close, win, false)
-			end
-		end
-	end
-end, { noremap = true, silent = true, desc = "Close LSP floating windows" })
-
 -- ============================================================================
 -- Editing
 -- ============================================================================

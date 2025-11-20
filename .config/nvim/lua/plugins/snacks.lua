@@ -38,7 +38,7 @@ return {
 		},
 	},
 	keys = {
-		-- Add a key for the explorer
+		-- Explorer
 		{
 			"<leader>e",
 			function() Snacks.picker.explorer() end,
