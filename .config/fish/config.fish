@@ -18,9 +18,7 @@ if status is-interactive
     bind \el ''
 
     # Disable hydro error status display
-    function _hydro_postexec --on-event fish_postexec
-        set --global _hydro_status "$_hydro_newline$_hydro_color_prompt$hydro_symbol_prompt"
-    end
+    function _hydro_postexec --on-event fish_postexec; set -g _hydro_status "$_hydro_newline$_hydro_color_prompt$hydro_symbol_prompt"; end
 end
 
 zoxide init fish | source
