@@ -5,6 +5,9 @@ return {
 			"f-person/git-blame.nvim", -- Add git-blame plugin as a dependency
 		},
 		opts = function(_, opts)
+			opts.options = opts.options or {}
+			opts.options.theme = "vscode"
+
 			-- git-blame integration: https://github.com/f-person/git-blame.nvim?tab=readme-ov-file#statusline-integration
 			local git_blame = require "gitblame"
 			vim.g.gitblame_display_virtual_text = 0
