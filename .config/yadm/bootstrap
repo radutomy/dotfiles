@@ -5,7 +5,7 @@ update_system() {
 	export GPG_TTY=$(tty)
 
 	# Update wezterm config - try both Windows (WSL) and macOS (OrbStack) paths
-	cp ~/.config/wezterm/wezterm.lua /mnt/c/Users/$(cmd.exe /c "echo %USERNAME%" 2>/dev/null | tr -d '\r')/.wezterm.lua 2>/dev/null || true
+	cp ~/.config/wezterm/wezterm.lua /mnt/c/Users/$(cmd.exe /c "echo %USERNAME%" 2>/dev/null | tr -d '\r')/.config/wezterm/wezterm.lua 2>/dev/null || true
 
 	MAC_USER=$(ls /mnt/mac/Users 2>/dev/null | grep -v Shared | head -n 1)
 	if [ -n "$MAC_USER" ]; then
