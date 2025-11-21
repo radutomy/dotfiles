@@ -67,6 +67,16 @@ return {
 		terminal = {
 			win = {
 				position = "float",
+				on_buf = function(self)
+					vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
+						buffer = self.buf,
+						callback = function() vim.o.mouse = "" end,
+					})
+					vim.api.nvim_create_autocmd({ "BufLeave", "WinLeave" }, {
+						buffer = self.buf,
+						callback = function() vim.o.mouse = "a" end,
+					})
+				end,
 			},
 		},
 	},
