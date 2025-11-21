@@ -37,7 +37,7 @@ config.default_cursor_style = "BlinkingBlock"
 
 config.colors = {
 	foreground = "#F2F2F2",
-	cursor_bg = "#F21EE0",
+	cursor_bg = "#c44307",
 	cursor_border = "1E1E1E",
 }
 
