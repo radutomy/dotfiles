@@ -48,6 +48,16 @@ return {
 						list = {
 							keys = {
 								["<Esc>"] = false,
+								["<C-h>"] = function()
+									if vim.env.TMUX then vim.fn.jobstart({ "tmux", "previous-window" }) end
+								end,
+								["<C-j>"] = function()
+									if vim.env.TMUX then vim.fn.jobstart({ "tmux", "select-pane", "-D" }) end
+								end,
+								["<C-k>"] = function()
+									if vim.env.TMUX then vim.fn.jobstart({ "tmux", "select-pane", "-U" }) end
+								end,
+								["<C-l>"] = function() vim.cmd "wincmd l" end,
 							},
 						},
 					},

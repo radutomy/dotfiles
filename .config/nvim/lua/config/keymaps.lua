@@ -113,8 +113,6 @@ if vim.env.TMUX then
 	vim.api.nvim_create_autocmd("VimLeave", { callback = function() vim.fn.system({ "tmux", "set", "-p", "-u", "@pane-is-vim" }) end })
 
 	local function navigate(vim_dir, tmux_args)
-		-- DELETE this if block if we stop using snacks picker (explorer)
-		if vim_dir == "h" and vim.bo.filetype:match "snacks_picker" then return tmux(tmux_args) end
 		local win = vim.api.nvim_get_current_win()
 		vim.cmd("wincmd " .. vim_dir)
 		if vim.api.nvim_get_current_win() == win then tmux(tmux_args) end
