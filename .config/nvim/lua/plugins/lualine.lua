@@ -6,7 +6,11 @@ return {
 		},
 		opts = function(_, opts)
 			opts.options = opts.options or {}
-			opts.options.theme = "vscode"
+
+			-- Custom theme based on vscode with darker normal mode text
+			local vscode = require "lualine.themes.vscode"
+			vscode.normal.a.fg = "#1e1e1e"
+			opts.options.theme = vscode
 
 			-- git-blame integration: https://github.com/f-person/git-blame.nvim?tab=readme-ov-file#statusline-integration
 			local git_blame = require "gitblame"
