@@ -27,6 +27,7 @@ config.warn_about_missing_glyphs = false
 config.window_close_confirmation = "NeverPrompt"
 config.adjust_window_size_when_changing_font_size = false
 config.enable_tab_bar = false
+config.swallow_mouse_click_on_window_focus = true
 config.default_cursor_style = "SteadyBlock"
 
 config.colors = {
