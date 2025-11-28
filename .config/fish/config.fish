@@ -11,6 +11,30 @@ if status is-interactive
     # Set GPG_TTY so GPG can prompt for passphrases in the current TTY
     set -x GPG_TTY (tty)
 
+    # Configure fzf to exclude common directories
+    set -g fzf_fd_opts --hidden --max-depth 5 \
+        --exclude node_modules \
+        --exclude .git \
+        --exclude .cache \
+        --exclude .npm \
+        --exclude .cargo \
+        --exclude .rustup \
+        --exclude .gradle \
+        --exclude .dotnet \
+        --exclude .vscode-server \
+        --exclude .vscode-remote-containers \
+        --exclude .gnupg \
+        --exclude .launchpadlib \
+        --exclude .claude \
+        --exclude .gemini \
+        --exclude .local/share \
+        --exclude .local/state \
+        --exclude dist \
+        --exclude build \
+        --exclude target \
+        --exclude venv \
+        --exclude __pycache__
+
     # Custom key bindings for finding files
     bind \cg _fzf_grep_directory
 
