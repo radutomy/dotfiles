@@ -8,6 +8,14 @@ return {
 				vim.defer_fn(function() vim.cmd "wincmd l" end, 10)
 			end,
 		})
+		vim.api.nvim_create_autocmd("TermOpen", {
+			callback = function(ev)
+				if vim.bo[ev.buf].filetype == "snacks_terminal" then
+					vim.api.nvim_buf_set_keymap(ev.buf, "t", "<C-h>", "", { callback = function() vim.fn.system("tmux previous-window") end })
+					vim.api.nvim_buf_set_keymap(ev.buf, "t", "<C-l>", "", { callback = function() vim.fn.system("tmux next-window") end })
+				end
+			end,
+		})
 	end,
 	opts = {
 		scroll = {
@@ -74,8 +82,21 @@ return {
 		terminal = {
 			win = {
 				position = "float",
-				on_win = function() vim.o.mouse = "" end,
-				on_close = function() vim.o.mouse = "a" end,
+				on_win = function()
+					vim.o.mouse = ""
+					vim.fn.system("tmux set-option -p @pane-is-vim yes")
+					vim.keymap.set("t", "<C-u>", "<C-\\><C-n><C-u>", { buffer = true })
+					vim.keymap.set("t", "<C-d>", "<Nop>", { buffer = true })
+					vim.keymap.set("n", "<C-d>", function()
+						if vim.fn.line("w$") == vim.fn.line("$") then return vim.cmd("startinsert") end
+						vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-d>", true, false, true), "n", false)
+						vim.schedule(function() if vim.fn.line("w$") == vim.fn.line("$") then vim.cmd("startinsert") end end)
+					end, { buffer = true })
+					vim.keymap.set("n", "<Esc>", "<cmd>startinsert<cr>", { buffer = true })
+					vim.keymap.set("n", "<C-h>", function() if vim.env.TMUX then vim.fn.system("tmux previous-window") end end, { buffer = true })
+					vim.keymap.set("n", "<C-l>", function() if vim.env.TMUX then vim.fn.system("tmux next-window") end end, { buffer = true })
+				end,
+				on_close = function() vim.o.mouse = "a"; vim.fn.system("tmux set-option -p -u @pane-is-vim") end,
 			},
 		},
 	},
