@@ -20,7 +20,6 @@ return {
 			config = {
 				os = {
 					edit = 'nvim --server "$NVIM" --remote-send "<Cmd>close<CR><Cmd>edit {{filename}}<CR>"',
-					editAtLine = 'nvim --server "$NVIM" --remote-send "<Cmd>close<CR><Cmd>edit +{{line}} {{filename}}<CR>"',
 				},
 			},
 		},
