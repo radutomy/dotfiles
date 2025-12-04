@@ -12,7 +12,13 @@ return {
 			callback = function(e)
 				if vim.bo[e.buf].buftype == "terminal" and vim.bo[e.buf].filetype == "snacks_terminal" then
 					for k, c in pairs({ ["<C-h>"] = "previous-window", ["<C-l>"] = "next-window" }) do
-						vim.api.nvim_buf_set_keymap(e.buf, "t", k, "", { callback = function() vim.fn.system("tmux " .. c) end })
+						vim.api.nvim_buf_set_keymap(
+							e.buf,
+							"t",
+							k,
+							"",
+							{ callback = function() vim.fn.system("tmux " .. c) end }
+						)
 					end
 				end
 			end,
@@ -83,16 +89,32 @@ return {
 		terminal = {
 			win = {
 				position = "float",
+				-- there be dragons here
 				on_win = function()
 					local k, b = vim.keymap.set, vim.api.nvim_get_current_buf()
 					vim.o.mouse = ""
 					vim.fn.system "tmux set-option -p @pane-is-vim yes"
 					k("t", "<C-u>", "<C-\\><C-n><C-u>", { buffer = 0 })
 					k("t", "<C-d>", "<Nop>", { buffer = 0 })
-					vim.schedule(function() for key, cmd in pairs({ ["<C-h>"] = "previous-window", ["<C-l>"] = "next-window" }) do vim.api.nvim_buf_set_keymap(b, "t", key, "", { callback = function() vim.fn.system("tmux " .. cmd) end }) end end)
-					k("n", "<C-d>", function() vim.cmd "normal! \x04" if vim.fn.line "w$" == vim.fn.line "$" then vim.cmd "startinsert" end end, { buffer = 0 })
+					vim.schedule(function()
+						for key, cmd in pairs({ ["<C-h>"] = "previous-window", ["<C-l>"] = "next-window" }) do
+							vim.api.nvim_buf_set_keymap(
+								b,
+								"t",
+								key,
+								"",
+								{ callback = function() vim.fn.system("tmux " .. cmd) end }
+							)
+						end
+					end)
+					k("n", "<C-d>", function()
+						vim.cmd "normal! \x04"
+						if vim.fn.line "w$" == vim.fn.line "$" then vim.cmd "startinsert" end
+					end, { buffer = 0 })
 					k("n", "<Esc>", "<cmd>startinsert<cr>", { buffer = 0 })
-					for key, cmd in pairs({ ["<C-h>"] = "previous-window", ["<C-l>"] = "next-window" }) do k("n", key, function() vim.fn.system("tmux " .. cmd) end, { buffer = 0 }) end
+					for key, cmd in pairs({ ["<C-h>"] = "previous-window", ["<C-l>"] = "next-window" }) do
+						k("n", key, function() vim.fn.system("tmux " .. cmd) end, { buffer = 0 })
+					end
 				end,
 				on_close = function()
 					vim.o.mouse = "a"
