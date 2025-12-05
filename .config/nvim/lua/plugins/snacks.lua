@@ -118,7 +118,8 @@ return {
 				end,
 				on_close = function()
 					vim.o.mouse = "a"
-					vim.fn.system "tmux set-option -p -u @pane-is-vim"
+					-- Re-set @pane-is-vim instead of unsetting it
+					vim.fn.system "tmux set-option -p @pane-is-vim yes"
 				end,
 			},
 		},
