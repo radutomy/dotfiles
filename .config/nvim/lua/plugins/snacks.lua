@@ -8,21 +8,6 @@ return {
 				vim.defer_fn(function() vim.cmd "wincmd l" end, 10)
 			end,
 		})
-		vim.api.nvim_create_autocmd({ "TermOpen", "BufEnter" }, {
-			callback = function(e)
-				if vim.bo[e.buf].buftype == "terminal" and vim.bo[e.buf].filetype == "snacks_terminal" then
-					for k, c in pairs({ ["<C-h>"] = "previous-window", ["<C-l>"] = "next-window" }) do
-						vim.api.nvim_buf_set_keymap(
-							e.buf,
-							"t",
-							k,
-							"",
-							{ callback = function() vim.fn.system("tmux " .. c) end }
-						)
-					end
-				end
-			end,
-		})
 	end,
 	opts = {
 		scroll = {
@@ -89,37 +74,24 @@ return {
 		terminal = {
 			win = {
 				position = "float",
-				-- there be dragons here
 				on_win = function()
-					local k, b = vim.keymap.set, vim.api.nvim_get_current_buf()
-					vim.o.mouse = ""
-					vim.fn.system "tmux set-option -p @pane-is-vim yes"
-					k("t", "<C-u>", "<C-\\><C-n><C-u>", { buffer = 0 })
-					k("t", "<C-d>", "<Nop>", { buffer = 0 })
 					vim.schedule(function()
+						local k, b = vim.keymap.set, vim.api.nvim_get_current_buf()
+						local term_title = vim.b[b].term_title or ""
+						if term_title:match("lazygit") then return end
 						for key, cmd in pairs({ ["<C-h>"] = "previous-window", ["<C-l>"] = "next-window" }) do
-							vim.api.nvim_buf_set_keymap(
-								b,
-								"t",
-								key,
-								"",
-								{ callback = function() vim.fn.system("tmux " .. cmd) end }
-							)
+							k("t", key, function() vim.fn.system("tmux " .. cmd) end, { buffer = b })
+							k("n", key, function() vim.fn.system("tmux " .. cmd) end, { buffer = b })
 						end
+						k("t", "<C-u>", "<C-\\><C-n><C-u>zz", { buffer = b })
+						k("t", "<C-d>", "<Nop>", { buffer = b })
+						k("n", "<C-d>", function()
+							vim.cmd "normal! \x04zz"
+							if vim.fn.line "w$" == vim.fn.line "$" then vim.cmd "startinsert" end
+						end, { buffer = b })
+						k("t", "<Esc>", "<cmd>close<cr>", { buffer = b })
+						k("n", "<Esc>", "<cmd>close<cr>", { buffer = b })
 					end)
-					k("n", "<C-d>", function()
-						vim.cmd "normal! \x04"
-						if vim.fn.line "w$" == vim.fn.line "$" then vim.cmd "startinsert" end
-					end, { buffer = 0 })
-					k("n", "<Esc>", "<cmd>startinsert<cr>", { buffer = 0 })
-					for key, cmd in pairs({ ["<C-h>"] = "previous-window", ["<C-l>"] = "next-window" }) do
-						k("n", key, function() vim.fn.system("tmux " .. cmd) end, { buffer = 0 })
-					end
-				end,
-				on_close = function()
-					vim.o.mouse = "a"
-					-- Re-set @pane-is-vim instead of unsetting it
-					vim.fn.system "tmux set-option -p @pane-is-vim yes"
 				end,
 			},
 		},
