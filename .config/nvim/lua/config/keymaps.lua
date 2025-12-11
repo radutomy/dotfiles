@@ -5,18 +5,8 @@
 -- LSP
 -- ============================================================================
 
--- F1 - Rust Clippy fix
+-- F1 - Show signature help if inside function call, otherwise show hover docs
 vim.keymap.set("n", "<F1>", function()
-	vim.cmd "write"
-	vim.cmd "silent !cargo clippy --fix --allow-dirty --allow-staged 2>/dev/null"
-	vim.cmd "edit"
-	-- Delay needed for LSP to recognize external changes
-	vim.defer_fn(function() vim.cmd "write" end, 500)
-	print "Clippy fix applied"
-end, { noremap = true, silent = true, desc = "Clippy Fix" })
-
--- F3 - Show signature help if inside function call, otherwise show hover docs
-vim.keymap.set("n", "<F3>", function()
 	local line = vim.api.nvim_get_current_line()
 	local col = vim.api.nvim_win_get_cursor(0)[2]
 	local before = line:sub(1, col + 1)
@@ -34,13 +24,37 @@ vim.keymap.set("n", "<F3>", function()
 	vim.lsp.buf.hover()
 end, { noremap = true, silent = true, desc = "LSP documentation" })
 
--- F4 - next ERROR
+-- F2 - next ERROR
 vim.keymap.set(
 	"n",
-	"<F4>",
+	"<F2>",
 	function() vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR }) end,
 	{ noremap = true, silent = true, desc = "Go to next error" }
 )
+
+-- F3 - Show and copy full file path
+vim.keymap.set("n", "<F3>", function()
+	local path = vim.fn.expand "%:p"
+	vim.fn.setreg("+", path)
+	vim.notify(path, vim.log.levels.INFO, { title = "File path" })
+end, { noremap = true, silent = false, desc = "Copy file path" })
+
+-- F4 - Show and copy folder location
+vim.keymap.set("n", "<F4>", function()
+	local folder = vim.fn.expand "%:p:h"
+	vim.fn.setreg("+", folder)
+	vim.notify(folder, vim.log.levels.INFO, { title = "Directory location" })
+end, { noremap = true, silent = false, desc = "Copy folder location" })
+
+-- F7 - Rust Clippy fix
+vim.keymap.set("n", "<F7>", function()
+	vim.cmd "write"
+	vim.cmd "silent !cargo clippy --fix --allow-dirty --allow-staged 2>/dev/null"
+	vim.cmd "edit"
+	-- Delay needed for LSP to recognize external changes
+	vim.defer_fn(function() vim.cmd "write" end, 500)
+	print "Clippy fix applied"
+end, { noremap = true, silent = true, desc = "Clippy Fix" })
 
 -- Rename
 vim.keymap.set(
@@ -110,7 +124,10 @@ if vim.env.TMUX then
 	tmux({ "set", "-p", "@pane-is-vim", "1" })
 	vim.api.nvim_create_autocmd("VimResume", { callback = function() tmux({ "set", "-p", "@pane-is-vim", "1" }) end })
 	vim.api.nvim_create_autocmd("VimSuspend", { callback = function() tmux({ "set", "-p", "-u", "@pane-is-vim" }) end })
-	vim.api.nvim_create_autocmd("VimLeave", { callback = function() vim.fn.system({ "tmux", "set", "-p", "-u", "@pane-is-vim" }) end })
+	vim.api.nvim_create_autocmd(
+		"VimLeave",
+		{ callback = function() vim.fn.system({ "tmux", "set", "-p", "-u", "@pane-is-vim" }) end }
+	)
 
 	local function navigate(vim_dir, tmux_args)
 		local win = vim.api.nvim_get_current_win()
