@@ -46,7 +46,8 @@ install_work() {
 	git clone --branch main git@gitlab.protontech.ch:chat/chat-client.git && cd chat-client
 	git config --local user.email "radu.tomuleasa@external.proton.ch" && cd ~
 
-	apt install gcc-multilib google-android-cmdline-tools-13.0-installer golang gcc-x86-64-linux-gnu g++-x86-64-linux-gnu default-jdk -y
+	apt install gcc-multilib google-android-cmdline-tools-13.0-installer golang gcc-x86-64-linux-gnu \
+		g++-x86-64-linux-gnu default-jdk libglib2.0-dev -y
 	sed -i '/dhcp-identifier: mac/a\      accept-ra: false\n      link-local: []' /etc/netplan/10-lxc.yaml && netplan apply
 
 	curl -fsSL https://get.pnpm.io/install.sh | sh -
