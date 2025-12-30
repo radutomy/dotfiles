@@ -53,7 +53,7 @@ install_work() {
 
 	curl -fsSL https://get.pnpm.io/install.sh | sh -
 	$HOME/.cargo/bin/cargo install wasm-pack
-    $HOME/.cargo/bin/cargo install wasm-bindgen-cli --version 0.2.104 --force
+    $HOME/.cargo/bin/cargo install wasm-bindgen-cli --version 0.2.104 --force # cargo install wasm-bindgen-cli --version 0.2.106 --force
 	
 	$HOME/.cargo/bin/rustup target add aarch64-apple-darwin
 	$HOME/.cargo/bin/cargo install --locked dprint
