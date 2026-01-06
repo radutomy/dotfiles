@@ -53,10 +53,13 @@ install_work() {
 
 	curl -fsSL https://get.pnpm.io/install.sh | sh -
 	$HOME/.cargo/bin/cargo install wasm-pack
-    $HOME/.cargo/bin/cargo install wasm-bindgen-cli --version 0.2.106 --force
-	
-	$HOME/.cargo/bin/rustup target add aarch64-apple-darwin
+    $HOME/.cargo/bin/rustup target add aarch64-apple-darwin
+	# $HOME/.cargo/bin/cargo install wasm-bindgen-cli --version 0.2.106 --force
 	# $HOME/.cargo/bin/cargo install --locked dprint
+
+	cd ~/chat-client || exit
+	$HOME/.cargo/bin/wasm-pack build core/persistence --target web --dev || exit
+	$HOME/.cargo/bin/wasm-pack build core/core-logic/shared --target web --dev --features web || exit
 
 	cd ~
 }
