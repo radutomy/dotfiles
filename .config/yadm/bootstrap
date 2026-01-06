@@ -56,7 +56,7 @@ install_work() {
     $HOME/.cargo/bin/cargo install wasm-bindgen-cli --version 0.2.106 --force
 	
 	$HOME/.cargo/bin/rustup target add aarch64-apple-darwin
-	$HOME/.cargo/bin/cargo install --locked dprint
+	# $HOME/.cargo/bin/cargo install --locked dprint
 
 	cd ~
 }
