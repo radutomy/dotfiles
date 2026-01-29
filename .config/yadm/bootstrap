@@ -74,6 +74,7 @@ install_work() {
 install_rust() {
 	apt install libssl-dev libudev-dev pkg-config build-essential gdb clang -y
 	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path -y
+	source "$HOME/.cargo/env"
 	$HOME/.cargo/bin/rustup component add rust-analyzer
 
 	$HOME/.cargo/bin/cargo install cargo-binstall
