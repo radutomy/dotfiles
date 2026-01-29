@@ -128,7 +128,7 @@ cleanup() {
 update_system
 update_yadm
 install_packages
-repos
+#repos
 install_rust
 
 if [ "$runtime" = "work" ]; then
