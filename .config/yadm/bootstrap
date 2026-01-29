@@ -39,7 +39,7 @@ repos() {
 install_work() {
 	cd ~ || exit
 
-	apt install gcc-multilib google-android-cmdline-tools-13.0-installer golang gcc-x86-64-linux-gnu \
+	apt install gcc-multilib google-android-cmdline-tools-13.0-installer gcc-x86-64-linux-gnu \
 		g++-x86-64-linux-gnu default-jdk libglib2.0-dev libgtk-3-dev -y
 
 	git config --global gpg.format ssh
