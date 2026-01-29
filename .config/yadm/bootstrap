@@ -28,12 +28,10 @@ install_packages() {
 repos() {
 	cd ~ || exit
 	git clone --branch main git@github.com:radutomy/rustlings.git && cd rustlings
-	git config --local user.email "radu@rtom.dev"
-	cd ~
+	git config --local user.email "radu@rtom.dev" && cd ~
 
 	git clone --branch main git@github.com:radutomy/nav-key.git && cd nav-key
-	git config --local user.email "radu@rtom.dev"
-	cd ~
+	git config --local user.email "radu@rtom.dev" && cd ~
 }
 
 install_work() {
@@ -51,6 +49,9 @@ install_work() {
 	git config --local user.email "radu.tomuleasa@external.proton.ch" && cd ~
 
 	git clone --branch develop git@gitlab.protontech.ch:chat/chat-client.git && cd chat-client
+	git config --local user.email "radu.tomuleasa@external.proton.ch" && cd ~
+
+	git clone --branch master git@gitlab.protontech.ch:rust/proton-rust.git && cd proton-rust
 	git config --local user.email "radu.tomuleasa@external.proton.ch" && cd ~
 
 	sed -i '/dhcp-identifier: mac/a\      accept-ra: false\n      link-local: []' /etc/netplan/10-lxc.yaml && netplan apply
