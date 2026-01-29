@@ -30,6 +30,10 @@ repos() {
 	git clone --branch main git@github.com:radutomy/rustlings.git && cd rustlings
 	git config --local user.email "radu@rtom.dev"
 	cd ~
+
+	git clone --branch main git@github.com:radutomy/nav-key.git && cd nav-key
+	git config --local user.email "radu@rtom.dev"
+	cd ~
 }
 
 install_work() {
@@ -128,7 +132,7 @@ cleanup() {
 update_system
 update_yadm
 install_packages
-#repos
+repos
 install_rust
 
 if [ "$runtime" = "work" ]; then
