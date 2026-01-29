@@ -57,16 +57,16 @@ install_work() {
 	sed -i '/dhcp-identifier: mac/a\      accept-ra: false\n      link-local: []' /etc/netplan/10-lxc.yaml && netplan apply
 
 	curl -fsSL https://get.pnpm.io/install.sh | sh -
-	$HOME/.cargo/bin/cargo install wasm-pack cargo-insta
-    $HOME/.cargo/bin/rustup target add aarch64-apple-darwin
+	cargo install wasm-pack cargo-insta
+    rustup target add aarch64-apple-darwin
 
-	# $HOME/.cargo/bin/cargo install wasm-bindgen-cli --version 0.2.106 --force
-	# $HOME/.cargo/bin/cargo install --locked dprint
+	# cargo install wasm-bindgen-cli --version 0.2.106 --force
+	# cargo install --locked dprint
 
 
 	cd ~/chat-client || exit
-	$HOME/.cargo/bin/wasm-pack build core/persistence --target web --dev || exit
-	$HOME/.cargo/bin/wasm-pack build core/core-logic/shared --target web --dev --features web || exit
+	wasm-pack build core/persistence --target web --dev || exit
+	wasm-pack build core/core-logic/shared --target web --dev --features web || exit
 
 	cd ~
 }
@@ -75,14 +75,14 @@ install_rust() {
 	apt install libssl-dev libudev-dev pkg-config build-essential gdb clang -y
 	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path -y
 	source "$HOME/.cargo/env"
-	$HOME/.cargo/bin/rustup component add rust-analyzer
+	rustup component add rust-analyzer
 
 	$HOME/.cargo/bin/cargo install cargo-binstall
 
-	$HOME/.cargo/bin/rustup target add aarch64-unknown-linux-musl
-	$HOME/.cargo/bin/rustup target add x86_64-unknown-linux-gnu
-	$HOME/.cargo/bin/rustup target add wasm32-unknown-unknown
-	$HOME/.cargo/bin/rustup target add x86_64-pc-windows-gnu
+	rustup target add aarch64-unknown-linux-musl
+	rustup target add x86_64-unknown-linux-gnu
+	rustup target add wasm32-unknown-unknown
+	rustup target add x86_64-pc-windows-gnu
 }
 
 install_neovim() {
@@ -109,7 +109,7 @@ install_docker() {
 
 install_dioxus() {
 	apt install libwebkit2gtk-4.1-dev build-essential curl wget file libxdo-dev libssl-dev libayatana-appindicator3-dev librsvg2-dev -y
-	$HOME/.cargo/bin/cargo install dioxus-cli
+	cargo install dioxus-cli
 }
 
 install_fish() {
