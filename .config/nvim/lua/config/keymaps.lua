@@ -5,8 +5,16 @@
 -- LSP
 -- ============================================================================
 
--- F1 - Show signature help if inside function call, otherwise show hover docs
-vim.keymap.set("n", "<F1>", function()
+-- F1 - next ERROR
+vim.keymap.set(
+	"n",
+	"<F1>",
+	function() vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR }) end,
+	{ noremap = true, silent = true, desc = "Go to next error" }
+)
+
+-- F2 - Show signature help if inside function call, otherwise show hover docs
+vim.keymap.set("n", "<F2>", function()
 	local line = vim.api.nvim_get_current_line()
 	local col = vim.api.nvim_win_get_cursor(0)[2]
 	local before = line:sub(1, col + 1)
@@ -23,14 +31,6 @@ vim.keymap.set("n", "<F1>", function()
 	end
 	vim.lsp.buf.hover()
 end, { noremap = true, silent = true, desc = "LSP documentation" })
-
--- F2 - next ERROR
-vim.keymap.set(
-	"n",
-	"<F2>",
-	function() vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR }) end,
-	{ noremap = true, silent = true, desc = "Go to next error" }
-)
 
 -- F3 - Show and copy full file path
 vim.keymap.set("n", "<F3>", function()
