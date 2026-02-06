@@ -55,16 +55,6 @@ return {
 						list = {
 							keys = {
 								["<Esc>"] = false,
-								["<C-h>"] = function()
-									if vim.env.TMUX then vim.fn.jobstart({ "tmux", "previous-window" }) end
-								end,
-								["<C-j>"] = function()
-									if vim.env.TMUX then vim.fn.jobstart({ "tmux", "select-pane", "-D" }) end
-								end,
-								["<C-k>"] = function()
-									if vim.env.TMUX then vim.fn.jobstart({ "tmux", "select-pane", "-U" }) end
-								end,
-								["<C-l>"] = function() vim.cmd "wincmd l" end,
 							},
 						},
 					},
@@ -77,12 +67,6 @@ return {
 				on_win = function()
 					vim.schedule(function()
 						local k, b = vim.keymap.set, vim.api.nvim_get_current_buf()
-						local term_title = vim.b[b].term_title or ""
-						if term_title:match("lazygit") then return end
-						for key, cmd in pairs({ ["<C-h>"] = "previous-window", ["<C-l>"] = "next-window" }) do
-							k("t", key, function() vim.fn.system("tmux " .. cmd) end, { buffer = b })
-							k("n", key, function() vim.fn.system("tmux " .. cmd) end, { buffer = b })
-						end
 						k("t", "<C-u>", "<C-\\><C-n><C-u>zz", { buffer = b })
 						k("t", "<C-d>", "<Nop>", { buffer = b })
 						k("n", "<C-d>", function()

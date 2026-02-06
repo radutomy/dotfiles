@@ -88,8 +88,8 @@ vim.keymap.set("n", "<CR>", "ox<BS><ESC>", {
 })
 
 -- Toggle comment
-vim.keymap.set("n", "<C-s>", "gcc", { remap = true, silent = true, desc = "Comment line" })
-vim.keymap.set("x", "<C-s>", "gc", { remap = true, silent = true, desc = "Comment selection" })
+vim.keymap.set("n", "f", "gcc", { remap = true, silent = true, desc = "Comment line" })
+vim.keymap.set("x", "f", "gc", { remap = true, silent = true, desc = "Comment selection" })
 
 -- In normal and visual modes, Ctrl+C yanks either the current line (in normal mode)
 -- or the selection (in visual mode) to the system clipboard, trimming leading and trailing whitespace
@@ -116,32 +116,14 @@ vim.keymap.set(
 -- Navigation
 -- ============================================================================
 
--- Tmux + Neovim seamless navigation
-if vim.env.TMUX then
-	local tmux = function(args) vim.fn.jobstart(vim.list_extend({ "tmux" }, args)) end
+-- Tab to cycle between windows (enforced in all buffers, overrides plugin keymaps)
+vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
+	callback = function()
+		vim.keymap.set("n", "<Tab>", "<cmd>wincmd w<CR>", { buffer = true, silent = true })
+	end,
+})
 
-	-- Tell tmux that vim is active
-	tmux({ "set", "-p", "@pane-is-vim", "1" })
-	vim.api.nvim_create_autocmd("VimResume", { callback = function() tmux({ "set", "-p", "@pane-is-vim", "1" }) end })
-	vim.api.nvim_create_autocmd("VimSuspend", { callback = function() tmux({ "set", "-p", "-u", "@pane-is-vim" }) end })
-	vim.api.nvim_create_autocmd(
-		"VimLeave",
-		{ callback = function() vim.fn.system({ "tmux", "set", "-p", "-u", "@pane-is-vim" }) end }
-	)
-
-	local function navigate(vim_dir, tmux_args)
-		local win = vim.api.nvim_get_current_win()
-		vim.cmd("wincmd " .. vim_dir)
-		if vim.api.nvim_get_current_win() == win then tmux(tmux_args) end
-	end
-
-	vim.keymap.set("n", "<C-h>", function() navigate("h", { "previous-window" }) end)
-	vim.keymap.set("n", "<C-j>", function() navigate("j", { "select-pane", "-D" }) end)
-	vim.keymap.set("n", "<C-k>", function() navigate("k", { "select-pane", "-U" }) end)
-	vim.keymap.set("n", "<C-l>", function() navigate("l", { "next-window" }) end)
-end
-
--- Resize windows with Ctrl+Alt+h/l (j/k handled by tmux only)
+-- Resize windows with Ctrl+Alt+h/l
 vim.keymap.set(
 	"n",
 	"<C-M-h>",
