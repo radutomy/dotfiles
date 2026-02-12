@@ -7,6 +7,9 @@ if [ ! -d "$HOME/.config/.git" ]; then
   git clone -b nix https://github.com/radutomy/dotfiles "$HOME/.config"
 fi
 
+chmod 775 "$HOME"
+chown root:users "$HOME"
+
 mkdir -p "$HOME/.ssh"
 chmod 700 "$HOME/.ssh"
 age -d -o "$HOME/.ssh/id_ed25519" "$HOME/.config/secrets/ssh_keys.age"
