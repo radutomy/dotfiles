@@ -24,4 +24,3 @@ fi
 git -C "$HOME/.config" remote set-url origin git@github.com:radutomy/dotfiles.git
 
 nvim --headless "+Lazy! sync" +qa
-cd && exec zsh
