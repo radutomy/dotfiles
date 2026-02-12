@@ -54,15 +54,15 @@ in
   home = {
     packages = with pkgs; [
       # proton-rust
-      go
-      llvmPackages.libclang
+      #go
+      #llvmPackages.libclang
 
       # chat-client
-      pnpm
-      wasm-pack
-      wasm-bindgen-cli
-      lld
-      docker
+      #pnpm
+      #wasm-pack
+      #wasm-bindgen-cli
+      #lld
+      #docker
     ];
 
     sessionVariables = {
