@@ -86,7 +86,7 @@ in
       initContent = ''
         # Auto-start tmux session if not already inside tmux
         if [[ -z "$TMUX" && $- == *i* ]]; then
-          sh ~/.config/tmux/session.sh
+          ~/.config/tmux/session.sh
         fi
 
         ${prompt}
