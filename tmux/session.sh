@@ -1,4 +1,5 @@
 #!/bin/sh
+cd ~
 tmux attach 2>/dev/null && exit
 
 if uname -r | grep -q orbstack; then
