@@ -6,14 +6,11 @@ local is_macos = wezterm.target_triple:find("darwin") ~= nil
 local is_linux = wezterm.target_triple:find("linux") ~= nil
 local is_windows = wezterm.target_triple:find("windows") ~= nil
 
--- Set default start program based on OS
-local session = "sh ~/.config/tmux/session.sh"
+-- Connect to VM based on OS
 if is_macos then
-	config.default_prog = { "/usr/local/bin/orb", "-m", "nix", "-u", "root", "sh", "-c", session }
+	config.default_prog = { "/usr/local/bin/orb", "-m", "nix", "-u", "root" }
 elseif is_windows then
-	config.default_prog = { "wsl.exe", "~", "-e", "sh", "-c", session }
-elseif is_linux then
-	config.default_prog = { "/bin/sh", "-c", session }
+	config.default_prog = { "wsl.exe", "~" }
 end
 
 ------------- Configuration -------------

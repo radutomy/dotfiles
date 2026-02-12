@@ -84,6 +84,11 @@ in
         }
       ];
       initContent = ''
+        # Auto-start tmux session if not already inside tmux
+        if [[ -z "$TMUX" && $- == *i* ]]; then
+          sh ~/.config/tmux/session.sh
+        fi
+
         ${prompt}
         ${zoxideFallback}
         chpwd() { lsd -F }
