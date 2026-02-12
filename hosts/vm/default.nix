@@ -1,4 +1,4 @@
-{ ... }:
+{ config, lib, ... }:
 {
   imports = [
     ../../modules/git.nix
@@ -19,4 +19,16 @@
       identityFile = "~/.ssh/id_rsa";
     };
   };
+
+  home.activation.copyWezterm = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
+    src="${config.xdg.configHome}/wezterm/wezterm.lua"
+
+    # OrbStack → macOS host
+    MAC_USER=$(ls /mnt/mac/Users 2>/dev/null | grep -v Shared | head -n 1)
+    [ -n "$MAC_USER" ] && install -D "$src" "/mnt/mac/Users/$MAC_USER/.config/wezterm/wezterm.lua"
+
+    # WSL → Windows host
+    WIN_USER=$(cmd.exe /c "echo %USERNAME%" 2>/dev/null | tr -d '\r')
+    [ -n "$WIN_USER" ] && install -D "$src" "/mnt/c/Users/$WIN_USER/.config/wezterm/wezterm.lua"
+  '';
 }
