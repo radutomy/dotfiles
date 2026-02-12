@@ -1,4 +1,4 @@
-# dotnix
+# dotfiles
 
 NixOS dotfiles managed with home-manager and flakes.
 

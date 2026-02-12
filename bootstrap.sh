@@ -4,7 +4,7 @@ if [ ! -d "$HOME/.config/.git" ]; then
   if [ -d "$HOME/.config" ]; then
     mv "$HOME/.config" "$HOME/.config.bak"
   fi
-  git clone https://github.com/radutomy/dotnix "$HOME/.config"
+  git clone https://github.com/radutomy/dotfiles "$HOME/.config"
 fi
 
 mkdir -p "$HOME/.ssh"
@@ -18,7 +18,7 @@ if [ -d /etc/nixos ]; then
   nixos-rebuild switch --flake "$HOME/.config" --impure
 fi
 
-git -C "$HOME/.config" remote set-url origin git@github.com:radutomy/dotnix.git
+git -C "$HOME/.config" remote set-url origin git@github.com:radutomy/dotfiles.git
 
 nvim --headless "+Lazy! sync" +qa
 cd && exec zsh
