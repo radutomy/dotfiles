@@ -17,39 +17,41 @@
     }:
     let
       mkSystem =
-        { system }:
-        nixpkgs.lib.nixosSystem {
-          inherit system;
-          modules = [
-            /etc/nixos/configuration.nix
-            ./hosts/system.nix
-          ];
-        };
-
-      mkHome =
         {
           system,
           host,
           username ? "root",
         }:
-        home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {
-            inherit system;
-            config.allowUnfree = true;
-          };
-          extraSpecialArgs = {
-            inherit username;
-            pkgs-unstable = import nixpkgs-unstable {
-              inherit system;
-              config.allowUnfree = true;
-            };
-          };
+        nixpkgs.lib.nixosSystem {
+          inherit system;
           modules = [
-            ./home.nix
-            ./hosts/${host}/default.nix
+            /etc/nixos/configuration.nix
+            ./hosts/system.nix
+            home-manager.nixosModules.home-manager
+            {
+              nixpkgs.config.allowUnfree = true;
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = {
+                inherit username;
+                pkgs-unstable = import nixpkgs-unstable {
+                  inherit system;
+                  config.allowUnfree = true;
+                };
+              };
+              home-manager.users.${username} = {
+                imports = [
+                  ./home.nix
+                  ./hosts/${host}/default.nix
+                ];
+              };
+            }
           ];
         };
-      forSystems = nixpkgs.lib.genAttrs [ "aarch64-linux" "x86_64-linux" ];
+      forSystems = nixpkgs.lib.genAttrs [
+        "aarch64-linux"
+        "x86_64-linux"
+      ];
     in
     {
       apps = forSystems (system: {
@@ -59,32 +61,30 @@
           in
           {
             type = "app";
-            program = nixpkgs.lib.getExe (pkgs.writeShellApplication {
-              name = "bootstrap";
-              runtimeInputs = with pkgs; [ age git openssh ];
-              text = builtins.readFile ./bootstrap.sh;
-            });
+            program = nixpkgs.lib.getExe (
+              pkgs.writeShellApplication {
+                name = "bootstrap";
+                runtimeInputs = with pkgs; [
+                  age
+                  git
+                  openssh
+                ];
+                text = builtins.readFile ./bootstrap.sh;
+              }
+            );
           };
       });
 
       nixosConfigurations = {
-        nix = mkSystem { system = "aarch64-linux"; };
-        nas = mkSystem { system = "x86_64-linux"; };
-        wsl = mkSystem { system = "x86_64-linux"; };
-      };
-
-      homeConfigurations = {
-        "root@nas" = mkHome {
-          system = "x86_64-linux";
-          host = "nas";
-        };
-        # OrbStack VM (aarch64)
-        "root@nix" = mkHome {
+        nix = mkSystem {
           system = "aarch64-linux";
           host = "vm";
         };
-        # WSL (x86_64) — "wsl" is a placeholder hostname
-        "root@wsl" = mkHome {
+        nas = mkSystem {
+          system = "x86_64-linux";
+          host = "nas";
+        };
+        wsl = mkSystem {
           system = "x86_64-linux";
           host = "vm";
         };
