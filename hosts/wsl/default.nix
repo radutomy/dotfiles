@@ -21,7 +21,7 @@
   };
 
   home.activation.copyWezterm = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
-    WIN_USER=$(/mnt/c/Windows/System32/cmd.exe /c "echo %USERNAME%" | tr -d '\r')
+    WIN_USER=$(ls -d /mnt/c/Users/*/AppData | grep -v Default | head -n 1 | cut -d/ -f5)
     install -D "${config.xdg.configHome}/wezterm/wezterm.lua" "/mnt/c/Users/$WIN_USER/.config/wezterm/wezterm.lua"
   '';
 }
