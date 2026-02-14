@@ -54,26 +54,36 @@
       ];
     in
     {
-      apps = forSystems (system: {
-        default =
-          let
-            pkgs = import nixpkgs { inherit system; };
-          in
-          {
-            type = "app";
-            program = nixpkgs.lib.getExe (
-              pkgs.writeShellApplication {
-                name = "bootstrap";
-                runtimeInputs = with pkgs; [
-                  age
-                  git
-                  openssh
-                ];
-                text = builtins.readFile ./bootstrap.sh;
-              }
-            );
-          };
-      });
+      apps = forSystems (
+        system:
+        let
+          pkgs = import nixpkgs { inherit system; };
+          mkApp =
+            host:
+            {
+              type = "app";
+              program = nixpkgs.lib.getExe (
+                pkgs.writeShellApplication {
+                  name = "bootstrap-${host}";
+                  runtimeInputs = with pkgs; [
+                    age
+                    git
+                    openssh
+                  ];
+                  text = ''
+                    export NIXOS_HOST="${host}"
+                    ${builtins.readFile ./bootstrap.sh}
+                  '';
+                }
+              );
+            };
+        in
+        {
+          nix = mkApp "nix";
+          wsl = mkApp "wsl";
+          nas = mkApp "nas";
+        }
+      );
 
       nixosConfigurations = {
         nix = mkSystem {
