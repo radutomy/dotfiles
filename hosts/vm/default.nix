@@ -29,7 +29,7 @@
       [ -n "$MAC_USER" ] && install -D "$src" "/mnt/mac/Users/$MAC_USER/.config/wezterm/wezterm.lua"
 
       # WSL → Windows host
-      WIN_USER=$(command -v cmd.exe >/dev/null && cmd.exe /c "echo %USERNAME%" | tr -d '\r')
+      WIN_USER=$(/mnt/c/Windows/System32/cmd.exe /c "echo %USERNAME%" 2>/dev/null | tr -d '\r')
       [ -n "$WIN_USER" ] && install -D "$src" "/mnt/c/Users/$WIN_USER/.config/wezterm/wezterm.lua"
     }
     copyWezterm || true
