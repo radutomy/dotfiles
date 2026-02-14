@@ -27,6 +27,7 @@
           modules = [
             /etc/nixos/configuration.nix
             ./hosts/system.nix
+            { networking.hostName = host; }
             home-manager.nixosModules.home-manager
             {
               nixpkgs.config.allowUnfree = true;
@@ -79,16 +80,16 @@
             };
         in
         {
-          nix = mkApp "nix";
+          orb = mkApp "orb";
           wsl = mkApp "wsl";
           nas = mkApp "nas";
         }
       );
 
       nixosConfigurations = {
-        nix = mkSystem {
+        orb = mkSystem {
           system = "aarch64-linux";
-          host = "vm";
+          host = "orb";
         };
         nas = mkSystem {
           system = "x86_64-linux";
@@ -96,7 +97,7 @@
         };
         wsl = mkSystem {
           system = "x86_64-linux";
-          host = "vm";
+          host = "wsl";
         };
       };
     };

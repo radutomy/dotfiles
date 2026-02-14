@@ -8,7 +8,7 @@ local is_windows = wezterm.target_triple:find("windows") ~= nil
 
 -- Connect to VM based on OS
 if is_macos then
-	config.default_prog = { "/usr/local/bin/orb", "-m", "nix", "-u", "root" }
+	config.default_prog = { "/usr/local/bin/orb", "-m", "nixos", "-u", "root" }
 elseif is_windows then
 	config.default_prog = { "wsl.exe", "~", "-d", "nixos", "-u", "root" }
 end

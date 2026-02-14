@@ -55,6 +55,7 @@ return {
 						list = {
 							keys = {
 								["<Esc>"] = false,
+								["<C-n>"] = false,
 							},
 						},
 					},

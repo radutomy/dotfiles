@@ -116,12 +116,8 @@ vim.keymap.set(
 -- Navigation
 -- ============================================================================
 
--- Tab to cycle between windows (enforced in all buffers, overrides plugin keymaps)
-vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
-	callback = function()
-		vim.keymap.set("n", "<Tab>", "<cmd>wincmd w<CR>", { buffer = true, silent = true })
-	end,
-})
+-- Ctrl+N to cycle between windows
+vim.keymap.set("n", "<C-n>", "<cmd>wincmd w<CR>", { silent = true })
 
 -- Resize windows with Ctrl+Alt+h/l
 vim.keymap.set(
