@@ -116,8 +116,9 @@ vim.keymap.set(
 -- Navigation
 -- ============================================================================
 
--- Ctrl+N to cycle between windows
-vim.keymap.set("n", "<C-n>", "<cmd>wincmd w<CR>", { silent = true })
+-- 1 = toggle between explorer and file
+vim.keymap.set("n", "1", "<cmd>wincmd w<CR>", { silent = true, desc = "Toggle window" })
+vim.keymap.set("n", "2", "<cmd>Noice last<CR>", { silent = true, desc = "Show last notification" })
 
 -- Resize windows with Ctrl+Alt+h/l
 vim.keymap.set(
@@ -163,5 +164,3 @@ vim.keymap.set("n", "<C-d>", function() scroll_and_center "j" end, { silent = tr
 -- Remap : to ;
 vim.keymap.set("n", ";", ":", { noremap = true, silent = false })
 
--- Ctrl+Q to save all and quit
-vim.keymap.set("n", "<C-q>", "<cmd>wqa!<CR>", { noremap = true, silent = true, desc = "Save all and quit" })

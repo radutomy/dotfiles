@@ -58,7 +58,6 @@ config.keys = {
 	{ key = "a", mods = mod, action = wezterm.action.SendKey({ key = "a", mods = "CTRL" }) },
 	{ key = "=", mods = mod, action = wezterm.action.IncreaseFontSize },
 	{ key = "-", mods = mod, action = wezterm.action.DecreaseFontSize },
-	{ key = "q", mods = mod, action = wezterm.action.QuitApplication },
 }
 
 return config
