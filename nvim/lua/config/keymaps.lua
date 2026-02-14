@@ -116,9 +116,8 @@ vim.keymap.set(
 -- Navigation
 -- ============================================================================
 
--- 1 = toggle between explorer and file
-vim.keymap.set("n", "1", "<cmd>wincmd w<CR>", { silent = true, desc = "Toggle window" })
-vim.keymap.set("n", "2", "<cmd>Noice last<CR>", { silent = true, desc = "Show last notification" })
+-- q = toggle between explorer and file
+vim.keymap.set("n", "q", "<cmd>wincmd w<CR>", { silent = true, desc = "Toggle window" })
 
 -- Resize windows with Ctrl+Alt+h/l
 vim.keymap.set(

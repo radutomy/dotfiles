@@ -60,6 +60,7 @@ return {
 								["<Esc>"] = false,
 								["<C-n>"] = false,
 								["<Tab>"] = false,
+								["q"] = false,
 							},
 						},
 					},
