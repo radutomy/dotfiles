@@ -6,6 +6,7 @@ let
       local b=$(git symbolic-ref --short HEAD 2>/dev/null || git describe --tags --exact-match HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null | sed 's/^/@/')
       [[ -z $b ]] && return
       local d="" u=""
+      git update-index -q --refresh 2>/dev/null
       { ! git diff-index --quiet HEAD 2>/dev/null || [[ -n $(git ls-files --others --exclude-standard 2>/dev/null) ]]; } && d="•"
       local c=$(git rev-list --count --left-right @{upstream}...HEAD 2>/dev/null)
       [[ -n $c ]] && { local behind=''${c%%	*} ahead=''${c##*	}; [[ $ahead -gt 0 ]] && u+=" ↑$ahead"; [[ $behind -gt 0 ]] && u+=" ↓$behind"; }
