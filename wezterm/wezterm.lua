@@ -10,7 +10,7 @@ local is_windows = wezterm.target_triple:find("windows") ~= nil
 if is_macos then
 	config.default_prog = { "/usr/local/bin/orb", "-m", "nix", "-u", "root" }
 elseif is_windows then
-	config.default_prog = { "wsl.exe", "~" }
+	config.default_prog = { "wsl.exe", "~", "-d", "nixos", "-u", "root" }
 end
 
 ------------- Configuration -------------
@@ -31,7 +31,7 @@ config.default_cursor_style = "SteadyBlock"
 config.colors = {
 	foreground = "#F2F2F2",
 	cursor_bg = "#C44300",
-	cursor_border = "#1E1E1E"
+	cursor_border = "#1E1E1E",
 }
 
 -- Start maximized
