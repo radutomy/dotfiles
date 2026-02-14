@@ -22,6 +22,9 @@ return {
 					edit = 'nvim --server "$NVIM" --remote-send "<Cmd>close<CR><Cmd>edit {{filename}}<CR>"',
 				},
 			},
+			win = {
+				on_win = function() end,
+			},
 		},
 		picker = {
 			win = {

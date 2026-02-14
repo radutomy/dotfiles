@@ -1,4 +1,5 @@
 {
+
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -59,25 +60,23 @@
         system:
         let
           pkgs = import nixpkgs { inherit system; };
-          mkApp =
-            host:
-            {
-              type = "app";
-              program = nixpkgs.lib.getExe (
-                pkgs.writeShellApplication {
-                  name = "bootstrap-${host}";
-                  runtimeInputs = with pkgs; [
-                    age
-                    git
-                    openssh
-                  ];
-                  text = ''
-                    export NIXOS_HOST="${host}"
-                    ${builtins.readFile ./bootstrap.sh}
-                  '';
-                }
-              );
-            };
+          mkApp = host: {
+            type = "app";
+            program = nixpkgs.lib.getExe (
+              pkgs.writeShellApplication {
+                name = "bootstrap-${host}";
+                runtimeInputs = with pkgs; [
+                  age
+                  git
+                  openssh
+                ];
+                text = ''
+                  export NIXOS_HOST="${host}"
+                  ${builtins.readFile ./bootstrap.sh}
+                '';
+              }
+            );
+          };
         in
         {
           orb = mkApp "orb";
@@ -101,4 +100,5 @@
         };
       };
     };
+
 }
