@@ -59,6 +59,7 @@ return {
 							keys = {
 								["<Esc>"] = false,
 								["<C-n>"] = false,
+								["<Tab>"] = false,
 							},
 						},
 					},

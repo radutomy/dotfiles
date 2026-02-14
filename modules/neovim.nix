@@ -10,7 +10,7 @@
   home.packages = with pkgs; [
     # base
     tree-sitter
-lua-language-server
+    lua-language-server
     stylua
     shfmt
 
