@@ -16,45 +16,52 @@
       ...
     }:
     let
+      hosts = {
+        orb = "aarch64-linux";
+        wsl = "x86_64-linux";
+        nas = "x86_64-linux";
+      };
+
       mkSystem =
-        {
-          system,
-          host,
-          username ? "root",
-        }:
+        host: system:
         nixpkgs.lib.nixosSystem {
           inherit system;
           modules = [
             /etc/nixos/configuration.nix
             ./hosts/system.nix
-            { networking.hostName = host; }
             home-manager.nixosModules.home-manager
             {
+              networking.hostName = host;
               nixpkgs.config.allowUnfree = true;
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = false;
-              home-manager.extraSpecialArgs = {
-                inherit username;
-                pkgs-unstable = import nixpkgs-unstable {
-                  inherit system;
-                  config.allowUnfree = true;
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = false;
+                extraSpecialArgs = {
+                  username = "root";
+                  pkgs-unstable = import nixpkgs-unstable {
+                    inherit system;
+                    config.allowUnfree = true;
+                  };
                 };
-              };
-              home-manager.users.${username} = {
-                imports = [
-                  ./home.nix
-                  ./hosts/${host}/default.nix
-                ];
+                users.root = {
+                  imports = [
+                    ./home.nix
+                    ./hosts/${host}/default.nix
+                  ];
+                };
               };
             }
           ];
         };
+
       forSystems = nixpkgs.lib.genAttrs [
         "aarch64-linux"
         "x86_64-linux"
       ];
     in
     {
+      nixosConfigurations = nixpkgs.lib.mapAttrs mkSystem hosts;
+
       apps = forSystems (
         system:
         let
@@ -77,26 +84,7 @@
             );
           };
         in
-        {
-          orb = mkApp "orb";
-          wsl = mkApp "wsl";
-          nas = mkApp "nas";
-        }
+        nixpkgs.lib.mapAttrs (host: _: mkApp host) hosts
       );
-
-      nixosConfigurations = {
-        orb = mkSystem {
-          system = "aarch64-linux";
-          host = "orb";
-        };
-        nas = mkSystem {
-          system = "x86_64-linux";
-          host = "nas";
-        };
-        wsl = mkSystem {
-          system = "x86_64-linux";
-          host = "wsl";
-        };
-      };
     };
 }
