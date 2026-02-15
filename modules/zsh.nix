@@ -71,7 +71,7 @@ in
         tx = "tmux attach 2>/dev/null || tmux";
         np = "ssh naspi";
         nas = "ssh nas";
-        nu = "nix flake update --flake ~/.config && sudo nixos-rebuild switch --flake ~/.config#$(cat /etc/hostname) --impure";
+        nu = "nix flake update --flake ~/.config && nixos-rebuild switch --flake ~/.config#$HOSTNAME --impure";
       };
       plugins = [
         {
