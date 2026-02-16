@@ -2,6 +2,7 @@
 {
   imports = [
     ../../modules/git.nix
+    ../../modules/neovim.nix
     ../../modules/rust.nix
     ../../modules/work.nix
     ../../modules/zsh.nix

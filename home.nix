@@ -5,49 +5,43 @@
   ...
 }:
 {
-  imports = [ ./modules/neovim.nix ];
   news.display = "silent";
-  xdg.configFile."nix/nix.conf".text = "experimental-features = nix-command flakes\nwarn-dirty = false\n";
-
   home = {
     inherit username;
     homeDirectory = if username == "root" then "/root" else "/home/${username}";
     stateVersion = "25.11";
 
     packages = with pkgs; [
+      # tools
       python3
       unzip
       ripgrep
       jq
       fd
       bat
-      nodejs
-      gcc
       htop
       age
       tmux
+
+      # treesitter
+      gcc
+      nodejs
+
+      # ai
       pkgs-unstable.claude-code
       pkgs-unstable.codex
       pkgs-unstable.gemini-cli
     ];
 
-    sessionPath = [ "$HOME/.local/bin" ];
+    sessionPath = [
+      "$HOME/.local/bin"
+      "$HOME/.cargo/bin"
+    ];
   };
 
   programs = {
     home-manager.enable = true;
-
-    lazygit = {
-      enable = true;
-      settings = {
-        git.pagers = [
-          {
-            colorArg = "always";
-            pager = "delta --dark --paging=never";
-          }
-        ];
-      };
-    };
+    lazygit.enable = true;
 
     ssh = {
       enable = true;

@@ -7,6 +7,4 @@
     rustfmt
     clippy
   ];
-
-  home.sessionPath = [ "$HOME/.cargo/bin" ];
 }
