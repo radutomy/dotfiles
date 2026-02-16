@@ -14,6 +14,7 @@ chmod 600 "$HOME/.ssh/id_ed25519"
 
 if [ -d /etc/nixos ]; then
   nixos-rebuild switch --flake "$HOME/.config#$NIXOS_HOST" --impure
+  hostname "$NIXOS_HOST"
 fi
 
 git -C "$HOME/.config" remote set-url origin git@github.com:radutomy/dotfiles.git
