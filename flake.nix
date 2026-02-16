@@ -31,7 +31,7 @@
             ./hosts/system.nix
             home-manager.nixosModules.home-manager
             {
-              networking.hostName = host;
+              networking.hostName = nixpkgs.lib.mkForce host;
               nixpkgs.config.allowUnfree = true;
               home-manager = {
                 useGlobalPkgs = true;
