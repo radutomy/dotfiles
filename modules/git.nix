@@ -9,6 +9,15 @@
     };
   };
 
+  programs.lazygit.settings = {
+    git.pagers = [
+      {
+        colorArg = "always";
+        pager = "delta --dark --paging=never --line-numbers";
+      }
+    ];
+  };
+
   programs.git = {
     enable = true;
     signing = {
