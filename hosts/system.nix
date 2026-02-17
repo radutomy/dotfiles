@@ -1,6 +1,14 @@
 { pkgs, lib, ... }:
 {
   virtualisation.docker.enable = true;
+  # lets non-Nix binaries (pip, npm, etc.) find shared libraries
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      stdenv.cc.cc.lib
+      zlib
+    ];
+  };
   programs.zsh.enable = true;
   users.users.root = {
     shell = pkgs.zsh;

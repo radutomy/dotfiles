@@ -69,7 +69,6 @@ in
       GOPATH = "${config.home.homeDirectory}/.local/share/go";
       LIBCLANG_PATH = "${pkgs.llvmPackages.libclang.lib}/lib";
       BINDGEN_EXTRA_CLANG_ARGS = "-isystem ${pkgs.glibc.dev}/include";
-      LD_LIBRARY_PATH = "${pkgs.stdenv.cc.cc.lib}/lib";
     };
 
     activation.cloneWorkRepos = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
