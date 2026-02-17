@@ -14,6 +14,7 @@
     packages = with pkgs; [
       # tools
       python3
+      pipx
       unzip
       ripgrep
       jq
