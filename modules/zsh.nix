@@ -96,6 +96,8 @@ in
         ${zoxideFallback}
         chpwd() { lsd -F }
         bindkey '^E' clear-screen
+        bindkey "''${terminfo[kRIT5]}" forward-word
+        bindkey "''${terminfo[kLFT5]}" backward-word
       '';
     };
   };
