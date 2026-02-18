@@ -29,7 +29,7 @@
       nodejs
 
       # ai
-      pkgs-unstable.claude-code
+      claude-code
       pkgs-unstable.codex
       pkgs-unstable.gemini-cli
     ];

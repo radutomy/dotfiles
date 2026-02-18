@@ -6,6 +6,7 @@
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    claude-code.url = "github:sadjow/claude-code-nix";
   };
 
   outputs =
@@ -13,6 +14,7 @@
       nixpkgs,
       nixpkgs-unstable,
       home-manager,
+      claude-code,
       ...
     }:
     let
@@ -33,6 +35,7 @@
             {
               networking.hostName = nixpkgs.lib.mkForce host;
               nixpkgs.config.allowUnfree = true;
+              nixpkgs.overlays = [ claude-code.overlays.default ];
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = false;
