@@ -56,6 +56,7 @@ in
     zsh = {
       enable = true;
       dotDir = "${config.xdg.configHome}/zsh";
+      defaultKeymap = "emacs";
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
       historySubstringSearch.enable = true;
