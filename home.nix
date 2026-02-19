@@ -30,7 +30,7 @@
 
       # ai
       claude-code
-      pkgs-unstable.codex
+      codex
       pkgs-unstable.gemini-cli
     ];
 
