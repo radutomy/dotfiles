@@ -34,6 +34,9 @@
       diff.colorMoved = "default";
       gpg.format = "ssh";
       tag.gpgsign = true;
+      url."git@gitlab.protontech.ch:" = {
+        insteadOf = "https://gitlab.protontech.ch/";
+      };
     };
   };
 }
