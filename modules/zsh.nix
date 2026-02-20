@@ -2,17 +2,7 @@
 let
   prompt = ''
     setopt PROMPT_SUBST
-    _git_branch() {
-      local b=$(git symbolic-ref --short HEAD 2>/dev/null || git describe --tags --exact-match HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null | sed 's/^/@/')
-      [[ -z $b ]] && return
-      local d="" u=""
-      git update-index -q --refresh 2>/dev/null
-      { ! git diff-index --quiet HEAD 2>/dev/null || [[ -n $(git ls-files --others --exclude-standard 2>/dev/null) ]]; } && d="•"
-      local c=$(git rev-list --count --left-right @{upstream}...HEAD 2>/dev/null)
-      [[ -n $c ]] && { local behind=''${c%%	*} ahead=''${c##*	}; [[ $ahead -gt 0 ]] && u+=" ↑$ahead"; [[ $behind -gt 0 ]] && u+=" ↓$behind"; }
-      echo "$b$d$u "
-    }
-    PROMPT='%F{green}%~%f %F{yellow}$(_git_branch)%f%F{white}❱%f '
+    PROMPT='%F{green}%~%f %F{yellow}''${GITSTATUS_PROMPT}%f%F{white}❱%f '
   '';
 
   zoxideFallback = ''
@@ -84,6 +74,11 @@ in
           name = "zsh-autopair";
           src = pkgs.zsh-autopair;
           file = "share/zsh/zsh-autopair/autopair.zsh";
+        }
+        {
+          name = "gitstatus";
+          src = pkgs.gitstatus;
+          file = "share/gitstatus/gitstatus.prompt.zsh";
         }
       ];
       initContent = ''
