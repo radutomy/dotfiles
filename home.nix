@@ -23,6 +23,7 @@
       htop
       age
       tmux
+      zellij
 
       # treesitter
       gcc
