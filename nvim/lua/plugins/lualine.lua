@@ -26,7 +26,7 @@ return {
 					"filename",
 					path = 1,
 					icon = "󰈙 ",
-					color = { fg = "#7CB342" },
+					color = { fg = "green" },
 					symbols = {
 						modified = "[+]",
 						readonly = "[-]",
