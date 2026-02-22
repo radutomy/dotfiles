@@ -8,15 +8,15 @@ else
   HOST_WIN=pwsh HOST_CMD=pwsh.exe
 fi
 
-tmux new-session -d -s main -n meepo
-tmux new-window -n rosh
-tmux new-window -n mid
+tmux new-session -d -s main -n boot
+tmux new-window -n core
+tmux new-window -n heap
 tmux split-window -v
 tmux select-pane -U
-tmux new-window -n pudge
+tmux new-window -n stack
 tmux split-window -v
 tmux select-pane -U
-tmux new-window -n manta
+tmux new-window -n cache
 tmux new-window -n "$HOST_WIN"
 tmux send-keys -t "$HOST_WIN" "$HOST_CMD" Enter
 sleep 0.5
