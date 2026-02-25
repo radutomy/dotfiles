@@ -33,6 +33,7 @@
           modules = [
             /etc/nixos/configuration.nix
             ./hosts/system.nix
+            ./hosts/${host}/system.nix
             home-manager.nixosModules.home-manager
             {
               networking.hostName = nixpkgs.lib.mkForce host;
