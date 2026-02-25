@@ -8,7 +8,7 @@
 
   programs.zsh.initContent = ''
     if [[ -z "$TMUX" && $- == *i* ]]; then
-      tmux new-session -A -s main \; set status off
+      tmux new-session -A -s main \; set status off \; set pane-border-status off
     fi
   '';
 }
