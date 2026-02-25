@@ -23,6 +23,7 @@
 
   programs.zsh.initContent = ''
     if [[ -z "$TMUX" && $- == *i* ]]; then
+      cd ~
       tmux attach 2>/dev/null && exit
       tmux new-session -d -s main -n boot
       tmux new-window -n core
