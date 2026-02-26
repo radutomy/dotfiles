@@ -43,7 +43,7 @@
     fi
   '';
 
-  home.sessionVariables.HOST_ICON = "󰀵";
+  home.sessionVariables.HOST_ICON = "󰏖";
 
   home.activation.copyWezterm = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
     MAC_USER=$(ls /mnt/mac/Users | grep -v Shared | head -n 1)
