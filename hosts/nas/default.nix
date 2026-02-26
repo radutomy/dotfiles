@@ -8,7 +8,7 @@
 
   programs.zsh.initContent = ''
     if [[ -z "$TMUX" && $- == *i* ]]; then
-      tmux new-session -A -s main \; set status on \; set status-position bottom \; set status-left "" \; set status-right "#[fg=green] 󰒍 NAS   " \; set pane-border-status off
+      tmux new-session -A -s main \; set status-position bottom \; set status-right "#[fg=green] 󰒍 NAS   " \; setw window-status-format "" \; setw window-status-current-format "" \; set pane-border-status bottom
     fi
   '';
 }
