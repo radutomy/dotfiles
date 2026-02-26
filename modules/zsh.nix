@@ -2,7 +2,7 @@
 let
   prompt = ''
     setopt PROMPT_SUBST
-    PROMPT='%F{178}%m%f %F{green}%~%f ''${''${GITSTATUS_PROMPT:+''${GITSTATUS_PROMPT//\%76F/%244F} }}%F{white}❱%f '
+    PROMPT='%F{green}%~%f ''${''${GITSTATUS_PROMPT:+''${GITSTATUS_PROMPT//\%76F/%244F} }}%F{white}❱%f '
   '';
 
   zoxideFallback = ''
