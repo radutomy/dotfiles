@@ -61,7 +61,7 @@ in
         gg = "lazygit";
         tx = "tmux attach 2>/dev/null || tmux";
         np = "ssh naspi";
-        nas = "tmux set -p @host nas; ssh nas; tmux set -pu @host";
+        naz = "tmux set -p @host nas; ssh nas; tmux set -pu @host";
         nu = "nix flake update --flake ~/.config && nixos-rebuild switch --flake ~/.config#$HOSTNAME --impure";
       };
       plugins = [
