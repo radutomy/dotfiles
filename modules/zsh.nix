@@ -2,7 +2,7 @@
 let
   prompt = ''
     setopt PROMPT_SUBST
-    PROMPT='%F{green}%~%f ''${''${GITSTATUS_PROMPT:+''${GITSTATUS_PROMPT//\%76F/%244F} }}%F{white}❱%f '
+    PROMPT='%F{178}%m%f %F{green}%~%f ''${''${GITSTATUS_PROMPT:+''${GITSTATUS_PROMPT//\%76F/%244F} }}%F{white}❱%f '
   '';
 
   zoxideFallback = ''
@@ -61,7 +61,7 @@ in
         gg = "lazygit";
         tx = "tmux attach 2>/dev/null || tmux";
         np = "ssh naspi";
-        nas = "tmux set -p @host nas; ssh nas; tmux set -pu @host";
+        nas = "ssh nas";
         nu = "nix flake update --flake ~/.config && nixos-rebuild switch --flake ~/.config#$HOSTNAME --impure";
       };
       plugins = [
@@ -85,6 +85,7 @@ in
         ${prompt}
         ${zoxideFallback}
         chpwd() { lsd -F }
+        precmd() { print -Pn "\e]2;%~  ''${HOST_ICON:+''${HOST_ICON} }%m\a" }
         bindkey '^E' clear-screen
         bindkey "''${terminfo[kRIT5]}" forward-word
         bindkey "''${terminfo[kLFT5]}" backward-word

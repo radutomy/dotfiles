@@ -39,10 +39,11 @@
       sleep 0.5
       tmux send-keys -t pwsh "cd && clear" Enter
       tmux select-window -t 0
-      tmux set -g status-right "#[fg=green] #{s|^#{HOME}|~|:pane_current_path}  #{?#{==:#{@host},nas},󰒍 NAS,󰖳 WSL} "
       exec tmux attach
     fi
   '';
+
+  home.sessionVariables.HOST_ICON = "󰖳";
 
   home.activation.copyWezterm = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
     WIN_USER=$(ls -d /mnt/c/Users/*/AppData | grep -v Default | head -n 1 | cut -d/ -f5)

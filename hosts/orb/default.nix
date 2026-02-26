@@ -39,10 +39,11 @@
       sleep 0.5
       tmux send-keys -t macos "cd && clear" Enter
       tmux select-window -t 0
-      tmux set -g status-right "#[fg=green] #{s|^#{HOME}|~|:pane_current_path}  #{?#{==:#{@host},nas},󰒍 NAS,󰀵 ORB} "
       exec tmux attach
     fi
   '';
+
+  home.sessionVariables.HOST_ICON = "󰀵";
 
   home.activation.copyWezterm = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
     MAC_USER=$(ls /mnt/mac/Users | grep -v Shared | head -n 1)
