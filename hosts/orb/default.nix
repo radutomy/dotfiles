@@ -12,12 +12,12 @@
     naspi = {
       hostname = "192.168.0.25";
       user = "root";
-      identityFile = "~/.ssh/id_ed25519";
+      # identityFile = "~/.ssh/id_ed25519";
     };
     nas = {
       hostname = "192.168.0.30";
       user = "root";
-      identityFile = "~/.ssh/id_rsa";
+      # identityFile = "~/.ssh/id_ed25519";
     };
   };
 
