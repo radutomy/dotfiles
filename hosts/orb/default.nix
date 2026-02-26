@@ -39,6 +39,7 @@
       sleep 0.5
       tmux send-keys -t macos "cd && clear" Enter
       tmux select-window -t 0
+      tmux set -g status-right "#[fg=green] #{s|^#{HOME}|~|:pane_current_path}  #{?#{==:#{@host},nas},󰒍 NAS,󰀵 ORB} "
       exec tmux attach
     fi
   '';
