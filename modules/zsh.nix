@@ -63,7 +63,7 @@ in
         np = "ssh naspi";
         nas = "ssh nas";
         ns = "nixos-rebuild switch --flake github:radutomy/dotfiles/nix#$HOSTNAME --impure";
-        nu = "cd ~/.config && nix flake update && git commit -m 'flake.lock' -- flake.lock && git push";
+        nu = "(cd ~/.config && nix flake update && git commit -m 'flake.lock' -- flake.lock && git push)";
       };
       plugins = [
         {
