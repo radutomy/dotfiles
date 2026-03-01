@@ -9,7 +9,7 @@
   home.sessionVariables.HOST_ICON = "󰒍";
 
   programs.zsh.initContent = ''
-    if [[ -z "$TMUX" && -z "$SSH_CONNECTION" && $- == *i* ]]; then
+    if [[ -z "$TMUX" && $- == *i* ]]; then
       exec tmux new-session -A -s main \; set status off \; set pane-border-status off
     fi
   '';
