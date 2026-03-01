@@ -62,8 +62,8 @@ in
         tx = "tmux attach 2>/dev/null || tmux";
         np = "ssh naspi";
         nas = "ssh nas";
-        ns = "nixos-rebuild switch --flake github:radutomy/dotfiles/nix#$HOSTNAME --impure";
-        nu = "(cd ~/.config && nix flake update && git commit -m 'flake.lock' -- flake.lock && git push)";
+        ns = "nixos-rebuild switch --refresh --flake github:radutomy/dotfiles/nix#$HOSTNAME --impure";
+        nu = "nix flake update --flake ~/.config && git -C ~/.config commit -m 'flake.lock' -- flake.lock && git -C ~/.config push";
       };
       plugins = [
         {
