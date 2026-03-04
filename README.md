@@ -5,7 +5,7 @@ NixOS dotfiles managed with home-manager and flakes.
 ## Setup a new machine
 
 ```
-NIX_CONFIG="experimental-features = nix-command flakes" nix run github:radutomy/dotfiles/nix
+NIX_CONFIG="experimental-features = nix-command flakes" nix run github:radutomy/dotfiles/main
 ```
 
 ## Apply changes

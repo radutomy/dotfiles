@@ -4,7 +4,7 @@ if [ ! -d "$HOME/.config/.git" ]; then
   if [ -d "$HOME/.config" ]; then
     mv "$HOME/.config" "$HOME/.config.bak"
   fi
-  git clone -b nix https://github.com/radutomy/dotfiles "$HOME/.config"
+  git clone -b main https://github.com/radutomy/dotfiles "$HOME/.config"
 fi
 
 mkdir -p "$HOME/.ssh"
