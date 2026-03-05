@@ -1,4 +1,5 @@
 # home-manager generated
+direnv/
 git/
 lazygit/
 nix/
