@@ -31,6 +31,11 @@ in
 {
   home = {
     packages = with pkgs; [
+      # work tooling
+      devenv
+      direnv
+      just
+
       # mail
       go
       llvmPackages.libclang
@@ -52,5 +57,11 @@ in
       }:$PATH"
       ${lib.concatStringsSep "\n" (map cloneRepo workRepos)}
     '';
+  };
+
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+    nix-direnv.enable = true;
   };
 }
